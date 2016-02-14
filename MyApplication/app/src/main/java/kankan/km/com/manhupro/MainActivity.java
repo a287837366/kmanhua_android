@@ -1,11 +1,27 @@
 package kankan.km.com.manhupro;
 
-import android.app.Activity;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
+import android.util.Log;
+import android.widget.RadioGroup;
 
-public class MainActivity extends Activity {
+import kankan.km.com.manhupro.main.MainFragment;
+import kankan.km.com.manhupro.me.MeFragment;
+
+
+public class MainActivity extends FragmentActivity implements RadioGroup.OnCheckedChangeListener{
+
+    private FragmentManager fm;
+    private FragmentTransaction ft;
+    private Fragment mFragment;
+
+    //[[---Views
+    private RadioGroup mRadioGroup;
+
+    //---Views]]
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -13,28 +29,80 @@ public class MainActivity extends Activity {
         setContentView(R.layout.activity_main);
         System.out.print("MainActivity :: onCreate");
 
+
+        this.initObjects();
+        this.initViews();
+
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
+    private void initObjects(){
+        fm = getSupportFragmentManager();
 
-        return true;
+    }
+
+    private void initViews(){
+        mRadioGroup = (RadioGroup) findViewById(R.id.rgourp_main);
+
+
+        mRadioGroup.setOnCheckedChangeListener(this);
+
+        this.changeFragment("Main_TAB");
     }
 
 
+    private void changeFragment(String tag){
+        ft = fm.beginTransaction();
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
+        if (mFragment != null){
+            ft.hide(mFragment);
         }
 
-        return super.onOptionsItemSelected(item);
+
+        if (tag.equals("Main_TAB")){
+
+            if (fm.findFragmentByTag(tag) != null){
+                mFragment = fm.findFragmentByTag(tag);
+            } else {
+                mFragment = new MainFragment();
+            }
+
+        } else if (tag.equals("Me_TAB")){
+
+            if (fm.findFragmentByTag(tag) != null){
+                mFragment = fm.findFragmentByTag(tag);
+            } else {
+                mFragment = new MeFragment();
+            }
+
+        }
+
+        if (!mFragment.isAdded()){
+            ft.add(R.id.layout_main_fragment, mFragment, tag);
+        }
+
+        ft.show(mFragment);
+        ft.commit();
+
+    }
+
+    @Override
+    public void onCheckedChanged(RadioGroup radioGroup, int checkId) {
+
+        switch (checkId) {
+
+            case R.id.click_main_tab:
+
+                this.changeFragment("Main_TAB");
+
+                break;
+
+            case R.id.click_main_me:
+
+                this.changeFragment("Me_TAB");
+
+                break;
+
+        }
+
     }
 }
