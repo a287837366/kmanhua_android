@@ -27,6 +27,7 @@
             android:layout_centerHorizontal="true" />
 
         <RelativeLayout
+            android:id="@+id/img_title"
             android:layout_width="match_parent"
             android:layout_marginTop="10dp"
             android:background="#eeeeee"
@@ -43,13 +44,16 @@
                 android:id="@+id/textView3"
                 android:layout_alignParentBottom="true"
                 android:layout_centerHorizontal="true" />
+
         </RelativeLayout>
 
 
         <!-- 小内容 1 -->
         <RelativeLayout
+            android:id="@+id/img_content1"
             android:layout_width="match_parent"
             android:background="#ffffff"
+            android:layout_marginTop="1dp"
             android:layout_height="68dp">
 
             <!-- Data Lable-->
@@ -96,6 +100,113 @@
 
         </RelativeLayout>
 
+
+
+        <!-- 小内容 2 -->
+        <RelativeLayout
+            android:id="@+id/img_content2"
+            android:layout_width="match_parent"
+            android:background="#ffffff"
+            android:layout_marginTop="1dp"
+            android:layout_height="68dp">
+
+            <!-- Data Lable-->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="2012-01-01"
+                android:id="@+id/text_time1"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true"
+                android:textSize="11dp"
+                android:textColor="#888888"
+                android:layout_marginBottom="3dp"
+                android:layout_marginRight="5dp"
+                android:textIsSelectable="true" />
+
+
+            <!-- Right ImageView-->
+            <RelativeLayout
+                android:layout_width="45dp"
+                android:layout_height="45dp"
+                android:layout_marginLeft="10dp"
+                android:background="#e3e3e3"
+                android:layout_centerVertical="true"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:id="@+id/relativeLayout1">
+
+            </RelativeLayout>
+
+            <!-- Title Lable-->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="실화 그녀와 함께"
+                android:id="@+id/text_title1"
+                android:textSize="13dp"
+                android:layout_marginLeft="10dp"
+                android:textColor="#555555"
+                android:layout_centerVertical="true"
+                android:layout_toRightOf="@+id/relativeLayout1"
+                android:layout_toEndOf="@+id/relativeLayout1" />
+
+        </RelativeLayout>
+
+
+
+        <!-- 小内容 3 -->
+        <RelativeLayout
+            android:id="@+id/img_content3"
+            android:layout_width="match_parent"
+            android:background="#ffffff"
+            android:layout_marginTop="1dp"
+            android:layout_height="68dp">
+
+            <!-- Data Lable-->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="2012-01-01"
+                android:id="@+id/text_time2"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true"
+                android:textSize="11dp"
+                android:textColor="#888888"
+                android:layout_marginBottom="3dp"
+                android:layout_marginRight="5dp"
+                android:textIsSelectable="true" />
+
+
+            <!-- Right ImageView-->
+            <RelativeLayout
+                android:layout_width="45dp"
+                android:layout_height="45dp"
+                android:layout_marginLeft="10dp"
+                android:background="#e3e3e3"
+                android:layout_centerVertical="true"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:id="@+id/relativeLayout2">
+
+            </RelativeLayout>
+
+            <!-- Title Lable-->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="실화 그녀와 함께"
+                android:id="@+id/text_title2"
+                android:textSize="13dp"
+                android:layout_marginLeft="10dp"
+                android:textColor="#555555"
+                android:layout_centerVertical="true"
+                android:layout_toRightOf="@+id/relativeLayout2"
+                android:layout_toEndOf="@+id/relativeLayout2" />
+
+        </RelativeLayout>
 
 
     </LinearLayout>

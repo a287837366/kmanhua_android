@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ListView;
 
 import java.util.ArrayList;
@@ -18,7 +19,7 @@ import kankan.km.com.manhupro.main.adapter.MainBaseAdapter;
 /**
  * Created by apple on 16/2/14.
  */
-public class MainFragment extends Fragment{
+public class MainFragment extends Fragment implements AdapterView.OnItemClickListener{
 
     private String TAG = MainFragment.class.getSimpleName();
 
@@ -51,7 +52,7 @@ public class MainFragment extends Fragment{
 
     private void initViews(View view){
         listView_Main = (ListView) view.findViewById(R.id.listView_Main);
-
+        listView_Main.setOnItemClickListener(this);
     }
 
     @Override
@@ -63,6 +64,7 @@ public class MainFragment extends Fragment{
 
     private void initObjects(){
         Log.e(TAG, "initObjects");
+
         ArrayList<String> strings = new ArrayList<String>();
         strings.add("1111");
         strings.add("2222");
@@ -71,6 +73,14 @@ public class MainFragment extends Fragment{
         this.adapter = new MainBaseAdapter(this.activity, strings);
 
         listView_Main.setAdapter(this.adapter);
+
+    }
+
+    @Override
+    public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
+        System.out.println(TAG + "onItemClick --> " + position);
+        Log.d(TAG , "onItemClick -->  " + position);
+
 
     }
 }

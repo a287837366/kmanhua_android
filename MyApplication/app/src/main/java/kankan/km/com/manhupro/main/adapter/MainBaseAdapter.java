@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 
@@ -86,6 +87,16 @@ public class MainBaseAdapter extends BaseAdapter{
                     convertView = inflater.inflate(R.layout.listitem_mainheader, parent, false);
                     headerHolder = new ViewHeaderHolder();
 
+                    headerHolder.img_title = (RelativeLayout) convertView.findViewById(R.id.img_title);
+                    headerHolder.img_content1 = (RelativeLayout) convertView.findViewById(R.id.img_content1);
+                    headerHolder.img_content2 = (RelativeLayout) convertView.findViewById(R.id.img_content2);
+                    headerHolder.img_content3 = (RelativeLayout) convertView.findViewById(R.id.img_content3);
+
+                    headerHolder.img_title.setOnClickListener(headerHolder);
+                    headerHolder.img_content1.setOnClickListener(headerHolder);
+                    headerHolder.img_content2.setOnClickListener(headerHolder);
+                    headerHolder.img_content3.setOnClickListener(headerHolder);
+
                     convertView.setTag(headerHolder);
 
                     break;
@@ -127,10 +138,44 @@ public class MainBaseAdapter extends BaseAdapter{
 
 
     //HeaderItem
-    private class ViewHeaderHolder{
+    private class ViewHeaderHolder implements View.OnClickListener{
+
+        RelativeLayout img_title;
+        RelativeLayout img_content1;
+        RelativeLayout img_content2;
+        RelativeLayout img_content3;
+
+        @Override
+        public void onClick(View view) {
+
+            switch (view.getId()){
+
+                case  R.id.img_content1:
+
+                    break;
+
+                case R.id.img_content2:
+
+                    break;
+
+                case R.id.img_content3:
+
+                    break;
+
+                case R.id.img_title:
+
+                    break;
+
+                default:
+
+                    break;
+
+            }
 
 
+        }
     }
+
 
 
     //普通的Item
