@@ -13,6 +13,9 @@ import kankan.km.com.manhupro.me.MeFragment;
 
 public class MainActivity extends FragmentActivity implements RadioGroup.OnCheckedChangeListener{
 
+    private static final String TAB_MAIN = "Main_TAB";
+    private static final String TAB_ME = "Me_TAB";
+
     private FragmentManager fm;
     private FragmentTransaction ft;
     private Fragment mFragment;
@@ -52,29 +55,24 @@ public class MainActivity extends FragmentActivity implements RadioGroup.OnCheck
     private void changeFragment(String tag){
         ft = fm.beginTransaction();
 
+
+        //先隐藏以前的
         if (mFragment != null){
             ft.hide(mFragment);
         }
 
+        //判断缓存里是否存在
+        if (fm.findFragmentByTag(tag) != null){
 
-        if (tag.equals("Main_TAB")){
+            mFragment = fm.findFragmentByTag(tag);
 
-            if (fm.findFragmentByTag(tag) != null){
-                mFragment = fm.findFragmentByTag(tag);
-            } else {
-                mFragment = new MainFragment();
-            }
+        } else {
 
-        } else if (tag.equals("Me_TAB")){
-
-            if (fm.findFragmentByTag(tag) != null){
-                mFragment = fm.findFragmentByTag(tag);
-            } else {
-                mFragment = new MeFragment();
-            }
+            mFragment = this.getFragmentByTag(tag);
 
         }
 
+        //后显示新增的
         if (!mFragment.isAdded()){
             ft.add(R.id.layout_main_fragment, mFragment, tag);
         }
@@ -84,6 +82,21 @@ public class MainActivity extends FragmentActivity implements RadioGroup.OnCheck
 
     }
 
+    private Fragment getFragmentByTag(String tag){
+
+        if (tag.equals(TAB_MAIN)){
+
+            return new MainFragment();
+
+        } else if(tag.equals(TAB_ME)){
+
+            return new MeFragment();
+
+        }
+
+        return null;
+    }
+
     @Override
     public void onCheckedChanged(RadioGroup radioGroup, int checkId) {
 
@@ -91,13 +104,13 @@ public class MainActivity extends FragmentActivity implements RadioGroup.OnCheck
 
             case R.id.click_main_tab:
 
-                this.changeFragment("Main_TAB");
+                this.changeFragment(TAB_MAIN);
 
                 break;
 
             case R.id.click_main_me:
 
-                this.changeFragment("Me_TAB");
+                this.changeFragment(TAB_ME);
 
                 break;
 

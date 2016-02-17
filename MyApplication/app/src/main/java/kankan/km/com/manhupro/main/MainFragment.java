@@ -4,10 +4,13 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
+
+import java.util.ArrayList;
 
 import kankan.km.com.manhupro.R;
 import kankan.km.com.manhupro.main.adapter.MainBaseAdapter;
@@ -17,9 +20,10 @@ import kankan.km.com.manhupro.main.adapter.MainBaseAdapter;
  */
 public class MainFragment extends Fragment{
 
+    private String TAG = MainFragment.class.getSimpleName();
+
     private Activity activity;
     private ListView listView_Main;
-    private LayoutInflater inflater;
     private MainBaseAdapter adapter;
 
     @Override
@@ -27,7 +31,6 @@ public class MainFragment extends Fragment{
         super.onAttach(activity);
 
         this.activity = activity;
-        inflater = LayoutInflater.from(activity);
     }
 
     @Override
@@ -55,6 +58,19 @@ public class MainFragment extends Fragment{
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
+        this.initObjects();
     }
 
+    private void initObjects(){
+        Log.e(TAG, "initObjects");
+        ArrayList<String> strings = new ArrayList<String>();
+        strings.add("1111");
+        strings.add("2222");
+        strings.add("3333");
+        strings.add("4444");
+        this.adapter = new MainBaseAdapter(this.activity, strings);
+
+        listView_Main.setAdapter(this.adapter);
+
+    }
 }
