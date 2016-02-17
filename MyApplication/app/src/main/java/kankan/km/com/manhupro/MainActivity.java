@@ -45,7 +45,6 @@ public class MainActivity extends FragmentActivity implements RadioGroup.OnCheck
     private void initViews(){
         mRadioGroup = (RadioGroup) findViewById(R.id.rgourp_main);
 
-
         mRadioGroup.setOnCheckedChangeListener(this);
 
         this.changeFragment("Main_TAB");

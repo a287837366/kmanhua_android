@@ -81,6 +81,5 @@ public class MainFragment extends Fragment implements AdapterView.OnItemClickLis
         System.out.println(TAG + "onItemClick --> " + position);
         Log.d(TAG , "onItemClick -->  " + position);
 
-
     }
 }
