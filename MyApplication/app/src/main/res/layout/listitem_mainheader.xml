@@ -30,8 +30,16 @@
             android:id="@+id/img_title"
             android:layout_width="match_parent"
             android:layout_marginTop="10dp"
-            android:background="#eeeeee"
+
             android:layout_height="150dp">
+
+            <com.android.volley.toolbox.NetworkImageView
+                android:id="@+id/imageView_top"
+                android:background="#eeeeee"
+                android:scaleType="fitXY"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"/>
 
             <!-- 最大的图片-->
             <TextView
@@ -82,6 +90,14 @@
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true"
                 android:id="@+id/relativeLayout">
+
+                <com.android.volley.toolbox.NetworkImageView
+                    android:id="@+id/imageView_top1"
+                    android:background="#eeeeee"
+                    android:scaleType="fitCenter"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"/>
 
             </RelativeLayout>
 
@@ -137,6 +153,14 @@
                 android:layout_alignParentStart="true"
                 android:id="@+id/relativeLayout1">
 
+                <com.android.volley.toolbox.NetworkImageView
+                    android:id="@+id/imageView_top2"
+                    android:background="#eeeeee"
+                    android:layout_width="match_parent"
+                    android:scaleType="fitCenter"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"/>
+
             </RelativeLayout>
 
             <!-- Title Lable-->
@@ -190,6 +214,14 @@
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true"
                 android:id="@+id/relativeLayout2">
+
+                <com.android.volley.toolbox.NetworkImageView
+                    android:id="@+id/imageView_top3"
+                    android:background="#eeeeee"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:scaleType="fitCenter"
+                    android:layout_gravity="fill"/>
 
             </RelativeLayout>
 

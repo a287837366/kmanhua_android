@@ -33,9 +33,13 @@ public class ManhuaService implements ResponseCallback{
 
     private Handler mHandler;
 
+    public boolean isNoData;
+
     public ManhuaService(Activity activity, Handler handler){
         mQueue = Volley.newRequestQueue(activity);
         mHandler = handler;
+
+        isNoData = false;
 
         newManhuas = new ArrayList<ManhuaModel>();
         oldManhuas = new ArrayList<ManhuaModel>();
@@ -64,6 +68,12 @@ public class ManhuaService implements ResponseCallback{
                 this.oldManhuas.addAll(response.getFreedata());
 
                 pageCount ++;
+
+                if (pageCount >= Integer.parseInt(response.getCount())){
+                    isNoData = true;
+                } else {
+                    isNoData = false;
+                }
 
                 mHandler.sendEmptyMessage(1);
 

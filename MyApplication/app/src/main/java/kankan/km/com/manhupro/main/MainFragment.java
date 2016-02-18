@@ -6,6 +6,7 @@ import android.os.Handler;
 import android.os.Message;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -28,6 +29,8 @@ public class MainFragment extends Fragment implements AdapterView.OnItemClickLis
 
     private Activity activity;
     private ListView listView_Main;
+    private SwipeRefreshLayout listView_refresh;
+
     private MainBaseAdapter adapter;
 
     private ManhuaService manhuaService;
@@ -57,6 +60,9 @@ public class MainFragment extends Fragment implements AdapterView.OnItemClickLis
 
     private void initViews(View view){
         listView_Main = (ListView) view.findViewById(R.id.listView_Main);
+
+
+
         listView_Main.setOnItemClickListener(this);
     }
 
@@ -99,6 +105,18 @@ public class MainFragment extends Fragment implements AdapterView.OnItemClickLis
     //-----Actions
     @Override
     public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
+
+
+        if (manhuaService.oldManhuas.size() > 0 && position == manhuaService.oldManhuas.size() + 1){
+
+            if (manhuaService.isNoData) return;
+
+            manhuaService.getManhuaList();
+
+        } else {
+
+
+        }
 
 
     }
