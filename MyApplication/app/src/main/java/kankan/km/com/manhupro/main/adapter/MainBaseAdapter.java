@@ -14,6 +14,7 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 import kankan.km.com.manhupro.R;
+import kankan.km.com.manhupro.main.module.ManhuaModel;
 
 /**
  * Created by apple on 16/2/14.
@@ -21,33 +22,46 @@ import kankan.km.com.manhupro.R;
 public class MainBaseAdapter extends BaseAdapter{
     private String TAG = MainBaseAdapter.class.getSimpleName();
 
-    private ArrayList<String> stringArrayList;
     private LayoutInflater inflater;
     private Activity mActivity;
 
     private final int TYPE_H = 0;
     private final int TYPE_B = 1;
 
-    public MainBaseAdapter(Activity mActivity, ArrayList<String> stringArrayList) {
-        this.stringArrayList = stringArrayList;
+    private ArrayList<ManhuaModel> newLists;
+    private ArrayList<ManhuaModel> freeLists;
+
+    public MainBaseAdapter(Activity mActivity, ArrayList<ManhuaModel> newLists, ArrayList<ManhuaModel> freeLists) {
+        this.newLists = newLists;
+        this.freeLists = freeLists;
         this.mActivity = mActivity;
         inflater = LayoutInflater.from(mActivity);
     }
 
     @Override
     public int getCount() {
-        return this.stringArrayList.size();
+
+        return this.freeLists.size() + 1;
     }
 
     @Override
     public Object getItem(int position) {
-        return this.stringArrayList.get(position);
+
+        if (position == 0){
+
+            return newLists;
+        }
+
+        return freeLists.get(position - 1);
+
     }
 
 
     @Override
     public long getItemId(int position) {
+
         return position;
+
     }
 
     @Override
@@ -92,6 +106,15 @@ public class MainBaseAdapter extends BaseAdapter{
                     headerHolder.img_content2 = (RelativeLayout) convertView.findViewById(R.id.img_content2);
                     headerHolder.img_content3 = (RelativeLayout) convertView.findViewById(R.id.img_content3);
 
+                    headerHolder.textView_top = (TextView) convertView.findViewById(R.id.textView_top);
+
+                    headerHolder.textHeader_time1 = (TextView) convertView.findViewById(R.id.textHeader_time1);
+                    headerHolder.textHeader_time2 = (TextView) convertView.findViewById(R.id.textHeader_time2);
+                    headerHolder.textHeader_time3 = (TextView) convertView.findViewById(R.id.textHeader_time3);
+                    headerHolder.textHeader_title1 = (TextView) convertView.findViewById(R.id.textHeader_title1);
+                    headerHolder.textHeader_title2 = (TextView) convertView.findViewById(R.id.textHeader_title2);
+                    headerHolder.textHeader_title3 = (TextView) convertView.findViewById(R.id.textHeader_title3);
+
                     headerHolder.img_title.setOnClickListener(headerHolder);
                     headerHolder.img_content1.setOnClickListener(headerHolder);
                     headerHolder.img_content2.setOnClickListener(headerHolder);
@@ -105,6 +128,9 @@ public class MainBaseAdapter extends BaseAdapter{
 
                     convertView = inflater.inflate(R.layout.listitem_mainbase, parent, false);
                     viewHolder = new ViewHolder();
+
+                    viewHolder.text_time = (TextView) convertView.findViewById(R.id.text_time);
+                    viewHolder.text_title = (TextView) convertView.findViewById(R.id.text_title);
 
                     convertView.setTag(viewHolder);
 
@@ -132,9 +158,40 @@ public class MainBaseAdapter extends BaseAdapter{
 
         }
 
+        if (type == TYPE_H){
+
+            setHeader(headerHolder);
+
+        } else {
+
+            viewHolder.text_time.setText(freeLists.get(position - 1).getM_createTime());
+            viewHolder.text_title.setText(freeLists.get(position - 1).getM_name());
+
+        }
+
 
         return convertView;
     }
+
+
+    private void setHeader(ViewHeaderHolder headerHolder){
+
+        if (this.newLists.size() == 0)
+            return;
+
+        headerHolder.textView_top.setText(this.newLists.get(0).getM_name());
+
+        headerHolder.textHeader_time1.setText(this.newLists.get(1).getM_createTime());
+        headerHolder.textHeader_title1.setText(this.newLists.get(1).getM_name());
+
+        headerHolder.textHeader_time2.setText(this.newLists.get(2).getM_createTime());
+        headerHolder.textHeader_title2.setText(this.newLists.get(2).getM_name());
+
+        headerHolder.textHeader_time3.setText(this.newLists.get(3).getM_createTime());
+        headerHolder.textHeader_title3.setText(this.newLists.get(3).getM_name());
+
+    }
+
 
 
     //HeaderItem
@@ -144,6 +201,14 @@ public class MainBaseAdapter extends BaseAdapter{
         RelativeLayout img_content1;
         RelativeLayout img_content2;
         RelativeLayout img_content3;
+
+        TextView textView_top;
+        TextView textHeader_title1;
+        TextView textHeader_title2;
+        TextView textHeader_title3;
+        TextView textHeader_time1;
+        TextView textHeader_time2;
+        TextView textHeader_time3;
 
         @Override
         public void onClick(View view) {

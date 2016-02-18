@@ -2,6 +2,8 @@ package kankan.km.com.manhupro.main;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.util.Log;
@@ -68,25 +70,36 @@ public class MainFragment extends Fragment implements AdapterView.OnItemClickLis
     private void initObjects(){
         Log.e(TAG, "initObjects");
 
-        manhuaService = new ManhuaService(this.activity);
+        manhuaService = new ManhuaService(this.activity, new MyHandler());
 
-        ArrayList<String> strings = new ArrayList<String>();
-        strings.add("1111");
-        strings.add("2222");
-        strings.add("3333");
-        strings.add("4444");
-        this.adapter = new MainBaseAdapter(this.activity, strings);
+        this.adapter = new MainBaseAdapter(this.activity, manhuaService.newManhuas, manhuaService.oldManhuas);
 
         listView_Main.setAdapter(this.adapter);
-
 
         manhuaService.getManhuaList();
     }
 
+
+    class MyHandler extends Handler{
+
+        @Override
+        public void handleMessage(Message msg) {
+
+            super.handleMessage(msg);
+
+            adapter.notifyDataSetChanged();
+
+        }
+
+    }
+
+
+
+
+    //-----Actions
     @Override
     public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
-        System.out.println(TAG + "onItemClick --> " + position);
-        Log.d(TAG , "onItemClick -->  " + position);
+
 
     }
 }
