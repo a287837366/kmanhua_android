@@ -15,6 +15,7 @@ import java.util.ArrayList;
 
 import kankan.km.com.manhupro.R;
 import kankan.km.com.manhupro.main.adapter.MainBaseAdapter;
+import kankan.km.com.manhupro.main.service.ManhuaService;
 
 /**
  * Created by apple on 16/2/14.
@@ -26,6 +27,8 @@ public class MainFragment extends Fragment implements AdapterView.OnItemClickLis
     private Activity activity;
     private ListView listView_Main;
     private MainBaseAdapter adapter;
+
+    private ManhuaService manhuaService;
 
     @Override
     public void onAttach(Activity activity) {
@@ -65,6 +68,8 @@ public class MainFragment extends Fragment implements AdapterView.OnItemClickLis
     private void initObjects(){
         Log.e(TAG, "initObjects");
 
+        manhuaService = new ManhuaService(this.activity);
+
         ArrayList<String> strings = new ArrayList<String>();
         strings.add("1111");
         strings.add("2222");
@@ -74,6 +79,8 @@ public class MainFragment extends Fragment implements AdapterView.OnItemClickLis
 
         listView_Main.setAdapter(this.adapter);
 
+
+        manhuaService.getManhuaList();
     }
 
     @Override
