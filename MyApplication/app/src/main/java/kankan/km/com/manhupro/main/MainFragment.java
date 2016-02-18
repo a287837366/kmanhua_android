@@ -1,6 +1,7 @@
 package kankan.km.com.manhupro.main;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -17,6 +18,7 @@ import android.widget.ListView;
 import java.util.ArrayList;
 
 import kankan.km.com.manhupro.R;
+import kankan.km.com.manhupro.main.activity.ManhuaDetailActivity;
 import kankan.km.com.manhupro.main.adapter.MainBaseAdapter;
 import kankan.km.com.manhupro.main.service.ManhuaService;
 
@@ -114,10 +116,18 @@ public class MainFragment extends Fragment implements AdapterView.OnItemClickLis
             manhuaService.getManhuaList();
 
         } else {
-
+            this.gotoManhuDetilaPage(manhuaService.oldManhuas.get(position  - 1).getM_uid());
 
         }
 
 
+    }
+
+    //-----Goto
+    private void gotoManhuDetilaPage(String manhuaId){
+        Intent intent = new Intent();
+        intent.setClass(this.getActivity(), ManhuaDetailActivity.class);
+        intent.putExtra("ManhuaId", manhuaId);
+        this.getActivity().startActivity(intent);
     }
 }

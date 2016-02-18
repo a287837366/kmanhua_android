@@ -16,13 +16,18 @@ public class StringUtils {
 
     public static Object jsonToBean(Class clazz, String json) {
         try {
+
             GsonBuilder gsonBuilder = new GsonBuilder();
+
             gsonBuilder.registerTypeAdapter(Timestamp.class, new TimestampDeserializer());
+
             Gson gson = gsonBuilder.create();
+
             return gson.fromJson(json, clazz);
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
+
             e.printStackTrace();
+
         }
         return null;
     }

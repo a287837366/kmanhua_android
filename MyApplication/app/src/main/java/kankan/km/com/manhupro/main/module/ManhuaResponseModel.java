@@ -7,18 +7,18 @@ import java.util.ArrayList;
  */
 public class ManhuaResponseModel {
 
-    private String m_name;
+    private String error;
     private String count;
     private String msg;
     private ArrayList<ManhuaModel> newdata;
     private ArrayList<ManhuaModel> freedata;
 
-    public String getM_name() {
-        return m_name;
+    public String getError() {
+        return error;
     }
 
-    public void setM_name(String m_name) {
-        this.m_name = m_name;
+    public void setError(String error) {
+        this.error = error;
     }
 
     public String getCount() {

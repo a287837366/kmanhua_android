@@ -28,8 +28,12 @@
         <activity
             android:name=".me.activity.MeFeedBackActivity"
             android:theme="@android:style/Theme.Light.NoTitleBar"
-            android:label="@string/app_name">
-            </activity>
+            />
+        <activity
+            android:name=".main.activity.ManhuaDetailActivity"
+            android:theme="@android:style/Theme.Light.NoTitleBar"
+            />
+
     </application>
 
 </manifest>
