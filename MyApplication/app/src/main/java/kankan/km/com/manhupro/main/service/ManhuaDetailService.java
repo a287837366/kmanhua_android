@@ -1,7 +1,9 @@
 package kankan.km.com.manhupro.main.service;
 
 import android.app.Activity;
+import android.mtp.MtpObjectInfo;
 import android.os.Handler;
+import android.util.DisplayMetrics;
 import android.util.Log;
 
 import com.android.volley.RequestQueue;
@@ -29,9 +31,16 @@ public class ManhuaDetailService implements ResponseCallback{
 
     private Handler mHandler;
 
-    public ManhuaDetailService(Activity activity, Handler handler){
-        mQueue = Volley.newRequestQueue(activity);
+    public ArrayList<ManhuaDetailModel> viewLists;
 
+    private Activity activity;
+
+    public ManhuaDetailService(Activity activity, Handler handler){
+        this.activity = activity;
+
+        viewLists = new ArrayList<ManhuaDetailModel>();
+
+        mQueue = Volley.newRequestQueue(activity);
         mHandler = handler;
     }
 
@@ -42,11 +51,35 @@ public class ManhuaDetailService implements ResponseCallback{
     @Override
     public void send(int method, int tag, String json) {
 
+        DisplayMetrics dm = new DisplayMetrics();
+        activity.getWindowManager().getDefaultDisplay().getMetrics(dm);
+
+        int screenWidth = dm.widthPixels;
+
         ManhuaDeailResponse response = (ManhuaDeailResponse) StringUtils.jsonToBean(ManhuaDeailResponse.class, json);
 
         Gson gson = new Gson();
 
-        ArrayList<ManhuaDetailModel> viewLists = gson.fromJson(response.getData().get(0).getViewdetail(), new TypeToken<ArrayList<ManhuaDetailModel>>(){}.getType());
+        ArrayList<ManhuaDetailModel> dataLists  = gson.fromJson(response.getData().get(0).getViewdetail(), new TypeToken<ArrayList<ManhuaDetailModel>>(){}.getType());
+
+
+        for (ManhuaDetailModel model : dataLists){
+
+            if (model.getType().equals("image")){
+
+                int viewWidth = Integer.parseInt(model.getWidth());
+                int viewHeight = Integer.parseInt(model.getHeight());
+
+                model.setHeight("" + (screenWidth * viewHeight) / viewWidth);
+
+            }
+
+        }
+
+
+
+
+        viewLists.addAll(dataLists);
 
         mHandler.sendEmptyMessage(1);
     }

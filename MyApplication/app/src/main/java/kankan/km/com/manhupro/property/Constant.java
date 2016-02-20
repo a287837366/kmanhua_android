@@ -1,0 +1,14 @@
+package kankan.km.com.manhupro.property;
+
+/**
+ * Created by apple on 16/2/20.
+ */
+public class Constant {
+
+    public static final class INTENT_TAG{
+
+        public static final String MANHUA_ID = "MANHUA_ID";
+        public static final String MANHUA_TITLE = "MANHUA_TITLE";
+
+    }
+}

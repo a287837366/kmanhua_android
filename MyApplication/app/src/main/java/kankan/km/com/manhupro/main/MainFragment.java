@@ -21,6 +21,7 @@ import kankan.km.com.manhupro.R;
 import kankan.km.com.manhupro.main.activity.ManhuaDetailActivity;
 import kankan.km.com.manhupro.main.adapter.MainBaseAdapter;
 import kankan.km.com.manhupro.main.service.ManhuaService;
+import kankan.km.com.manhupro.property.Constant;
 
 /**
  * Created by apple on 16/2/14.
@@ -116,7 +117,7 @@ public class MainFragment extends Fragment implements AdapterView.OnItemClickLis
             manhuaService.getManhuaList();
 
         } else {
-            this.gotoManhuDetilaPage(manhuaService.oldManhuas.get(position  - 1).getM_uid());
+            this.gotoManhuDetilaPage(manhuaService.oldManhuas.get(position  - 1).getM_uid(), manhuaService.oldManhuas.get(position - 1).getM_name());
 
         }
 
@@ -124,10 +125,11 @@ public class MainFragment extends Fragment implements AdapterView.OnItemClickLis
     }
 
     //-----Goto
-    private void gotoManhuDetilaPage(String manhuaId){
+    private void gotoManhuDetilaPage(String manhuaId, String manhuaName){
         Intent intent = new Intent();
         intent.setClass(this.getActivity(), ManhuaDetailActivity.class);
-        intent.putExtra("ManhuaId", manhuaId);
+        intent.putExtra(Constant.INTENT_TAG.MANHUA_ID, manhuaId);
+        intent.putExtra(Constant.INTENT_TAG.MANHUA_TITLE, manhuaName);
         this.getActivity().startActivity(intent);
     }
 }
