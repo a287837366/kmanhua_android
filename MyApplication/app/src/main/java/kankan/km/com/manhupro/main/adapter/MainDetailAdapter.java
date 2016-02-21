@@ -68,6 +68,7 @@ public class MainDetailAdapter extends BaseAdapter {
             viewHolder = new ViewHolder();
 
             viewHolder.imageView_detail = (NetworkImageView) convertView.findViewById(R.id.imageView_detail);
+            viewHolder.textLable = (TextView) convertView.findViewById(R.id.textLable);
 
             if (model.getType().equals("image")){
                 viewHolder.linearParams = (LinearLayout.LayoutParams) viewHolder.imageView_detail.getLayoutParams();
@@ -89,12 +90,16 @@ public class MainDetailAdapter extends BaseAdapter {
 
         if (model.getType().equals("image")){
 
-            viewHolder.linearParams.height = Integer.parseInt(viewLists.get(position).getHeight());
-            viewHolder.imageView_detail.setImageUrl(model.getContent(), VolleyTool.getInstance(mActivity).getmImageLoader());
+            if (viewHolder.linearParams != null){
+                viewHolder.linearParams.height = Integer.parseInt(viewLists.get(position).getHeight());
+                viewHolder.imageView_detail.setImageUrl(model.getContent(), VolleyTool.getInstance(mActivity).getmImageLoader());
+                viewHolder.textLable.setVisibility(View.GONE);
+            }
 
         } else {
-
+            viewHolder.textLable.setVisibility(View.VISIBLE);
             viewHolder.imageView_detail.setVisibility(View.GONE);
+            viewHolder.textLable.setText(model.getContent());
         }
 
         return convertView;
@@ -104,6 +109,7 @@ public class MainDetailAdapter extends BaseAdapter {
     //普通的Item
     private class ViewHolder{
         NetworkImageView imageView_detail;
+        TextView textLable;
 
         LinearLayout.LayoutParams linearParams;
     }

@@ -1,6 +1,7 @@
 package kankan.km.com.manhupro.main.adapter;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,7 +17,9 @@ import com.android.volley.toolbox.NetworkImageView;
 import java.util.ArrayList;
 
 import kankan.km.com.manhupro.R;
+import kankan.km.com.manhupro.main.activity.ManhuaDetailActivity;
 import kankan.km.com.manhupro.main.module.ManhuaModel;
+import kankan.km.com.manhupro.property.Constant;
 import kankan.km.com.manhupro.tools.httptools.VolleyTool;
 
 /**
@@ -268,22 +271,24 @@ public class MainBaseAdapter extends BaseAdapter{
         @Override
         public void onClick(View view) {
 
+
+
             switch (view.getId()){
 
                 case  R.id.img_content1:
-
+                    gotoManhuDetilaPage(newLists.get(1).getM_uid(), newLists.get(1).getM_name());
                     break;
 
                 case R.id.img_content2:
-
+                    gotoManhuDetilaPage(newLists.get(1).getM_uid(), newLists.get(1).getM_name());
                     break;
 
                 case R.id.img_content3:
-
+                    gotoManhuDetilaPage(newLists.get(1).getM_uid(), newLists.get(1).getM_name());
                     break;
 
                 case R.id.img_title:
-
+                    gotoManhuDetilaPage(newLists.get(1).getM_uid(), newLists.get(1).getM_name());
                     break;
 
                 default:
@@ -291,8 +296,6 @@ public class MainBaseAdapter extends BaseAdapter{
                     break;
 
             }
-
-
         }
     }
 
@@ -314,6 +317,15 @@ public class MainBaseAdapter extends BaseAdapter{
 
 
 
+    }
+
+    //-----Goto
+    private void gotoManhuDetilaPage(String manhuaId, String manhuaName){
+        Intent intent = new Intent();
+        intent.setClass(this.mActivity, ManhuaDetailActivity.class);
+        intent.putExtra(Constant.INTENT_TAG.MANHUA_ID, manhuaId);
+        intent.putExtra(Constant.INTENT_TAG.MANHUA_TITLE, manhuaName);
+        this.mActivity.startActivity(intent);
     }
 
 }
