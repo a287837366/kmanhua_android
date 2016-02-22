@@ -35,18 +35,21 @@ public class ManhuaService implements ResponseCallback{
 
     public boolean isNoData;
 
+    public boolean isRoading;
+
     public ManhuaService(Activity activity, Handler handler){
         mQueue = Volley.newRequestQueue(activity);
         mHandler = handler;
 
         isNoData = false;
+        isRoading = false;
 
         newManhuas = new ArrayList<ManhuaModel>();
         oldManhuas = new ArrayList<ManhuaModel>();
     }
 
     public void getManhuaList(){
-
+        isRoading = true;
         mQueue.add(HttpClinet.getInstance().getRequset("/manhua/getManhuaList.php?page=" + pageCount, this, GET_MANHUA_TAG));
 
     }
@@ -54,6 +57,8 @@ public class ManhuaService implements ResponseCallback{
 
     @Override
     public void send(int method, int tag, String json) {
+
+        isRoading = false;
 
         switch (tag){
 
@@ -88,6 +93,8 @@ public class ManhuaService implements ResponseCallback{
 
     @Override
     public void error(int tag, int error) {
+
+        isRoading = false;
 
     }
 }

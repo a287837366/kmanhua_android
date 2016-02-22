@@ -32,7 +32,6 @@ public class MainFragment extends Fragment implements AdapterView.OnItemClickLis
 
     private Activity activity;
     private ListView listView_Main;
-    private SwipeRefreshLayout listView_refresh;
 
     private MainBaseAdapter adapter;
 
@@ -96,7 +95,13 @@ public class MainFragment extends Fragment implements AdapterView.OnItemClickLis
 
             super.handleMessage(msg);
 
-            adapter.notifyDataSetChanged();
+            if (manhuaService.isNoData){
+                adapter.refreshByFooter(MainBaseAdapter.REFRESH_TYPE_NO);
+            } else {
+                adapter.refreshByFooter(MainBaseAdapter.REFRESH_TYPE_GET);
+            }
+
+
 
         }
 
@@ -113,6 +118,10 @@ public class MainFragment extends Fragment implements AdapterView.OnItemClickLis
         if (manhuaService.oldManhuas.size() > 0 && position == manhuaService.oldManhuas.size() + 1){
 
             if (manhuaService.isNoData) return;
+
+            if (manhuaService.isRoading) return;
+
+            adapter.refreshByFooter(MainBaseAdapter.REFRESH_TYPE_ING);
 
             manhuaService.getManhuaList();
 

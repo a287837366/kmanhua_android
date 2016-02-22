@@ -38,11 +38,19 @@ public class MainBaseAdapter extends BaseAdapter{
     private ArrayList<ManhuaModel> newLists;
     private ArrayList<ManhuaModel> freeLists;
 
+    public static final int REFRESH_TYPE_ING = 0;
+    public static final int REFRESH_TYPE_GET = 1;
+    public static final int REFRESH_TYPE_NO  = 2;
+
+    private int refreshCon;
+
     public MainBaseAdapter(Activity mActivity, ArrayList<ManhuaModel> newLists, ArrayList<ManhuaModel> freeLists) {
         this.newLists = newLists;
         this.freeLists = freeLists;
         this.mActivity = mActivity;
         inflater = LayoutInflater.from(mActivity);
+
+        refreshCon = REFRESH_TYPE_GET;
     }
 
     @Override
@@ -166,6 +174,8 @@ public class MainBaseAdapter extends BaseAdapter{
                     convertView = inflater.inflate(R.layout.listitem_nomaldata, parent, false);
                     bottomHolder = new ViewBottomHolder();
 
+                    bottomHolder.text_nomordata = (TextView) convertView.findViewById(R.id.text_nomordata);
+                    bottomHolder.btn_footer = (RelativeLayout) convertView.findViewById(R.id.btn_footer);
 
                     convertView.setTag(bottomHolder);
                     break;
@@ -204,6 +214,26 @@ public class MainBaseAdapter extends BaseAdapter{
             setHeader(headerHolder);
 
         } else if (type == TYPE_D) {
+
+            switch (refreshCon){
+
+                case REFRESH_TYPE_GET:
+                    bottomHolder.text_nomordata.setText("더 불러오기");
+                    break;
+
+                case REFRESH_TYPE_ING:
+                    bottomHolder.text_nomordata.setText("불러 오는중");
+                    break;
+
+                case REFRESH_TYPE_NO:
+                    bottomHolder.text_nomordata.setText("더는 없음");
+                    break;
+
+                default:
+
+                    break;
+
+            }
 
 
         } else {
@@ -280,15 +310,15 @@ public class MainBaseAdapter extends BaseAdapter{
                     break;
 
                 case R.id.img_content2:
-                    gotoManhuDetilaPage(newLists.get(1).getM_uid(), newLists.get(1).getM_name());
+                    gotoManhuDetilaPage(newLists.get(2).getM_uid(), newLists.get(2).getM_name());
                     break;
 
                 case R.id.img_content3:
-                    gotoManhuDetilaPage(newLists.get(1).getM_uid(), newLists.get(1).getM_name());
+                    gotoManhuDetilaPage(newLists.get(3).getM_uid(), newLists.get(3).getM_name());
                     break;
 
                 case R.id.img_title:
-                    gotoManhuDetilaPage(newLists.get(1).getM_uid(), newLists.get(1).getM_name());
+                    gotoManhuDetilaPage(newLists.get(0).getM_uid(), newLists.get(0).getM_name());
                     break;
 
                 default:
@@ -315,7 +345,8 @@ public class MainBaseAdapter extends BaseAdapter{
 
     private class ViewBottomHolder{
 
-
+        RelativeLayout btn_footer;
+        TextView text_nomordata;
 
     }
 
@@ -326,6 +357,11 @@ public class MainBaseAdapter extends BaseAdapter{
         intent.putExtra(Constant.INTENT_TAG.MANHUA_ID, manhuaId);
         intent.putExtra(Constant.INTENT_TAG.MANHUA_TITLE, manhuaName);
         this.mActivity.startActivity(intent);
+    }
+
+    public void refreshByFooter(int refreshType){
+        this.refreshCon = refreshType;
+        this.notifyDataSetChanged();
     }
 
 }

@@ -17,7 +17,7 @@
 
     </LinearLayout>
 
-    <LinearLayout
+    <RelativeLayout
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="45dp"
@@ -46,7 +46,7 @@
                 android:drawableTop="@drawable/click_me"
                 android:id="@+id/click_main_me" />
         </RadioGroup>
-    </LinearLayout>
+    </RelativeLayout>
 
     <LinearLayout
         android:orientation="vertical"
