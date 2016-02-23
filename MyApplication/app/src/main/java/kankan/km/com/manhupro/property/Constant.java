@@ -11,4 +11,17 @@ public class Constant {
         public static final String MANHUA_TITLE = "MANHUA_TITLE";
 
     }
+
+    public static final class REQUSET_TAG{
+
+        public static final int GET_MANHUA_TAG = 1001;
+        public static final int GET_VERSION_TAG = 1002;
+
+    }
+
+    public static final class APP_INFO {
+
+        public static final String APP_VERSION = "5";
+
+    }
 }

@@ -11,6 +11,7 @@ import java.util.ArrayList;
 
 import kankan.km.com.manhupro.main.module.ManhuaModel;
 import kankan.km.com.manhupro.main.module.ManhuaResponseModel;
+import kankan.km.com.manhupro.property.Constant;
 import kankan.km.com.manhupro.tools.httptools.HttpClinet;
 import kankan.km.com.manhupro.tools.httptools.ResponseCallback;
 import kankan.km.com.manhupro.tools.stringtools.StringUtils;
@@ -20,9 +21,6 @@ import kankan.km.com.manhupro.tools.stringtools.StringUtils;
  */
 public class ManhuaService implements ResponseCallback{
     private String TAG = ManhuaService.class.getSimpleName();
-
-
-    private final int GET_MANHUA_TAG = 1001;
 
     private RequestQueue mQueue;
 
@@ -50,7 +48,7 @@ public class ManhuaService implements ResponseCallback{
 
     public void getManhuaList(){
         isRoading = true;
-        mQueue.add(HttpClinet.getInstance().getRequset("/manhua/getManhuaList.php?page=" + pageCount, this, GET_MANHUA_TAG));
+        mQueue.add(HttpClinet.getInstance().getRequset("/manhua/getManhuaList.php?page=" + pageCount, this, Constant.REQUSET_TAG.GET_MANHUA_TAG));
 
     }
 
@@ -62,7 +60,7 @@ public class ManhuaService implements ResponseCallback{
 
         switch (tag){
 
-            case GET_MANHUA_TAG:
+            case Constant.REQUSET_TAG.GET_MANHUA_TAG:
 
                 ManhuaResponseModel response = (ManhuaResponseModel) StringUtils.jsonToBean(ManhuaResponseModel.class, json);
 
