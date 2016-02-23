@@ -222,7 +222,7 @@ public class MainBaseAdapter extends BaseAdapter{
                     break;
 
                 case REFRESH_TYPE_ING:
-                    bottomHolder.text_nomordata.setText("불러 오는중");
+                    bottomHolder.text_nomordata.setText("불러 오는중...");
                     break;
 
                 case REFRESH_TYPE_NO:

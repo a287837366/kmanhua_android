@@ -12,7 +12,9 @@ import android.widget.AdapterView;
 import android.widget.RelativeLayout;
 
 import kankan.km.com.manhupro.R;
+import kankan.km.com.manhupro.me.activity.MeAskMeActivity;
 import kankan.km.com.manhupro.me.activity.MeFeedBackActivity;
+import kankan.km.com.manhupro.me.activity.MeFigtingActivity;
 
 /**
  * Created by apple on 16/2/14.
@@ -74,13 +76,13 @@ public class MeFragment extends Fragment implements View.OnClickListener{
                 break;
 
             case R.id.btn_askMe:
-
+                gotoMeAskMeActivity();
                 Log.d(TAG, "제휴문의");
 
                 break;
 
             case R.id.btn_fettingMe:
-
+                gotoMeFightingActivity();
                 Log.d(TAG, "땐짠하기");
 
                 break;
@@ -104,6 +106,18 @@ public class MeFragment extends Fragment implements View.OnClickListener{
     private void gotoFeedBackActivity(){
         Intent intent = new Intent();
         intent.setClass(this.getActivity(), MeFeedBackActivity.class);
+        this.getActivity().startActivity(intent);
+    }
+
+    private void gotoMeFightingActivity(){
+        Intent intent = new Intent();
+        intent.setClass(this.getActivity(), MeFigtingActivity.class);
+        this.getActivity().startActivity(intent);
+    }
+
+    private void gotoMeAskMeActivity(){
+        Intent intent = new Intent();
+        intent.setClass(this.getActivity(), MeAskMeActivity.class);
         this.getActivity().startActivity(intent);
     }
 }

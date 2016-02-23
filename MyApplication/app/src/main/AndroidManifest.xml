@@ -38,6 +38,16 @@
             android:name=".me.activity.MeFeedBackActivity"
             android:theme="@android:style/Theme.Light.NoTitleBar"
             />
+
+        <activity
+            android:name=".me.activity.MeFigtingActivity"
+            android:theme="@android:style/Theme.Light.NoTitleBar"
+            />
+        <activity
+            android:name=".me.activity.MeAskMeActivity"
+            android:theme="@android:style/Theme.Light.NoTitleBar"
+            />
+
         <activity
             android:name=".main.activity.ManhuaDetailActivity"
             android:theme="@android:style/Theme.Light.NoTitleBar"

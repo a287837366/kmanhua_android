@@ -61,7 +61,7 @@ public class SplashActivity extends Activity{
         } else {
 
             try {
-                Thread.sleep(2000);
+                Thread.sleep(1000);
 
             } catch (InterruptedException e) {
 
