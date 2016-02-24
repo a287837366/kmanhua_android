@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -126,10 +127,17 @@ public class MainBaseAdapter extends BaseAdapter{
                     convertView = inflater.inflate(R.layout.listitem_mainheader, parent, false);
                     headerHolder = new ViewHeaderHolder();
 
+                    headerHolder.top_layout = (LinearLayout) convertView.findViewById(R.id.top_layout);
+
                     headerHolder.img_title = (RelativeLayout) convertView.findViewById(R.id.img_title);
                     headerHolder.img_content1 = (RelativeLayout) convertView.findViewById(R.id.img_content1);
                     headerHolder.img_content2 = (RelativeLayout) convertView.findViewById(R.id.img_content2);
                     headerHolder.img_content3 = (RelativeLayout) convertView.findViewById(R.id.img_content3);
+
+                    headerHolder.top_layout.setVisibility(View.GONE);
+                    headerHolder.img_content1.setVisibility(View.GONE);
+                    headerHolder.img_content2.setVisibility(View.GONE);
+                    headerHolder.img_content3.setVisibility(View.GONE);
 
                     headerHolder.textView_top = (TextView) convertView.findViewById(R.id.textView_top);
                     headerHolder.imageView_top = (NetworkImageView) convertView.findViewById(R.id.imageView_top);
@@ -256,20 +264,39 @@ public class MainBaseAdapter extends BaseAdapter{
         if (this.newLists.size() == 0)
             return;
 
-        headerHolder.textView_top.setText(this.newLists.get(0).getM_name());
-        headerHolder.imageView_top.setImageUrl(this.newLists.get(0).getM_icon(), VolleyTool.getInstance(mActivity).getmImageLoader());
 
-        headerHolder.textHeader_time1.setText(this.newLists.get(1).getM_createTime());
-        headerHolder.textHeader_title1.setText(this.newLists.get(1).getM_name());
-        headerHolder.imageView_top1.setImageUrl(this.newLists.get(1).getM_icon(), VolleyTool.getInstance(mActivity).getmImageLoader());
+        if(this.newLists.size() > 0){
+            headerHolder.textView_top.setText(this.newLists.get(0).getM_name());
+            headerHolder.imageView_top.setImageUrl(this.newLists.get(0).getM_icon(), VolleyTool.getInstance(mActivity).getmImageLoader());
 
-        headerHolder.textHeader_time2.setText(this.newLists.get(2).getM_createTime());
-        headerHolder.textHeader_title2.setText(this.newLists.get(2).getM_name());
-        headerHolder.imageView_top2.setImageUrl(this.newLists.get(2).getM_icon(), VolleyTool.getInstance(mActivity).getmImageLoader());
+            headerHolder.top_layout.setVisibility(View.VISIBLE);
+        }
 
-        headerHolder.textHeader_time3.setText(this.newLists.get(3).getM_createTime());
-        headerHolder.textHeader_title3.setText(this.newLists.get(3).getM_name());
-        headerHolder.imageView_top3.setImageUrl(this.newLists.get(3).getM_icon(), VolleyTool.getInstance(mActivity).getmImageLoader());
+        if(this.newLists.size() > 1){
+
+            headerHolder.textHeader_time1.setText(this.newLists.get(1).getM_createTime());
+            headerHolder.textHeader_title1.setText(this.newLists.get(1).getM_name());
+            headerHolder.imageView_top1.setImageUrl(this.newLists.get(1).getM_icon(), VolleyTool.getInstance(mActivity).getmImageLoader());
+
+            headerHolder.img_content1.setVisibility(View.VISIBLE);
+        }
+
+        if (this.newLists.size() > 2){
+            headerHolder.textHeader_time2.setText(this.newLists.get(2).getM_createTime());
+            headerHolder.textHeader_title2.setText(this.newLists.get(2).getM_name());
+            headerHolder.imageView_top2.setImageUrl(this.newLists.get(2).getM_icon(), VolleyTool.getInstance(mActivity).getmImageLoader());
+
+            headerHolder.img_content2.setVisibility(View.VISIBLE);
+
+        }
+
+        if(this.newLists.size() > 3){
+            headerHolder.textHeader_time3.setText(this.newLists.get(3).getM_createTime());
+            headerHolder.textHeader_title3.setText(this.newLists.get(3).getM_name());
+            headerHolder.imageView_top3.setImageUrl(this.newLists.get(3).getM_icon(), VolleyTool.getInstance(mActivity).getmImageLoader());
+
+            headerHolder.img_content3.setVisibility(View.VISIBLE);
+        }
 
     }
 
@@ -277,6 +304,8 @@ public class MainBaseAdapter extends BaseAdapter{
 
     //HeaderItem
     private class ViewHeaderHolder implements View.OnClickListener{
+
+        LinearLayout top_layout;
 
         RelativeLayout img_title;
         RelativeLayout img_content1;

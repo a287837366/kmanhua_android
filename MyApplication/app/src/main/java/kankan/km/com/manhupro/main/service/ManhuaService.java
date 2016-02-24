@@ -65,7 +65,14 @@ public class ManhuaService implements ResponseCallback{
                 ManhuaResponseModel response = (ManhuaResponseModel) StringUtils.jsonToBean(ManhuaResponseModel.class, json);
 
                 if (this.newManhuas.size() == 0){
-                    this.newManhuas.addAll(response.getNewdata());
+
+                    if (response.getNewdata() == null) {
+                        this.newManhuas.addAll(new ArrayList<ManhuaModel>());
+                    } else {
+                        this.newManhuas.addAll(response.getNewdata());
+                    }
+
+
                 }
 
                 this.oldManhuas.addAll(response.getFreedata());
