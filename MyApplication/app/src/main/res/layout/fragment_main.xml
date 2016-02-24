@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:orientation="vertical"
     android:layout_height="match_parent">
@@ -7,7 +7,8 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:background="#ffffff"
-        android:layout_height="50dp">
+        android:layout_height="50dp"
+        android:id="@+id/relativeLayout3">
 
         <LinearLayout
             android:orientation="vertical"
@@ -36,11 +37,39 @@
     <ListView
         android:layout_width="match_parent"
         android:layout_marginTop="5dp"
-        android:layout_marginLeft="10dp"
         android:scrollbars="none"
+        android:layout_height="match_parent"
+        android:id="@+id/listView_Main"
+        android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
         android:layout_marginBottom="5dp"
-        android:layout_height="match_parent"
-        android:id="@+id/listView_Main" />
+        android:layout_below="@+id/relativeLayout3"
+        android:layout_centerHorizontal="true" />
 
-</LinearLayout>
+    <RelativeLayout
+        android:id="@+id/btn_refresh"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:visibility="gone"
+        android:layout_marginTop="80dp"
+        android:layout_below="@+id/relativeLayout3"
+        android:layout_centerHorizontal="true">
+
+        <ImageView
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:background="@mipmap/mainlistrefresh"
+            android:id="@+id/imageView4"
+            android:layout_centerHorizontal="true" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="다시 불러오기"
+            android:textColor="#999999"
+            android:id="@+id/text_refresh"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true" />
+    </RelativeLayout>
+
+</RelativeLayout>

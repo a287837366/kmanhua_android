@@ -20,6 +20,7 @@ import kankan.km.com.manhupro.tools.stringtools.StringUtils;
  * Created by apple on 16/2/18.
  */
 public class ManhuaService implements ResponseCallback{
+
     private String TAG = ManhuaService.class.getSimpleName();
 
     private RequestQueue mQueue;
@@ -34,6 +35,7 @@ public class ManhuaService implements ResponseCallback{
     public boolean isNoData;
 
     public boolean isRoading;
+
 
     public ManhuaService(Activity activity, Handler handler){
         mQueue = Volley.newRequestQueue(activity);
@@ -85,7 +87,7 @@ public class ManhuaService implements ResponseCallback{
                     isNoData = false;
                 }
 
-                mHandler.sendEmptyMessage(1);
+                mHandler.sendEmptyMessage(HttpClinet.NETWORK_SUCCESS);
 
                 break;
 
@@ -98,7 +100,7 @@ public class ManhuaService implements ResponseCallback{
 
     @Override
     public void error(int tag, int error) {
-
+        mHandler.sendEmptyMessage(HttpClinet.NETWORK_ERROR);
         isRoading = false;
 
     }

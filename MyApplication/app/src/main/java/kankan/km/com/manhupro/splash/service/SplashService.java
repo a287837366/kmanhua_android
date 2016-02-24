@@ -37,15 +37,15 @@ public class SplashService implements ResponseCallback {
     @Override
     public void send(int method, int tag, String json) {
 
-        Log.d(">>>>>", json);
-
         version = (VersionModel) StringUtils.jsonToBean(VersionModel.class, json);
 
-        mHandler.sendEmptyMessage(0);
+        mHandler.sendEmptyMessage(HttpClinet.NETWORK_SUCCESS);
     }
 
     @Override
     public void error(int tag, int error) {
+
+        mHandler.sendEmptyMessage(HttpClinet.NETWORK_ERROR);
 
     }
 }

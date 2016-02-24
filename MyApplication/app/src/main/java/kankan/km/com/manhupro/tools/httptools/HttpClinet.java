@@ -22,6 +22,8 @@ public class HttpClinet {
     public static final int GET = Request.Method.GET;
 
     public static final int NETWORK_ERROR = -1;
+    public static final int NETWORK_SUCCESS = 0;
+
 
     public static HttpClinet getInstance(){
 

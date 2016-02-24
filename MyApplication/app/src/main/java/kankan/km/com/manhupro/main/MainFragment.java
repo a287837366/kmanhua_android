@@ -14,6 +14,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -22,11 +25,12 @@ import kankan.km.com.manhupro.main.activity.ManhuaDetailActivity;
 import kankan.km.com.manhupro.main.adapter.MainBaseAdapter;
 import kankan.km.com.manhupro.main.service.ManhuaService;
 import kankan.km.com.manhupro.property.Constant;
+import kankan.km.com.manhupro.tools.httptools.HttpClinet;
 
 /**
  * Created by apple on 16/2/14.
  */
-public class MainFragment extends Fragment implements AdapterView.OnItemClickListener{
+public class MainFragment extends Fragment implements AdapterView.OnItemClickListener, View.OnClickListener{
 
     private String TAG = MainFragment.class.getSimpleName();
 
@@ -36,6 +40,9 @@ public class MainFragment extends Fragment implements AdapterView.OnItemClickLis
     private MainBaseAdapter adapter;
 
     private ManhuaService manhuaService;
+
+    private RelativeLayout btn_refresh;
+    private TextView text_refresh;
 
     @Override
     public void onAttach(Activity activity) {
@@ -62,10 +69,12 @@ public class MainFragment extends Fragment implements AdapterView.OnItemClickLis
 
     private void initViews(View view){
         listView_Main = (ListView) view.findViewById(R.id.listView_Main);
-
+        btn_refresh = (RelativeLayout) view.findViewById(R.id.btn_refresh);
+        text_refresh = (TextView) view.findViewById(R.id.text_refresh);
 
 
         listView_Main.setOnItemClickListener(this);
+        btn_refresh.setOnClickListener(this);
     }
 
     @Override
@@ -87,6 +96,23 @@ public class MainFragment extends Fragment implements AdapterView.OnItemClickLis
         manhuaService.getManhuaList();
     }
 
+    @Override
+    public void onClick(View view) {
+
+        switch (view.getId()){
+
+            case R.id.btn_refresh:
+                text_refresh.setText("불러오는중");
+                manhuaService.getManhuaList();
+                break;
+
+            default:
+
+                break;
+        }
+
+    }
+
 
     class MyHandler extends Handler{
 
@@ -95,11 +121,39 @@ public class MainFragment extends Fragment implements AdapterView.OnItemClickLis
 
             super.handleMessage(msg);
 
-            if (manhuaService.isNoData){
-                adapter.refreshByFooter(MainBaseAdapter.REFRESH_TYPE_NO);
+            if (msg.what == HttpClinet.NETWORK_ERROR){
+
+
+                if (manhuaService.oldManhuas.size() == 0 && manhuaService.newManhuas.size() == 0){
+
+
+                    text_refresh.setText("다시 불러오기");
+                    btn_refresh.setVisibility(View.VISIBLE);
+                    listView_Main.setVisibility(View.GONE);
+
+                } else {
+                    adapter.refreshByFooter(MainBaseAdapter.REFRESH_TYPE_GET);
+
+                    Toast.makeText(activity, "네트웍 상태 불안정 합니다.", Toast.LENGTH_LONG).show();
+                }
+
+
+
             } else {
-                adapter.refreshByFooter(MainBaseAdapter.REFRESH_TYPE_GET);
+
+                btn_refresh.setVisibility(View.GONE);
+                listView_Main.setVisibility(View.VISIBLE);
+
+                if (manhuaService.isNoData){
+                    adapter.refreshByFooter(MainBaseAdapter.REFRESH_TYPE_NO);
+                } else {
+                    adapter.refreshByFooter(MainBaseAdapter.REFRESH_TYPE_GET);
+                }
+
             }
+
+
+
 
 
 

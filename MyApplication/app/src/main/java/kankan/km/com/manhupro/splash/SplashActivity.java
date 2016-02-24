@@ -11,6 +11,7 @@ import android.os.Message;
 import kankan.km.com.manhupro.MainActivity;
 import kankan.km.com.manhupro.R;
 import kankan.km.com.manhupro.splash.service.SplashService;
+import kankan.km.com.manhupro.tools.httptools.HttpClinet;
 
 /**
  * Created by apple on 16/2/23.
@@ -118,7 +119,15 @@ public class SplashActivity extends Activity{
         @Override
         public void handleMessage(Message msg) {
 
-            checkVersion();
+            if(msg.what == HttpClinet.NETWORK_ERROR) {
+
+                gotoMainActivity();
+
+            } else {
+                checkVersion();
+            }
+
+
 
         }
     }
