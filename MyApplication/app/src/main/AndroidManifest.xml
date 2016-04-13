@@ -29,8 +29,10 @@
             android:name=".me.activity.MeFeedBackActivity"
             android:theme="@android:style/Theme.Light.NoTitleBar"
             />
+
+
         <activity
-            android:name=".main.activity.ManhuaDetailActivity"
+            android:name=".me.MeActivity"
             android:theme="@android:style/Theme.Light.NoTitleBar"
             />
 

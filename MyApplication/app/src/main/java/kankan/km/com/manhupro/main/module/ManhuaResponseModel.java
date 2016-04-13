@@ -10,8 +10,7 @@ public class ManhuaResponseModel {
     private String error;
     private String count;
     private String msg;
-    private ArrayList<ManhuaModel> newdata;
-    private ArrayList<ManhuaModel> freedata;
+    private ArrayList<ManhuaModel> data;
 
     public String getError() {
         return error;
@@ -37,19 +36,11 @@ public class ManhuaResponseModel {
         this.msg = msg;
     }
 
-    public ArrayList<ManhuaModel> getNewdata() {
-        return newdata;
+    public ArrayList<ManhuaModel> getData() {
+        return data;
     }
 
-    public void setNewdata(ArrayList<ManhuaModel> newdata) {
-        this.newdata = newdata;
-    }
-
-    public ArrayList<ManhuaModel> getFreedata() {
-        return freedata;
-    }
-
-    public void setFreedata(ArrayList<ManhuaModel> freedata) {
-        this.freedata = freedata;
+    public void setData(ArrayList<ManhuaModel> data) {
+        this.data = data;
     }
 }

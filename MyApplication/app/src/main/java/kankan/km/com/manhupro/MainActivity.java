@@ -11,10 +11,9 @@ import kankan.km.com.manhupro.main.MainFragment;
 import kankan.km.com.manhupro.me.MeFragment;
 
 
-public class MainActivity extends FragmentActivity implements RadioGroup.OnCheckedChangeListener{
+public class MainActivity extends FragmentActivity{
 
     private static final String TAB_MAIN = "Main_TAB";
-    private static final String TAB_ME = "Me_TAB";
 
     private FragmentManager fm;
     private FragmentTransaction ft;
@@ -43,10 +42,6 @@ public class MainActivity extends FragmentActivity implements RadioGroup.OnCheck
     }
 
     private void initViews(){
-        mRadioGroup = (RadioGroup) findViewById(R.id.rgourp_main);
-
-        mRadioGroup.setOnCheckedChangeListener(this);
-
         this.changeFragment("Main_TAB");
     }
 
@@ -87,33 +82,10 @@ public class MainActivity extends FragmentActivity implements RadioGroup.OnCheck
 
             return new MainFragment();
 
-        } else if(tag.equals(TAB_ME)){
-
-            return new MeFragment();
-
         }
 
         return null;
     }
 
-    @Override
-    public void onCheckedChanged(RadioGroup radioGroup, int checkId) {
 
-        switch (checkId) {
-
-            case R.id.click_main_tab:
-
-                this.changeFragment(TAB_MAIN);
-
-                break;
-
-            case R.id.click_main_me:
-
-                this.changeFragment(TAB_ME);
-
-                break;
-
-        }
-
-    }
 }

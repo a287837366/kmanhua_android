@@ -5,19 +5,18 @@ package kankan.km.com.manhupro.main.module;
  */
 public class ManhuaModel {
 
-    private String m_name;
+    private String m_title;
     private String m_uid;
     private String m_icon;
-    private String m_url;
     private String m_fromdata;
     private String m_createTime;
 
-    public String getM_name() {
-        return m_name;
+    public String getM_title() {
+        return m_title;
     }
 
-    public void setM_name(String m_name) {
-        this.m_name = m_name;
+    public void setM_title(String m_title) {
+        this.m_title = m_title;
     }
 
     public String getM_uid() {
@@ -36,14 +35,6 @@ public class ManhuaModel {
         this.m_icon = m_icon;
     }
 
-    public String getM_url() {
-        return m_url;
-    }
-
-    public void setM_url(String m_url) {
-        this.m_url = m_url;
-    }
-
     public String getM_fromdata() {
         return m_fromdata;
     }
@@ -59,6 +50,4 @@ public class ManhuaModel {
     public void setM_createTime(String m_createTime) {
         this.m_createTime = m_createTime;
     }
-
-
 }

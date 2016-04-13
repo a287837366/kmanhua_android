@@ -28,26 +28,30 @@ public class ManhuaService implements ResponseCallback{
 
     public int pageCount;
 
-    public ArrayList<ManhuaModel> newManhuas;
-    public ArrayList<ManhuaModel> oldManhuas;
+    public ArrayList<ManhuaModel> news;
 
     private Handler mHandler;
 
     public boolean isNoData;
 
+    private int manhuaType;
+
     public ManhuaService(Activity activity, Handler handler){
+        manhuaType = 0;
+
         mQueue = Volley.newRequestQueue(activity);
         mHandler = handler;
 
         isNoData = false;
 
-        newManhuas = new ArrayList<ManhuaModel>();
-        oldManhuas = new ArrayList<ManhuaModel>();
+        news = new ArrayList<ManhuaModel>();
     }
 
-    public void getManhuaList(){
+    public void getManhuaListByType(int type){
 
-        mQueue.add(HttpClinet.getInstance().getRequset("/manhua/getManhuaList.php?page=" + pageCount, this, GET_MANHUA_TAG));
+        manhuaType = type;
+
+        mQueue.add(HttpClinet.getInstance().getRequset("/manhua/getManhuaList.php?page=" + pageCount +"&type=" + type, this, GET_MANHUA_TAG));
 
     }
 
@@ -61,11 +65,7 @@ public class ManhuaService implements ResponseCallback{
 
                 ManhuaResponseModel response = (ManhuaResponseModel) StringUtils.jsonToBean(ManhuaResponseModel.class, json);
 
-                if (this.newManhuas.size() == 0){
-                    this.newManhuas.addAll(response.getNewdata());
-                }
-
-                this.oldManhuas.addAll(response.getFreedata());
+                news.addAll(response.getData());
 
                 pageCount ++;
 

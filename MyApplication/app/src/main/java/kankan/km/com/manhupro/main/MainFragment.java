@@ -13,6 +13,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.ListView;
 
 import java.util.ArrayList;
@@ -21,28 +22,32 @@ import kankan.km.com.manhupro.R;
 import kankan.km.com.manhupro.main.activity.ManhuaDetailActivity;
 import kankan.km.com.manhupro.main.adapter.MainBaseAdapter;
 import kankan.km.com.manhupro.main.service.ManhuaService;
+import kankan.km.com.manhupro.me.MeActivity;
 import kankan.km.com.manhupro.property.Constant;
 
 /**
  * Created by apple on 16/2/14.
  */
-public class MainFragment extends Fragment implements AdapterView.OnItemClickListener{
+public class MainFragment extends Fragment implements AdapterView.OnItemClickListener, View.OnClickListener{
 
     private String TAG = MainFragment.class.getSimpleName();
 
     private Activity activity;
     private ListView listView_Main;
-    private SwipeRefreshLayout listView_refresh;
+    private Button btn_me;
 
     private MainBaseAdapter adapter;
 
     private ManhuaService manhuaService;
+
+
 
     @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
 
         this.activity = activity;
+
     }
 
     @Override
@@ -63,9 +68,9 @@ public class MainFragment extends Fragment implements AdapterView.OnItemClickLis
 
     private void initViews(View view){
         listView_Main = (ListView) view.findViewById(R.id.listView_Main);
+        btn_me = (Button)view.findViewById(R.id.btn_me);
 
-
-
+        btn_me.setOnClickListener(this);
         listView_Main.setOnItemClickListener(this);
     }
 
@@ -81,11 +86,11 @@ public class MainFragment extends Fragment implements AdapterView.OnItemClickLis
 
         manhuaService = new ManhuaService(this.activity, new MyHandler());
 
-        this.adapter = new MainBaseAdapter(this.activity, manhuaService.newManhuas, manhuaService.oldManhuas);
+        this.adapter = new MainBaseAdapter(this.activity, manhuaService.news);
 
         listView_Main.setAdapter(this.adapter);
 
-        manhuaService.getManhuaList();
+        manhuaService.getManhuaListByType(0);
     }
 
 
@@ -110,18 +115,23 @@ public class MainFragment extends Fragment implements AdapterView.OnItemClickLis
     public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
 
 
-        if (manhuaService.oldManhuas.size() > 0 && position == manhuaService.oldManhuas.size() + 1){
 
-            if (manhuaService.isNoData) return;
+    }
 
-            manhuaService.getManhuaList();
+    @Override
+    public void onClick(View v) {
 
-        } else {
-            this.gotoManhuDetilaPage(manhuaService.oldManhuas.get(position  - 1).getM_uid(), manhuaService.oldManhuas.get(position - 1).getM_name());
+        switch (v.getId()){
+
+            case R.id.btn_menu:
+
+                break;
+
+            case R.id.btn_me:
+                this.gotoMeActivity();
+                break;
 
         }
-
-
     }
 
     //-----Goto
@@ -130,6 +140,12 @@ public class MainFragment extends Fragment implements AdapterView.OnItemClickLis
         intent.setClass(this.getActivity(), ManhuaDetailActivity.class);
         intent.putExtra(Constant.INTENT_TAG.MANHUA_ID, manhuaId);
         intent.putExtra(Constant.INTENT_TAG.MANHUA_TITLE, manhuaName);
+        this.getActivity().startActivity(intent);
+    }
+
+    private void gotoMeActivity(){
+        Intent intent = new Intent();
+        intent.setClass(this.getActivity(), MeActivity.class);
         this.getActivity().startActivity(intent);
     }
 }
