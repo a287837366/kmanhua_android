@@ -19,6 +19,7 @@ import android.widget.ListView;
 import java.util.ArrayList;
 
 import kankan.km.com.manhupro.R;
+import kankan.km.com.manhupro.login.activity.UserLoginActivity;
 import kankan.km.com.manhupro.main.activity.ManhuaDetailActivity;
 import kankan.km.com.manhupro.main.adapter.MainBaseAdapter;
 import kankan.km.com.manhupro.main.service.ManhuaService;
@@ -128,7 +129,8 @@ public class MainFragment extends Fragment implements AdapterView.OnItemClickLis
                 break;
 
             case R.id.btn_me:
-                this.gotoMeActivity();
+//                this.gotoMeActivity();
+                this.gotoUserLogin();
                 break;
 
         }
@@ -141,6 +143,13 @@ public class MainFragment extends Fragment implements AdapterView.OnItemClickLis
         intent.putExtra(Constant.INTENT_TAG.MANHUA_ID, manhuaId);
         intent.putExtra(Constant.INTENT_TAG.MANHUA_TITLE, manhuaName);
         this.getActivity().startActivity(intent);
+    }
+
+    private void gotoUserLogin(){
+        Intent intent = new Intent();
+        intent.setClass(this.getActivity(), UserLoginActivity.class);
+        this.getActivity().startActivity(intent);
+
     }
 
     private void gotoMeActivity(){
