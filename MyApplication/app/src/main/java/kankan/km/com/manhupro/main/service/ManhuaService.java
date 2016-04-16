@@ -34,7 +34,7 @@ public class ManhuaService implements ResponseCallback{
 
     public boolean isNoData;
 
-    private int manhuaType;
+    public int manhuaType;
 
     public ManhuaService(Activity activity, Handler handler){
         manhuaType = 0;
@@ -53,6 +53,10 @@ public class ManhuaService implements ResponseCallback{
 
         mQueue.add(HttpClinet.getInstance().getRequset("/manhua/getManhuaList.php?page=" + pageCount +"&type=" + type, this, GET_MANHUA_TAG));
 
+    }
+
+    public void getManhuaListByCurrent(){
+        mQueue.add(HttpClinet.getInstance().getRequset("/manhua/getManhuaList.php?page=" + pageCount +"&type=" + manhuaType, this, GET_MANHUA_TAG));
     }
 
 

@@ -102,11 +102,8 @@ public class MainBaseAdapter extends BaseAdapter{
                 case TYPE_B:
 
                     convertView = inflater.inflate(R.layout.listitem_mainbase, parent, false);
-                    viewHolder = new ViewHolder();
+                    viewHolder = new ViewHolder(convertView);
 
-//                    viewHolder.imageView_icon = (NetworkImageView) convertView.findViewById(R.id.imageView_icon);
-//                    viewHolder.text_time = (TextView) convertView.findViewById(R.id.text_time);
-//                    viewHolder.text_title = (TextView) convertView.findViewById(R.id.text_title);
 
                     convertView.setTag(viewHolder);
 
@@ -134,6 +131,7 @@ public class MainBaseAdapter extends BaseAdapter{
 
                 case TYPE_B:
                     viewHolder = (ViewHolder) convertView.getTag();
+                    viewHolder.setData(news.get(position));
                     break;
 
                 case TYPE_D:
@@ -144,6 +142,19 @@ public class MainBaseAdapter extends BaseAdapter{
                     break;
             }
 
+        }
+
+        switch (type) {
+
+            case TYPE_B:
+                viewHolder.setData(news.get(position));
+                break;
+
+            case TYPE_D:
+                break;
+
+            default:
+                break;
         }
 
         return convertView;
@@ -157,6 +168,21 @@ public class MainBaseAdapter extends BaseAdapter{
 
         NetworkImageView imageView_icon;
 
+        public ViewHolder(View v){
+
+
+            imageView_icon = (NetworkImageView) v.findViewById(R.id.imageView_icon);
+            text_time = (TextView) v.findViewById(R.id.text_time);
+            text_title = (TextView) v.findViewById(R.id.text_title);
+
+        }
+
+        public void setData(ManhuaModel model){
+
+            text_title.setText(model.getM_title());
+            text_time.setText(model.getM_createTime());
+
+        }
 
 
     }

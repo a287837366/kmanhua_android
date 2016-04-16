@@ -42,10 +42,8 @@ public class MainFragment extends Fragment implements AdapterView.OnItemClickLis
     private Button btn_me;
 
     private MainBaseAdapter adapter;
-
     private ManhuaService manhuaService;
-
-
+    private PopupWindow popupWindow;
 
     @Override
     public void onAttach(Activity activity) {
@@ -166,17 +164,89 @@ public class MainFragment extends Fragment implements AdapterView.OnItemClickLis
     //--------popView
     private void showPopView(View view){
 
-        View contentView = LayoutInflater.from(activity).inflate(
-                R.layout.pop_rightmenu, null);
+        if (popupWindow == null)
+        {
+            View contentView = LayoutInflater.from(activity).inflate(
+                    R.layout.pop_rightmenu, null);
+
+            PopViewClick popClick = new PopViewClick();
+
+            contentView.findViewById(R.id.btn_all).setOnClickListener(popClick);
+            contentView.findViewById(R.id.btn_recruit).setOnClickListener(popClick);
+            contentView.findViewById(R.id.btn_wanted).setOnClickListener(popClick);
+            contentView.findViewById(R.id.btn_estate).setOnClickListener(popClick);
+            contentView.findViewById(R.id.btn_pet).setOnClickListener(popClick);
+
+            popupWindow  = new PopupWindow(contentView,
+                    RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT, true);
+
+            popupWindow.setBackgroundDrawable(getResources().getDrawable(
+                    R.drawable.click_main_tab));
+            popupWindow.setTouchable(true);
 
 
-        final PopupWindow popupWindow = new PopupWindow(contentView,
-                RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT, true);
+        }
 
-        popupWindow.setBackgroundDrawable(getResources().getDrawable(
-                R.drawable.click_main_tab));
-        popupWindow.setTouchable(true);
+
         popupWindow.showAsDropDown(view);
 
+    }
+
+    private void hidePopView(int manhuaType)
+    {
+
+        if (popupWindow == null)
+        {
+            return;
+        }
+
+        manhuaService.news.clear();
+        manhuaService.pageCount = 0;
+        adapter.notifyDataSetChanged();
+        popupWindow.dismiss();
+
+        manhuaService.getManhuaListByType(manhuaType);
+    }
+
+    private class PopViewClick implements View.OnClickListener{
+
+        @Override
+        public void onClick(View view) {
+
+            switch (view.getId())
+            {
+                case R.id.btn_all:
+                    Log.d(TAG, "点击全部");
+                    hidePopView(0);
+                    break;
+
+                case R.id.btn_recruit:
+                    hidePopView(1);
+                    Log.d(TAG, "招聘信息");
+                    break;
+
+                case R.id.btn_wanted:
+                    hidePopView(2);
+                    Log.d(TAG, "求职信息");
+                    break;
+
+                case R.id.btn_estate:
+                    hidePopView(3);
+                    Log.d(TAG, "房产信息");
+                    break;
+
+                case R.id.btn_pet:
+                    hidePopView(4);
+                    Log.d(TAG, "宠物信息");
+                    break;
+
+
+                default:
+
+                    break;
+
+            }
+
+        }
     }
 }
