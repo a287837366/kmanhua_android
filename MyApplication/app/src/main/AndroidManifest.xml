@@ -41,6 +41,11 @@
             android:theme="@android:style/Theme.Light.NoTitleBar"
             />
 
+        <activity
+            android:name=".login.activity.UserRegisterActivity"
+            android:theme="@android:style/Theme.Light.NoTitleBar"
+            />
+
 
     </application>
 

@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:layout_width="120dp"
+        android:layout_height="200dp"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/mainpopview"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true">
+
+
+        <Button
+            android:layout_width="120dp"
+            android:layout_height="40dp"
+            android:text="全部"
+            android:id="@+id/btn_all"
+            android:background="@null"
+            android:textColor="#555555"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true" />
+
+        <Button
+            android:layout_width="120dp"
+            android:layout_height="40dp"
+            android:text="招聘信息"
+            android:id="@+id/btn_recruit"
+            android:background="@null"
+            android:textColor="#555555"
+            android:layout_below="@+id/btn_all"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true" />
+
+        <Button
+            android:layout_width="120dp"
+            android:layout_height="40dp"
+            android:text="求职信息"
+            android:id="@+id/btn_wanted"
+            android:background="@null"
+            android:textColor="#555555"
+            android:layout_below="@+id/btn_recruit"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true" />
+
+        <Button
+            android:layout_width="120dp"
+            android:layout_height="40dp"
+            android:text="房产信息"
+            android:id="@+id/btn_estate"
+            android:background="@null"
+            android:textColor="#555555"
+            android:layout_below="@+id/btn_wanted"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true" />
+
+        <Button
+            android:layout_width="120dp"
+            android:layout_height="40dp"
+            android:text="宠物信息"
+            android:id="@+id/btn_pet"
+            android:background="@null"
+            android:textColor="#555555"
+            android:layout_below="@+id/btn_estate"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true" />
+    </RelativeLayout>
+</RelativeLayout>

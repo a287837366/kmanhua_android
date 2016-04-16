@@ -1,6 +1,7 @@
 package kankan.km.com.manhupro.login.activity;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -43,7 +44,7 @@ public class UserLoginActivity extends Activity implements View.OnClickListener{
             case R.id.btn_resgiter:
 
                 Log.d(TAG, "点击注册");
-
+                gotoRegister();
                 break;
 
             case R.id.btn_Login:
@@ -58,8 +59,15 @@ public class UserLoginActivity extends Activity implements View.OnClickListener{
                 break;
 
         }
+    }
 
 
+    //-------Goto
+    private void gotoRegister(){
+
+        Intent intent = new Intent();
+        intent.setClass(this, UserRegisterActivity.class);
+        this.startActivity(intent);
 
     }
 }

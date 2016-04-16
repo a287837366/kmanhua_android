@@ -12,9 +12,13 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.PopupWindow;
+import android.widget.RelativeLayout;
 
 import java.util.ArrayList;
 
@@ -73,6 +77,7 @@ public class MainFragment extends Fragment implements AdapterView.OnItemClickLis
 
         btn_me.setOnClickListener(this);
         listView_Main.setOnItemClickListener(this);
+        view.findViewById(R.id.btn_menu).setOnClickListener(this);
     }
 
     @Override
@@ -125,11 +130,10 @@ public class MainFragment extends Fragment implements AdapterView.OnItemClickLis
         switch (v.getId()){
 
             case R.id.btn_menu:
-
+                this.showPopView(v);
                 break;
 
             case R.id.btn_me:
-//                this.gotoMeActivity();
                 this.gotoUserLogin();
                 break;
 
@@ -156,5 +160,23 @@ public class MainFragment extends Fragment implements AdapterView.OnItemClickLis
         Intent intent = new Intent();
         intent.setClass(this.getActivity(), MeActivity.class);
         this.getActivity().startActivity(intent);
+    }
+
+
+    //--------popView
+    private void showPopView(View view){
+
+        View contentView = LayoutInflater.from(activity).inflate(
+                R.layout.pop_rightmenu, null);
+
+
+        final PopupWindow popupWindow = new PopupWindow(contentView,
+                RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT, true);
+
+        popupWindow.setBackgroundDrawable(getResources().getDrawable(
+                R.drawable.click_main_tab));
+        popupWindow.setTouchable(true);
+        popupWindow.showAsDropDown(view);
+
     }
 }
