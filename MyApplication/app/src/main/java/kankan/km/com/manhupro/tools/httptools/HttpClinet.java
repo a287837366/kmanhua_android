@@ -20,6 +20,7 @@ public class HttpClinet {
     private static final String PROTOCAL = "http://1.85kankan.sinaapp.com/";
 
     public static final int GET = Request.Method.GET;
+    public static final int POST = Request.Method.POST;
 
     public static final int NETWORK_ERROR = -1;
 
@@ -54,6 +55,30 @@ public class HttpClinet {
         });
 
         return requset;
+    }
+
+    public GsonRequest postRequset(String url, Map<String, String> params, final ResponseCallback callback, final int tag){
+
+        GsonRequest requset = new GsonRequest(POST, PROTOCAL + url, null, params, new Response.Listener<JSONObject>(){
+            @Override
+            public void onResponse(JSONObject response) {
+                Log.d(TAG, "Response => " + response.toString());
+
+                callback.send(GET, tag, response.toString());
+
+            }
+        }, new Response.ErrorListener() {
+
+            @Override
+            public void onErrorResponse(VolleyError volleyError) {
+
+                callback.error(tag, NETWORK_ERROR);
+
+            }
+        });
+
+        return requset;
+
     }
 
 }

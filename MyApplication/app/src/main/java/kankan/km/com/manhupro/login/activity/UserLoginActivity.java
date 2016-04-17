@@ -3,10 +3,15 @@ package kankan.km.com.manhupro.login.activity;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.util.Log;
 import android.view.View;
+import android.widget.EditText;
+import android.widget.Toast;
 
 import kankan.km.com.manhupro.R;
+import kankan.km.com.manhupro.login.activity.service.UserLoginService;
 
 /**
  * Created by apple on 16/4/15.
@@ -15,16 +20,30 @@ public class UserLoginActivity extends Activity implements View.OnClickListener{
 
     private static final String TAG = UserLoginActivity.class.getSimpleName();
 
+    private EditText edit_UserName;
+    private EditText edit_PassWord;
+
+    private UserLoginService service;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_userlogin);
 
+        initDate();
         initView();
 
     }
 
+    private void initDate(){
+
+        service = new UserLoginService(this, new MyHandler());
+    }
+
     private void initView(){
+
+        edit_UserName = (EditText) findViewById(R.id.editUserName);
+        edit_PassWord = (EditText) findViewById(R.id.edit_PassWord);
 
         findViewById(R.id.btn_cancle).setOnClickListener(this);
         findViewById(R.id.btn_resgiter).setOnClickListener(this);
@@ -48,8 +67,12 @@ public class UserLoginActivity extends Activity implements View.OnClickListener{
                 break;
 
             case R.id.btn_Login:
-
                 Log.d(TAG, "点击登入");
+
+                if (canConfrim()){
+                    service.getLoginUser(edit_UserName.getText().toString(), edit_PassWord.getText().toString());
+                }
+
 
                 break;
 
@@ -62,6 +85,24 @@ public class UserLoginActivity extends Activity implements View.OnClickListener{
     }
 
 
+    //------判断输入框
+    private boolean canConfrim() {
+
+        if (edit_UserName.getText().length() <= 0){
+            Toast.makeText(this, "请输入账号", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+
+        if (edit_PassWord.getText().length() <= 0){
+            Toast.makeText(this, "请输入密码", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+
+
+        return true;
+    }
+
+
     //-------Goto
     private void gotoRegister(){
 
@@ -70,4 +111,17 @@ public class UserLoginActivity extends Activity implements View.OnClickListener{
         this.startActivity(intent);
 
     }
+
+    class MyHandler extends Handler {
+
+        @Override
+        public void handleMessage(Message msg) {
+
+            super.handleMessage(msg);
+
+        }
+
+    }
+
+
 }

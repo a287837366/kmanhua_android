@@ -4,6 +4,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
 
+import java.security.MessageDigest;
 import java.security.Timestamp;
 
 import kankan.km.com.manhupro.tools.httptools.TimestampDeserializer;
@@ -30,6 +31,36 @@ public class StringUtils {
 
         }
         return null;
+    }
+
+    public static String stringToMD5(String plainText){
+
+        try {
+            MessageDigest md = MessageDigest.getInstance("MD5");
+            md.update(plainText.getBytes());
+
+            byte b[] = md.digest();
+
+            int i;
+
+            StringBuffer buf = new StringBuffer("");
+            for (int offset = 0; offset < b.length; offset++) {
+                i = b[offset];
+                if(i<0) i+= 256;
+                if(i<16)
+                    buf.append("0");
+                buf.append(Integer.toHexString(i));
+            }
+
+            return buf.toString();
+
+        } catch (Exception e){
+
+
+        }
+
+        return "";
+
     }
 
 }
