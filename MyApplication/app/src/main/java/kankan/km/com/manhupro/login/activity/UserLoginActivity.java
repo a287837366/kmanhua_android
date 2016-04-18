@@ -1,6 +1,7 @@
 package kankan.km.com.manhupro.login.activity;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -25,6 +26,8 @@ public class UserLoginActivity extends Activity implements View.OnClickListener{
 
     private UserLoginService service;
 
+    private Context context;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,6 +39,7 @@ public class UserLoginActivity extends Activity implements View.OnClickListener{
     }
 
     private void initDate(){
+        context = this;
 
         service = new UserLoginService(this, new MyHandler());
     }
@@ -118,6 +122,18 @@ public class UserLoginActivity extends Activity implements View.OnClickListener{
         public void handleMessage(Message msg) {
 
             super.handleMessage(msg);
+
+
+
+            if (msg.what == -1){
+                Toast.makeText(context, "账号或者密码错误", Toast.LENGTH_SHORT).show();
+
+            } else {
+
+                finish();
+            }
+
+
 
         }
 
