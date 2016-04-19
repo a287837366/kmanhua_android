@@ -51,7 +51,7 @@ public class UserLoginActivity extends Activity implements View.OnClickListener{
 
         findViewById(R.id.btn_cancle).setOnClickListener(this);
         findViewById(R.id.btn_resgiter).setOnClickListener(this);
-        findViewById(R.id.btn_Login).setOnClickListener(this);
+        findViewById(R.id.btn_Register).setOnClickListener(this);
 
     }
 
@@ -70,7 +70,7 @@ public class UserLoginActivity extends Activity implements View.OnClickListener{
                 gotoRegister();
                 break;
 
-            case R.id.btn_Login:
+            case R.id.btn_Register:
                 Log.d(TAG, "点击登入");
 
                 if (canConfrim()){

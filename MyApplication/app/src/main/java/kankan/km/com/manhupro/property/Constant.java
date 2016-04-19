@@ -16,6 +16,7 @@ public class Constant {
     public static final class NETWORK_TAG{
 
         public static final int GET_USER = 1;
+        public static final int REGISTER_USER = 2;
 
     }
 }
