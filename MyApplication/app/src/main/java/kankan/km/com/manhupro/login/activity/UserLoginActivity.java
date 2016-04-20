@@ -12,12 +12,16 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import kankan.km.com.manhupro.R;
+import kankan.km.com.manhupro.login.activity.module.UserModel;
 import kankan.km.com.manhupro.login.activity.service.UserLoginService;
+import kankan.km.com.manhupro.property.SharedPreUtils;
 
 /**
  * Created by apple on 16/4/15.
  */
 public class UserLoginActivity extends Activity implements View.OnClickListener{
+
+    private static final String SHARE_KEY = "AM_KEY_USER";
 
     private static final String TAG = UserLoginActivity.class.getSimpleName();
 
@@ -130,6 +134,13 @@ public class UserLoginActivity extends Activity implements View.OnClickListener{
 
             } else {
 
+                if (service.model != null){
+                    SharedPreUtils.saveObject(context, SHARE_KEY, service.model);
+                }
+
+                UserModel model = (UserModel) SharedPreUtils.getObject(context, SHARE_KEY);
+                Log.d(TAG, ">>>>>>>>>" + model);
+//                Toast.makeText(context, "登入成功" + model.getUserpw(), Toast.LENGTH_SHORT).show();
                 finish();
             }
 

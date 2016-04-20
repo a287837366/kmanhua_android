@@ -1,9 +1,11 @@
 package kankan.km.com.manhupro.login.activity.module;
 
+import java.io.Serializable;
+
 /**
  * Created by aspn300 on 16/4/18.
  */
-public class UserModel {
+public class UserModel implements Serializable{
     private String phoneNo;
     private String id;
     private String nikename;

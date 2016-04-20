@@ -24,11 +24,13 @@ import java.util.ArrayList;
 
 import kankan.km.com.manhupro.R;
 import kankan.km.com.manhupro.login.activity.UserLoginActivity;
+import kankan.km.com.manhupro.login.activity.module.UserModel;
 import kankan.km.com.manhupro.main.activity.ManhuaDetailActivity;
 import kankan.km.com.manhupro.main.adapter.MainBaseAdapter;
 import kankan.km.com.manhupro.main.service.ManhuaService;
 import kankan.km.com.manhupro.me.MeActivity;
 import kankan.km.com.manhupro.property.Constant;
+import kankan.km.com.manhupro.property.SharedPreUtils;
 
 /**
  * Created by apple on 16/2/14.
@@ -132,7 +134,18 @@ public class MainFragment extends Fragment implements AdapterView.OnItemClickLis
                 break;
 
             case R.id.btn_me:
-                this.gotoUserLogin();
+
+                UserModel model =(UserModel) SharedPreUtils.getObject(this.getActivity(), "AM_KEY_USER");
+
+                if (model == null){
+
+                    this.gotoUserLogin();
+                } else {
+
+                    this.gotoMeActivity();
+                }
+
+
                 break;
 
         }
