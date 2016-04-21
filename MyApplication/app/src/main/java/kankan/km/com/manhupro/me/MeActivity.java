@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.View;
 
 import kankan.km.com.manhupro.R;
+import kankan.km.com.manhupro.property.SharedPreUtils;
 
 /**
  * Created by apple on 16/4/13.
@@ -19,10 +20,16 @@ public class MeActivity extends Activity implements View.OnClickListener{
         initView();
     }
 
+    private void initData(){
 
-    public void initView()
+
+    }
+
+
+    private void initView()
     {
         findViewById(R.id.btn_back).setOnClickListener(this);
+        findViewById(R.id.btn_Logout).setOnClickListener(this);
 
     }
 
@@ -35,6 +42,14 @@ public class MeActivity extends Activity implements View.OnClickListener{
             case R.id.btn_back:
                 finish();
                 break;
+
+            case R.id.btn_Logout:
+
+                SharedPreUtils.clearObject(this, "AM_KEY_USER");
+
+                finish();
+                break;
+
 
 
 
