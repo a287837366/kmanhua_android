@@ -35,6 +35,10 @@
             android:name=".me.MeActivity"
             android:theme="@android:style/Theme.Light.NoTitleBar"
             />
+        <activity
+            android:name=".me.activity.MeUpdateNikeName"
+            android:theme="@android:style/Theme.Light.NoTitleBar"
+            />
 
         <activity
             android:name=".login.activity.UserLoginActivity"
@@ -43,6 +47,11 @@
 
         <activity
             android:name=".login.activity.UserRegisterActivity"
+            android:theme="@android:style/Theme.Light.NoTitleBar"
+            />
+
+        <activity
+            android:name=".me.activity.MeNoResoinsebilityActivity"
             android:theme="@android:style/Theme.Light.NoTitleBar"
             />
 

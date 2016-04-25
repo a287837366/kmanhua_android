@@ -32,7 +32,7 @@
         android:textColor="#ffffff"
         android:layout_marginLeft="50dp"
         android:layout_marginRight="50dp"
-        android:id="@+id/textView6"
+        android:id="@+id/text_nikename"
         android:layout_alignBottom="@+id/btn_back"
         android:layout_centerHorizontal="true" />
 
@@ -59,7 +59,7 @@
                     android:layout_width="100dp"
                     android:layout_height="100dp"
                     android:background="@drawable/me_logout_btn_bg"
-                    android:id="@+id/imageView4"
+                    android:id="@+id/imageViewmy"
                     android:layout_centerVertical="true"
                     android:layout_centerHorizontal="true" />
             </RelativeLayout>
@@ -68,6 +68,7 @@
                 android:layout_width="match_parent"
                 android:layout_marginRight="10dp"
                 android:layout_marginLeft="10dp"
+                android:id="@+id/btn_nikename"
                 android:background="@drawable/me_item_bg"
                 android:layout_height="43dp">
 
@@ -99,6 +100,7 @@
                 android:layout_width="match_parent"
                 android:layout_marginRight="10dp"
                 android:layout_marginLeft="10dp"
+                android:id="@+id/btn_history"
                 android:layout_marginTop="5dp"
                 android:background="@drawable/me_item_bg"
                 android:layout_height="43dp">
@@ -132,6 +134,7 @@
                 android:layout_marginRight="10dp"
                 android:layout_marginLeft="10dp"
                 android:layout_marginTop="5dp"
+                android:id="@+id/btn_update"
                 android:background="@drawable/me_item_bg"
                 android:layout_height="43dp">
 
@@ -165,6 +168,7 @@
                 android:layout_marginRight="10dp"
                 android:layout_marginLeft="10dp"
                 android:layout_marginTop="15dp"
+                android:id="@+id/btn_shengming"
                 android:background="@drawable/me_item_bg"
                 android:layout_height="43dp">
 

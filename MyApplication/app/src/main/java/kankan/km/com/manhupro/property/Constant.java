@@ -17,6 +17,7 @@ public class Constant {
 
         public static final int GET_USER = 1;
         public static final int REGISTER_USER = 2;
+        public static final int UPDATE_NIKENAME = 3;
 
     }
 }

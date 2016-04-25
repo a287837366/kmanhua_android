@@ -50,6 +50,7 @@ public class UserRegisterActivity extends Activity implements View.OnClickListen
         edit_confirm = (EditText) findViewById(R.id.edit_confirm);
 
         findViewById(R.id.btn_Register).setOnClickListener(this);
+        findViewById(R.id.btn_cancle).setOnClickListener(this);
     }
 
     @Override
@@ -62,6 +63,12 @@ public class UserRegisterActivity extends Activity implements View.OnClickListen
                 if (canRegister()){
                     serivce.resUser(edit_userName.getText().toString(), edit_pw.getText().toString(), edit_NikeName.getText().toString());
                 }
+
+                break;
+
+            case R.id.btn_cancle:
+
+                finish();
 
                 break;
 
