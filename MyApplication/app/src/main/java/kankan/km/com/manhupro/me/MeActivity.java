@@ -31,6 +31,7 @@ public class MeActivity extends Activity implements View.OnClickListener{
         initView();
     }
 
+
     @Override
     protected void onResume() {
         super.onResume();
@@ -39,10 +40,17 @@ public class MeActivity extends Activity implements View.OnClickListener{
         text_nikename.setText(model.getNikename());
     }
 
-    public void initView()
+    private void initData(){
+
+
+
+    }
+
+
+    private void initView()
     {
         text_nikename = (TextView) findViewById(R.id.text_nikename);
-
+        
         findViewById(R.id.btn_back).setOnClickListener(this);
         findViewById(R.id.btn_Logout).setOnClickListener(this);
         findViewById(R.id.btn_nikename).setOnClickListener(this);
@@ -94,6 +102,9 @@ public class MeActivity extends Activity implements View.OnClickListener{
                 Log.d(TAG, "免责声明");
                 this.gotoNoRes();
                 break;
+
+
+
 
 
 
