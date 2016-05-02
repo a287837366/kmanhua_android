@@ -9,7 +9,11 @@ public class Constant {
 
         public static final String MANHUA_ID = "MANHUA_ID";
         public static final String MANHUA_TITLE = "MANHUA_TITLE";
-
+        public static final String USER_PHONE = "USER_PHONE";
+        public static final String CREATE_TIME = "CREATE_TIME";
+        public static final String MANHUA_TYPE = "MANHUA_TYPE";
+        public static final String USER_NAME = "USER_NAME";
+        public static final String MANHUA_ICON = "MANHUA_ICON";
 
     }
 

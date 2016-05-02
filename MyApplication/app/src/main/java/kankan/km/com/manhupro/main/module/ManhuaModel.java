@@ -10,6 +10,8 @@ public class ManhuaModel {
     private String m_icon;
     private String m_fromdata;
     private String m_createTime;
+    private String m_type;
+    private String u_phoneno;
 
     public String getM_title() {
         return m_title;
@@ -49,5 +51,21 @@ public class ManhuaModel {
 
     public void setM_createTime(String m_createTime) {
         this.m_createTime = m_createTime;
+    }
+
+    public String getM_type() {
+        return m_type;
+    }
+
+    public void setM_type(String m_type) {
+        this.m_type = m_type;
+    }
+
+    public String getU_phoneno() {
+        return u_phoneno;
+    }
+
+    public void setU_phoneno(String u_phoneno) {
+        this.u_phoneno = u_phoneno;
     }
 }

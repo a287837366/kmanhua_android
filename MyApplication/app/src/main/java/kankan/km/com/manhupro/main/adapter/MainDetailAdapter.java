@@ -57,51 +57,6 @@ public class MainDetailAdapter extends BaseAdapter {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
 
-        ViewHolder viewHolder = null;
-
-        ManhuaDetailModel model = viewLists.get(position);
-
-        if (convertView == null){
-
-            convertView = inflater.inflate(R.layout.listitem_maindetail, parent, false);
-
-            viewHolder = new ViewHolder();
-
-            viewHolder.imageView_detail = (NetworkImageView) convertView.findViewById(R.id.imageView_detail);
-            viewHolder.textLable = (TextView) convertView.findViewById(R.id.textLable);
-
-            if (model.getType().equals("image")){
-                viewHolder.linearParams = (LinearLayout.LayoutParams) viewHolder.imageView_detail.getLayoutParams();
-
-            } else {
-
-
-            }
-
-            convertView.setTag(viewHolder);
-
-
-
-        } else {
-
-            viewHolder = (ViewHolder) convertView.getTag();
-        }
-
-
-        if (model.getType().equals("image")){
-
-            if (viewHolder.linearParams != null){
-                viewHolder.linearParams.height = Integer.parseInt(viewLists.get(position).getHeight());
-                viewHolder.imageView_detail.setImageUrl(model.getContent(), VolleyTool.getInstance(mActivity).getmImageLoader());
-                viewHolder.textLable.setVisibility(View.GONE);
-            }
-
-        } else {
-            viewHolder.textLable.setVisibility(View.VISIBLE);
-            viewHolder.imageView_detail.setVisibility(View.GONE);
-            viewHolder.textLable.setText(model.getContent());
-        }
-
         return convertView;
     }
 

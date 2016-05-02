@@ -27,6 +27,7 @@ import kankan.km.com.manhupro.login.activity.UserLoginActivity;
 import kankan.km.com.manhupro.login.activity.module.UserModel;
 import kankan.km.com.manhupro.main.activity.ManhuaDetailActivity;
 import kankan.km.com.manhupro.main.adapter.MainBaseAdapter;
+import kankan.km.com.manhupro.main.module.ManhuaModel;
 import kankan.km.com.manhupro.main.service.ManhuaService;
 import kankan.km.com.manhupro.me.MeActivity;
 import kankan.km.com.manhupro.property.Constant;
@@ -107,7 +108,7 @@ public class MainFragment extends Fragment implements AdapterView.OnItemClickLis
 
             super.handleMessage(msg);
 
-            adapter.notifyDataSetChanged();
+            adapter.refreshByType(manhuaService.isNoData ? 0 : 1);
 
         }
 
@@ -120,7 +121,19 @@ public class MainFragment extends Fragment implements AdapterView.OnItemClickLis
     @Override
     public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
 
+        if (position == manhuaService.news.size()){
 
+            if (manhuaService.isNoData){
+
+                return;
+            }
+
+            manhuaService.getManhuaListByCurrent();
+            adapter.refreshByType(2);
+            return;
+        }
+
+        this.gotoManhuDetilaPage(manhuaService.news.get(position));
 
     }
 
@@ -152,11 +165,16 @@ public class MainFragment extends Fragment implements AdapterView.OnItemClickLis
     }
 
     //-----Goto
-    private void gotoManhuDetilaPage(String manhuaId, String manhuaName){
+    private void gotoManhuDetilaPage(ManhuaModel model){
         Intent intent = new Intent();
         intent.setClass(this.getActivity(), ManhuaDetailActivity.class);
-        intent.putExtra(Constant.INTENT_TAG.MANHUA_ID, manhuaId);
-        intent.putExtra(Constant.INTENT_TAG.MANHUA_TITLE, manhuaName);
+        intent.putExtra(Constant.INTENT_TAG.MANHUA_ID, model.getM_uid());
+        intent.putExtra(Constant.INTENT_TAG.MANHUA_TITLE, model.getM_title());
+        intent.putExtra(Constant.INTENT_TAG.MANHUA_ICON, model.getM_icon());
+        intent.putExtra(Constant.INTENT_TAG.USER_NAME, model.getM_fromdata());
+        intent.putExtra(Constant.INTENT_TAG.CREATE_TIME, model.getM_createTime());
+        intent.putExtra(Constant.INTENT_TAG.USER_PHONE, model.getU_phoneno());
+        intent.putExtra(Constant.INTENT_TAG.MANHUA_TYPE, model.getM_type());
         this.getActivity().startActivity(intent);
     }
 

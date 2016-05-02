@@ -5,40 +5,31 @@ package kankan.km.com.manhupro.main.module;
  */
 public class ManhuaDetailModel {
 
-    private String type;
-    private String content;
-    private String width;
-    private String height;
+    private String manhuaid;
+    private String imagelist;
+    private String mcontent;
 
-    public String getType() {
-        return type;
+    public String getManhuaid() {
+        return manhuaid;
     }
 
-    public void setType(String type) {
-        this.type = type;
+    public void setManhuaid(String manhuaid) {
+        this.manhuaid = manhuaid;
     }
 
-    public String getContent() {
-        return content;
+    public String getImagelist() {
+        return imagelist;
     }
 
-    public void setContent(String content) {
-        this.content = content;
+    public void setImagelist(String imagelist) {
+        this.imagelist = imagelist;
     }
 
-    public String getWidth() {
-        return width;
+    public String getMcontent() {
+        return mcontent;
     }
 
-    public void setWidth(String width) {
-        this.width = width;
-    }
-
-    public String getHeight() {
-        return height;
-    }
-
-    public void setHeight(String height) {
-        this.height = height;
+    public void setMcontent(String mcontent) {
+        this.mcontent = mcontent;
     }
 }

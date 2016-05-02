@@ -10,7 +10,7 @@ public class ManhuaDeailResponse {
     private String error;
     private String count;
     private String msg;
-    private ArrayList<DetailView> data;
+    private ArrayList<ManhuaDetailModel> data;
 
     public String getError() {
         return error;
@@ -36,33 +36,12 @@ public class ManhuaDeailResponse {
         this.msg = msg;
     }
 
-    public ArrayList<DetailView> getData() {
+    public ArrayList<ManhuaDetailModel> getData() {
         return data;
     }
 
-    public void setData(ArrayList<DetailView> data) {
+    public void setData(ArrayList<ManhuaDetailModel> data) {
         this.data = data;
     }
 
-    public class DetailView{
-
-        private String manhuaid;
-        private String viewdetail;
-
-        public String getManhuaid() {
-            return manhuaid;
-        }
-
-        public void setManhuaid(String manhuaid) {
-            this.manhuaid = manhuaid;
-        }
-
-        public String getViewdetail() {
-            return viewdetail;
-        }
-
-        public void setViewdetail(String viewdetail) {
-            this.viewdetail = viewdetail;
-        }
-    }
 }

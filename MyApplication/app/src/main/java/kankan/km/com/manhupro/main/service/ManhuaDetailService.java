@@ -15,6 +15,7 @@ import java.util.ArrayList;
 
 import kankan.km.com.manhupro.main.module.ManhuaDeailResponse;
 import kankan.km.com.manhupro.main.module.ManhuaDetailModel;
+import kankan.km.com.manhupro.main.module.ManhuaModel;
 import kankan.km.com.manhupro.main.module.ManhuaResponseModel;
 import kankan.km.com.manhupro.tools.httptools.HttpClinet;
 import kankan.km.com.manhupro.tools.httptools.ResponseCallback;
@@ -31,14 +32,12 @@ public class ManhuaDetailService implements ResponseCallback{
 
     private Handler mHandler;
 
-    public ArrayList<ManhuaDetailModel> viewLists;
-
     private Activity activity;
+
+    public ManhuaDetailModel model;
 
     public ManhuaDetailService(Activity activity, Handler handler){
         this.activity = activity;
-
-        viewLists = new ArrayList<ManhuaDetailModel>();
 
         mQueue = Volley.newRequestQueue(activity);
         mHandler = handler;
@@ -58,28 +57,10 @@ public class ManhuaDetailService implements ResponseCallback{
 
         ManhuaDeailResponse response = (ManhuaDeailResponse) StringUtils.jsonToBean(ManhuaDeailResponse.class, json);
 
-        Gson gson = new Gson();
+        if (response.getData().size() > 0){
 
-        ArrayList<ManhuaDetailModel> dataLists  = gson.fromJson(response.getData().get(0).getViewdetail(), new TypeToken<ArrayList<ManhuaDetailModel>>(){}.getType());
-
-
-        for (ManhuaDetailModel model : dataLists){
-
-            if (model.getType().equals("image")){
-
-                int viewWidth = Integer.parseInt(model.getWidth());
-                int viewHeight = Integer.parseInt(model.getHeight());
-
-                model.setHeight("" + (screenWidth * viewHeight) / viewWidth);
-
-            }
-
+            model = response.getData().get(0);
         }
-
-
-
-
-        viewLists.addAll(dataLists);
 
         mHandler.sendEmptyMessage(1);
     }

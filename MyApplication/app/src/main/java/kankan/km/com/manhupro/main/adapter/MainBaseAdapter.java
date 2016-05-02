@@ -12,14 +12,13 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 
+import com.android.volley.toolbox.ImageLoader;
 import com.android.volley.toolbox.NetworkImageView;
 
 import java.util.ArrayList;
 
 import kankan.km.com.manhupro.R;
-import kankan.km.com.manhupro.main.activity.ManhuaDetailActivity;
 import kankan.km.com.manhupro.main.module.ManhuaModel;
-import kankan.km.com.manhupro.property.Constant;
 import kankan.km.com.manhupro.tools.httptools.VolleyTool;
 
 /**
@@ -33,6 +32,8 @@ public class MainBaseAdapter extends BaseAdapter{
 
     private final int TYPE_B = 1;
     private final int TYPE_D = 2;
+
+    private String refreshString = "";
 
     private ArrayList<ManhuaModel> news;
 
@@ -112,7 +113,7 @@ public class MainBaseAdapter extends BaseAdapter{
                 case TYPE_D:
 
                     convertView = inflater.inflate(R.layout.listitem_nomaldata, parent, false);
-                    bottomHolder = new ViewBottomHolder();
+                    bottomHolder = new ViewBottomHolder(convertView);
 
 
                     convertView.setTag(bottomHolder);
@@ -131,7 +132,6 @@ public class MainBaseAdapter extends BaseAdapter{
 
                 case TYPE_B:
                     viewHolder = (ViewHolder) convertView.getTag();
-                    viewHolder.setData(news.get(position));
                     break;
 
                 case TYPE_D:
@@ -151,6 +151,7 @@ public class MainBaseAdapter extends BaseAdapter{
                 break;
 
             case TYPE_D:
+                bottomHolder.text_nomal.setText(refreshString);
                 break;
 
             default:
@@ -158,6 +159,25 @@ public class MainBaseAdapter extends BaseAdapter{
         }
 
         return convertView;
+    }
+
+    public void refreshByType(int type){
+
+        if (type == 0) {
+
+            refreshString = "没有更多";
+
+        } else if (type == 1)  {
+
+            refreshString = "获取更多";
+
+        } else {
+
+            refreshString = "正在加载";
+        }
+
+        this.notifyDataSetChanged();
+
     }
 
     //普通的Item
@@ -181,6 +201,25 @@ public class MainBaseAdapter extends BaseAdapter{
 
             text_title.setText(model.getM_title());
             text_time.setText(model.getM_createTime());
+            ImageLoader imageLoader = VolleyTool.getInstance(mActivity).getmImageLoader();
+
+            if (model.getM_type().toString().equals("1")){
+                imageView_icon.setDefaultImageResId(R.mipmap.zhanpin_defualt_img);
+            } else if (model.getM_type().toString().equals("2")){
+                imageView_icon.setDefaultImageResId(R.mipmap.qiuzhi_defualt_img);
+
+            } else if (model.getM_type().toString().equals("3")){
+                imageView_icon.setDefaultImageResId(R.mipmap.fangcan_defualt_img);
+
+            } else if (model.getM_type().toString().equals("4")){
+                imageView_icon.setDefaultImageResId(R.mipmap.congwu_defualt_img);
+
+            } else {
+                imageView_icon.setDefaultImageResId(R.mipmap.qita_defualt_img);
+
+            }
+
+            imageView_icon.setImageUrl(model.getM_icon(), imageLoader);
 
         }
 
@@ -188,6 +227,13 @@ public class MainBaseAdapter extends BaseAdapter{
     }
 
     private class ViewBottomHolder{
+
+        TextView text_nomal;
+
+        public ViewBottomHolder(View v){
+            text_nomal = (TextView) v.findViewById(R.id.text_nomal);
+
+        }
 
 
 
