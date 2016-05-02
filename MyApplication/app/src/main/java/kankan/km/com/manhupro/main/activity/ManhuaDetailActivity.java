@@ -22,8 +22,10 @@ import kankan.km.com.manhupro.R;
 import kankan.km.com.manhupro.main.adapter.DetailImageAdapter;
 import kankan.km.com.manhupro.main.adapter.MainDetailAdapter;
 import kankan.km.com.manhupro.main.module.ManhuaDetailModel;
+import kankan.km.com.manhupro.main.module.ManhuaModel;
 import kankan.km.com.manhupro.main.service.ManhuaDetailService;
 import kankan.km.com.manhupro.property.Constant;
+import kankan.km.com.manhupro.tools.dbtools.DBManager;
 
 /**
  * Created by apple on 16/2/18.
@@ -50,6 +52,7 @@ public class ManhuaDetailActivity extends Activity implements View.OnClickListen
     private TextView textDetail;
 
     private DetailImageAdapter imageAdapter;
+    private DBManager dbManager;
 
 
     @Override
@@ -87,7 +90,7 @@ public class ManhuaDetailActivity extends Activity implements View.OnClickListen
     private void initObjects(){
 
 
-
+        dbManager = new DBManager(this);
         service = new ManhuaDetailService(this, new MyHandler());
         service.getManhuaById(manhuaId);
 
@@ -104,6 +107,25 @@ public class ManhuaDetailActivity extends Activity implements View.OnClickListen
 
             case R.id.btn_fav:
                 Log.d(TAG, "点击收藏");
+
+
+                if (!dbManager.isFav(manhuaId)){
+
+                    ManhuaModel model = new ManhuaModel();
+                    model.setM_uid(manhuaId);
+                    model.setM_icon(m_icon);
+                    model.setM_title(manhuaTitle);
+                    model.setM_type(m_type);
+                    model.setM_createTime(m_createTime);
+                    model.setM_fromdata(m_fromdata);
+                    model.setU_phoneno(u_phoneno);
+
+                    dbManager.addFav(model);
+
+                } else {
+
+                    dbManager.deleteById(manhuaId);
+                }
 
                 break;
 
@@ -170,6 +192,12 @@ public class ManhuaDetailActivity extends Activity implements View.OnClickListen
         text_username.setText(m_fromdata);
         text_createTime.setText(m_createTime);
         textDetail.setText(service.model.getMcontent());
+
+        if (dbManager.isFav(manhuaId)){
+            Log.d(TAG, "已收藏");
+        } else {
+            Log.d(TAG, "未收藏");
+        }
 
     }
 
