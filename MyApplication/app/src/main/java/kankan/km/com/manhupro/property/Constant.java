@@ -14,6 +14,7 @@ public class Constant {
         public static final String MANHUA_TYPE = "MANHUA_TYPE";
         public static final String USER_NAME = "USER_NAME";
         public static final String MANHUA_ICON = "MANHUA_ICON";
+        public static final String IMG_LIST = "IMG_LIST";
 
     }
 

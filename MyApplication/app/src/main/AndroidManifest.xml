@@ -59,6 +59,10 @@
             android:name=".main.activity.ManhuaDetailActivity"
             android:theme="@android:style/Theme.Light.NoTitleBar"
             />
+        <activity
+            android:name=".main.activity.ImageStatusActivity"
+            android:theme="@android:style/Theme.Light.NoTitleBar"
+            />
 
 
     </application>

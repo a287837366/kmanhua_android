@@ -4,12 +4,14 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
+import android.widget.AdapterView;
 import android.widget.GridView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -30,7 +32,7 @@ import kankan.km.com.manhupro.tools.dbtools.DBManager;
 /**
  * Created by apple on 16/2/18.
  */
-public class ManhuaDetailActivity extends Activity implements View.OnClickListener{
+public class ManhuaDetailActivity extends Activity implements View.OnClickListener, AdapterView.OnItemClickListener{
 
     private static final String TAG = ManhuaDetailActivity.class.getSimpleName();
 
@@ -53,6 +55,7 @@ public class ManhuaDetailActivity extends Activity implements View.OnClickListen
 
     private DetailImageAdapter imageAdapter;
     private DBManager dbManager;
+    private ArrayList<String> imageLists;
 
 
     @Override
@@ -146,7 +149,6 @@ public class ManhuaDetailActivity extends Activity implements View.OnClickListen
     private void showChooseView(){
 
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-//        u_phoneno = "1;2;3";
         final String phose[] = u_phoneno.split(";");
         builder.setTitle("选择电话号码");
 
@@ -166,17 +168,25 @@ public class ManhuaDetailActivity extends Activity implements View.OnClickListen
 
     private void setView(){
 
-        ArrayList<String> imageLists = new ArrayList<String>();
+        imageLists = new ArrayList<String>();
 
-        String[] imgsString = service.model.getImagelist().split(",");
+        if (service.model.getImagelist().length() > 0){
 
-        for (String s_imge : imgsString){
-            imageLists.add(s_imge);
+            String[] imgsString = service.model.getImagelist().split(",");
 
+            System.out.println(">>>>>>>>>>>>>>>>" + imgsString.length);
+
+            for (String s_imge : imgsString){
+                imageLists.add(s_imge);
+
+            }
         }
+
+
 
         imageAdapter = new DetailImageAdapter(this, imageLists);
         image_grid.setAdapter(imageAdapter);
+        image_grid.setOnItemClickListener(this);
 
         LinearLayout.LayoutParams linearParams =(LinearLayout.LayoutParams) image_grid.getLayoutParams();
 
@@ -199,6 +209,20 @@ public class ManhuaDetailActivity extends Activity implements View.OnClickListen
             Log.d(TAG, "未收藏");
         }
 
+    }
+
+    private void gotoDetailPage(int item){
+        Intent intent = new Intent();
+        intent.setClass(this, ImageStatusActivity.class);
+        intent.putExtra("position", item);
+        intent.putStringArrayListExtra(Constant.INTENT_TAG.IMG_LIST, imageLists);
+        startActivity(intent);
+
+    }
+
+    @Override
+    public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+        gotoDetailPage(i);
     }
 
     class MyHandler extends Handler {
