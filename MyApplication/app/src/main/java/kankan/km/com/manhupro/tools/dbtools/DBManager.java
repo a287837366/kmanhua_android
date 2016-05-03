@@ -48,6 +48,16 @@ public class DBManager {
 
     }
 
+    public void deleteAllManahua(){
+        db = helper.getWritableDatabase();
+
+        String sql = "DELETE FROM T_MANHUA";
+        db.execSQL(sql);
+
+        db.close();
+
+    }
+
     public int getManhuaSize(){
         db = helper.getReadableDatabase();
 
@@ -102,12 +112,14 @@ public class DBManager {
         while (c.moveToNext()){
 
             ManhuaModel model = new ManhuaModel();
-//
-//            model.setM_uid(c.getString(0));
-//            model.setM_name(c.getString(1));
-//            model.setM_icon(c.getString(2));
-//
-//            Log.d(">>>>>>>>", model.getM_uid() + "     " + model.getM_name() + "    " + model.getM_icon() );
+
+            model.setM_uid(c.getString(0));
+            model.setM_title(c.getString(1));
+            model.setM_icon(c.getString(2));
+            model.setM_createTime(c.getString(3));
+            model.setM_fromdata(c.getString(4));
+            model.setU_phoneno(c.getString(5));
+            model.setM_type(c.getString(6));
 
             manhuaLists.add(model);
 

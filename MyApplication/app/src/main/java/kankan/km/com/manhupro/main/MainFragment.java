@@ -22,6 +22,8 @@ import android.widget.RelativeLayout;
 
 import java.util.ArrayList;
 
+import kankan.km.com.manhupro.BaseAcvitiy;
+import kankan.km.com.manhupro.MainActivity;
 import kankan.km.com.manhupro.R;
 import kankan.km.com.manhupro.login.activity.UserLoginActivity;
 import kankan.km.com.manhupro.login.activity.module.UserModel;
@@ -40,7 +42,7 @@ public class MainFragment extends Fragment implements AdapterView.OnItemClickLis
 
     private String TAG = MainFragment.class.getSimpleName();
 
-    private Activity activity;
+    private MainActivity activity;
     private ListView listView_Main;
     private Button btn_me;
 
@@ -52,7 +54,9 @@ public class MainFragment extends Fragment implements AdapterView.OnItemClickLis
     public void onAttach(Activity activity) {
         super.onAttach(activity);
 
-        this.activity = activity;
+        this.activity = (MainActivity) activity;
+
+
 
     }
 
@@ -79,6 +83,14 @@ public class MainFragment extends Fragment implements AdapterView.OnItemClickLis
         btn_me.setOnClickListener(this);
         listView_Main.setOnItemClickListener(this);
         view.findViewById(R.id.btn_menu).setOnClickListener(this);
+
+
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+//        activity.showLoad();
     }
 
     @Override
