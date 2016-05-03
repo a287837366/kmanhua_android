@@ -4,33 +4,42 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
+import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.GridView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.ScrollView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
+import kankan.km.com.manhupro.BaseAcvitiy;
 import kankan.km.com.manhupro.R;
+import kankan.km.com.manhupro.login.activity.UserLoginActivity;
+import kankan.km.com.manhupro.login.activity.module.UserModel;
 import kankan.km.com.manhupro.main.adapter.DetailImageAdapter;
 import kankan.km.com.manhupro.main.adapter.MainDetailAdapter;
 import kankan.km.com.manhupro.main.module.ManhuaDetailModel;
 import kankan.km.com.manhupro.main.module.ManhuaModel;
 import kankan.km.com.manhupro.main.service.ManhuaDetailService;
 import kankan.km.com.manhupro.property.Constant;
+import kankan.km.com.manhupro.property.SharedPreUtils;
 import kankan.km.com.manhupro.tools.dbtools.DBManager;
 
 /**
  * Created by apple on 16/2/18.
  */
-public class ManhuaDetailActivity extends Activity implements View.OnClickListener{
+public class ManhuaDetailActivity extends BaseAcvitiy implements View.OnClickListener, AdapterView.OnItemClickListener{
 
     private static final String TAG = ManhuaDetailActivity.class.getSimpleName();
 
@@ -50,15 +59,21 @@ public class ManhuaDetailActivity extends Activity implements View.OnClickListen
     private TextView text_username;
     private TextView text_createTime;
     private TextView textDetail;
+    private TextView btn_fav;
 
     private DetailImageAdapter imageAdapter;
     private DBManager dbManager;
+    private ArrayList<String> imageLists;
+
+    private Context context;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_manhuadetail);
+
+        context = this;
 
         manhuaId = getIntent().getStringExtra(Constant.INTENT_TAG.MANHUA_ID);
         manhuaTitle = getIntent().getStringExtra(Constant.INTENT_TAG.MANHUA_TITLE);
@@ -76,7 +91,8 @@ public class ManhuaDetailActivity extends Activity implements View.OnClickListen
     private void initViews(){
 
         findViewById(R.id.btn_back).setOnClickListener(this);
-        findViewById(R.id.btn_fav).setOnClickListener(this);
+        btn_fav = (Button)findViewById(R.id.btn_fav);
+        btn_fav.setOnClickListener(this);
         findViewById(R.id.btn_call).setOnClickListener(this);
 
         image_grid = (GridView) findViewById(R.id.image_grid);
@@ -89,6 +105,7 @@ public class ManhuaDetailActivity extends Activity implements View.OnClickListen
 
     private void initObjects(){
 
+        this.showLoad();
 
         dbManager = new DBManager(this);
         service = new ManhuaDetailService(this, new MyHandler());
@@ -108,24 +125,43 @@ public class ManhuaDetailActivity extends Activity implements View.OnClickListen
             case R.id.btn_fav:
                 Log.d(TAG, "点击收藏");
 
+                if (isLogined()){
 
-                if (!dbManager.isFav(manhuaId)){
+                    if (!dbManager.isFav(manhuaId)){
 
-                    ManhuaModel model = new ManhuaModel();
-                    model.setM_uid(manhuaId);
-                    model.setM_icon(m_icon);
-                    model.setM_title(manhuaTitle);
-                    model.setM_type(m_type);
-                    model.setM_createTime(m_createTime);
-                    model.setM_fromdata(m_fromdata);
-                    model.setU_phoneno(u_phoneno);
+                        if (dbManager.getManhuaSize() == 20){
+                            Toast.makeText(context, "收藏不能超过20条", Toast.LENGTH_SHORT).show();
+                            return;
+                        }
 
-                    dbManager.addFav(model);
+                        ManhuaModel model = new ManhuaModel();
+                        model.setM_uid(manhuaId);
+                        model.setM_icon(m_icon);
+                        model.setM_title(manhuaTitle);
+                        model.setM_type(m_type);
+                        model.setM_createTime(m_createTime);
+                        model.setM_fromdata(m_fromdata);
+                        model.setU_phoneno(u_phoneno);
+
+                        dbManager.addFav(model);
+
+                        btn_fav.setText("已收藏");
+                        Toast.makeText(context, "收藏成功", Toast.LENGTH_SHORT).show();
+
+                    } else {
+
+                        dbManager.deleteById(manhuaId);
+                        btn_fav.setText("收藏");
+                        Toast.makeText(context, "取消收藏", Toast.LENGTH_SHORT).show();
+                    }
 
                 } else {
 
-                    dbManager.deleteById(manhuaId);
+                    showLoginAlert();
+
                 }
+
+
 
                 break;
 
@@ -142,11 +178,52 @@ public class ManhuaDetailActivity extends Activity implements View.OnClickListen
 
     }
 
+    private boolean isLogined(){
+
+        UserModel model =(UserModel) SharedPreUtils.getObject(this, "AM_KEY_USER");
+
+        if (model == null){
+
+            return false;
+
+        } else {
+
+            return true;
+
+        }
+
+    }
+
+    private void showLoginAlert(){
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("提示");
+        builder.setMessage("收藏需要登入");
+
+        builder.setPositiveButton("登入", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                Intent intent = new Intent();
+                intent.setClass(context, UserLoginActivity.class);
+                context.startActivity(intent);
+            }
+        });
+
+        builder.setNegativeButton("取消", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+
+            }
+        });
+
+        builder.show();
+
+
+    }
 
     private void showChooseView(){
 
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-//        u_phoneno = "1;2;3";
         final String phose[] = u_phoneno.split(";");
         builder.setTitle("选择电话号码");
 
@@ -154,7 +231,9 @@ public class ManhuaDetailActivity extends Activity implements View.OnClickListen
             @Override
             public void onClick(DialogInterface dialog, int which) {
 
-//                Log.d(TAG, phose[which]);
+                Intent intent = new Intent(Intent.ACTION_DIAL,Uri.parse("tel:" + phose[which]));
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(intent);
 
             }
         });
@@ -166,17 +245,23 @@ public class ManhuaDetailActivity extends Activity implements View.OnClickListen
 
     private void setView(){
 
-        ArrayList<String> imageLists = new ArrayList<String>();
+        imageLists = new ArrayList<String>();
 
-        String[] imgsString = service.model.getImagelist().split(",");
+        if (service.model.getImagelist().length() > 0){
 
-        for (String s_imge : imgsString){
-            imageLists.add(s_imge);
+            String[] imgsString = service.model.getImagelist().split(",");
 
+            for (String s_imge : imgsString){
+                imageLists.add(s_imge);
+
+            }
         }
+
+
 
         imageAdapter = new DetailImageAdapter(this, imageLists);
         image_grid.setAdapter(imageAdapter);
+        image_grid.setOnItemClickListener(this);
 
         LinearLayout.LayoutParams linearParams =(LinearLayout.LayoutParams) image_grid.getLayoutParams();
 
@@ -194,11 +279,27 @@ public class ManhuaDetailActivity extends Activity implements View.OnClickListen
         textDetail.setText(service.model.getMcontent());
 
         if (dbManager.isFav(manhuaId)){
-            Log.d(TAG, "已收藏");
+            btn_fav.setText("已收藏");
         } else {
-            Log.d(TAG, "未收藏");
+            btn_fav.setText("收藏");
         }
 
+
+        this.dismissLoad();
+    }
+
+    private void gotoDetailPage(int item){
+        Intent intent = new Intent();
+        intent.setClass(this, ImageStatusActivity.class);
+        intent.putExtra("position", item);
+        intent.putStringArrayListExtra(Constant.INTENT_TAG.IMG_LIST, imageLists);
+        startActivity(intent);
+
+    }
+
+    @Override
+    public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+        gotoDetailPage(i);
     }
 
     class MyHandler extends Handler {

@@ -11,7 +11,7 @@ import kankan.km.com.manhupro.main.MainFragment;
 import kankan.km.com.manhupro.me.MeFragment;
 
 
-public class MainActivity extends FragmentActivity{
+public class MainActivity extends BaseAcvitiy{
 
     private static final String TAB_MAIN = "Main_TAB";
 

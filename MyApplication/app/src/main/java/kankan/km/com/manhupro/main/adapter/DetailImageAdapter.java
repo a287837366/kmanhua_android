@@ -42,6 +42,7 @@ public class DetailImageAdapter extends BaseAdapter{
 
     @Override
     public int getCount() {
+
         return imageLists.size();
     }
 
