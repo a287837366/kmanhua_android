@@ -16,6 +16,7 @@
 
         >
         <activity
+            android:screenOrientation="portrait"
             android:name=".MainActivity"
             android:theme="@android:style/Theme.Light.NoTitleBar"
             android:label="@string/app_name">
@@ -27,45 +28,54 @@
         </activity>
 
         <activity
+            android:screenOrientation="portrait"
             android:name=".me.activity.MeFeedBackActivity"
             android:theme="@android:style/Theme.Light.NoTitleBar"
             />
 
 
         <activity
+            android:screenOrientation="portrait"
             android:name=".me.MeActivity"
             android:theme="@android:style/Theme.Light.NoTitleBar"
             />
         <activity
+            android:screenOrientation="portrait"
             android:name=".me.activity.MeUpdateNikeName"
             android:theme="@android:style/Theme.Light.NoTitleBar"
             />
 
         <activity
+            android:screenOrientation="portrait"
             android:name=".login.activity.UserLoginActivity"
             android:theme="@android:style/Theme.Light.NoTitleBar"
             />
 
         <activity
+            android:screenOrientation="portrait"
             android:name=".login.activity.UserRegisterActivity"
             android:theme="@android:style/Theme.Light.NoTitleBar"
             />
 
         <activity
+            android:screenOrientation="portrait"
             android:name=".me.activity.MeNoResoinsebilityActivity"
             android:theme="@android:style/Theme.Light.NoTitleBar"
             />
 
         <activity
+            android:screenOrientation="portrait"
             android:name=".main.activity.ManhuaDetailActivity"
             android:theme="@android:style/Theme.Light.NoTitleBar"
             />
         <activity
+            android:screenOrientation="portrait"
             android:name=".main.activity.ImageStatusActivity"
             android:theme="@android:style/Theme.Light.NoTitleBar"
             />
 
         <activity
+            android:screenOrientation="portrait"
             android:name=".me.activity.MeHistoryActitiy"
             android:theme="@android:style/Theme.Light.NoTitleBar"
             />
