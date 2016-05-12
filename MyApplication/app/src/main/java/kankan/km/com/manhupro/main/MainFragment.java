@@ -27,6 +27,7 @@ import kankan.km.com.manhupro.MainActivity;
 import kankan.km.com.manhupro.R;
 import kankan.km.com.manhupro.login.activity.UserLoginActivity;
 import kankan.km.com.manhupro.login.activity.module.UserModel;
+import kankan.km.com.manhupro.main.activity.CreateManhuaAcvitiy;
 import kankan.km.com.manhupro.main.activity.ManhuaDetailActivity;
 import kankan.km.com.manhupro.main.adapter.MainBaseAdapter;
 import kankan.km.com.manhupro.main.module.ManhuaModel;
@@ -83,6 +84,7 @@ public class MainFragment extends Fragment implements AdapterView.OnItemClickLis
         btn_me.setOnClickListener(this);
         listView_Main.setOnItemClickListener(this);
         view.findViewById(R.id.btn_menu).setOnClickListener(this);
+        view.findViewById(R.id.btn_create).setOnClickListener(this);
 
 
     }
@@ -173,6 +175,10 @@ public class MainFragment extends Fragment implements AdapterView.OnItemClickLis
 
                 break;
 
+            case R.id.btn_create:
+                this.gotoCreatePage();
+                break;
+
         }
     }
 
@@ -195,6 +201,12 @@ public class MainFragment extends Fragment implements AdapterView.OnItemClickLis
         intent.setClass(this.getActivity(), UserLoginActivity.class);
         this.getActivity().startActivity(intent);
 
+    }
+
+    private void gotoCreatePage(){
+        Intent intent = new Intent();
+        intent.setClass(this.getActivity(), CreateManhuaAcvitiy.class);
+        this.getActivity().startActivity(intent);
     }
 
     private void gotoMeActivity(){
@@ -282,6 +294,8 @@ public class MainFragment extends Fragment implements AdapterView.OnItemClickLis
                     hidePopView(4);
                     Log.d(TAG, "宠物信息");
                     break;
+
+
 
 
                 default:
