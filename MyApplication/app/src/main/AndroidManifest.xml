@@ -94,6 +94,13 @@
             android:theme="@android:style/Theme.Light.NoTitleBar"
             />
 
+        <activity
+            android:screenOrientation="portrait"
+            android:name=".tools.tools.AlbumTools.acvitity.ChoosePictureActivity"
+            android:theme="@android:style/Theme.Light.NoTitleBar"
+            />
+
+
 
     </application>
 
