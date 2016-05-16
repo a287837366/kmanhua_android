@@ -17,7 +17,8 @@ public class HttpClinet {
     private final String TAG = HttpClinet.class.getSimpleName();
 
     private static HttpClinet instance;
-    private static final String PROTOCAL = "http://1.85kankan.sinaapp.com/";
+//    private static final String PROTOCAL = "http://1.85kankan.sinaapp.com/";
+    private static final String PROTOCAL = "http://192.168.1.104:8080/";
 
     public static final int GET = Request.Method.GET;
     public static final int POST = Request.Method.POST;

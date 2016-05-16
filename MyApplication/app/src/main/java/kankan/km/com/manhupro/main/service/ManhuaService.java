@@ -51,12 +51,12 @@ public class ManhuaService implements ResponseCallback{
 
         manhuaType = type;
 
-        mQueue.add(HttpClinet.getInstance().getRequset("/manhua/getManhuaList.php?page=" + pageCount +"&type=" + type, this, GET_MANHUA_TAG));
+        mQueue.add(HttpClinet.getInstance().getRequset("/kankanAdmin/GetManhuaListByType?page=" + pageCount +"&type=" + type, this, GET_MANHUA_TAG));
 
     }
 
     public void getManhuaListByCurrent(){
-        mQueue.add(HttpClinet.getInstance().getRequset("/manhua/getManhuaList.php?page=" + pageCount +"&type=" + manhuaType, this, GET_MANHUA_TAG));
+        mQueue.add(HttpClinet.getInstance().getRequset("/kankanAdmin/GetManhuaListByType?page=" + pageCount +"&type=" + manhuaType, this, GET_MANHUA_TAG));
     }
 
 
