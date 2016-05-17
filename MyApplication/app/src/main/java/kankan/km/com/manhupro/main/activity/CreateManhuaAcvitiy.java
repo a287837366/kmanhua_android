@@ -20,6 +20,7 @@ import java.util.ArrayList;
 import kankan.km.com.manhupro.BaseAcvitiy;
 import kankan.km.com.manhupro.R;
 import kankan.km.com.manhupro.main.adapter.CreateImageAdapter;
+import kankan.km.com.manhupro.main.service.CreateManhuaservice;
 import kankan.km.com.manhupro.tools.tools.AlbumTools.Bimp;
 import kankan.km.com.manhupro.tools.tools.AlbumTools.acvitity.ChoosePictureActivity;
 import kankan.km.com.manhupro.tools.tools.AlbumTools.bean.BitmapBean;
@@ -38,9 +39,8 @@ public class CreateManhuaAcvitiy extends BaseAcvitiy implements View.OnClickList
     private GridView image_grid;
 
     private CreateImageAdapter adapter;
-    private ArrayList<String> imageList;
-
-
+    private ArrayList<BitmapBean> imageList;
+    CreateManhuaservice service;
 
 
     @Override
@@ -56,17 +56,8 @@ public class CreateManhuaAcvitiy extends BaseAcvitiy implements View.OnClickList
     }
 
     private void initData(){
-        imageList = new ArrayList<String>();
-//        imageList.add("11111");
-//        imageList.add("22222");
-//        imageList.add("22222");
-//        imageList.add("22222");
-//        imageList.add("22222");
-//        imageList.add("22222");
-//        imageList.add("22222");
-//        imageList.add("22222");
-//        imageList.add("22222");
-
+        service = new CreateManhuaservice();
+        imageList = new ArrayList<BitmapBean>();
         adapter = new CreateImageAdapter(this, imageList);
 
     }
@@ -157,6 +148,7 @@ public class CreateManhuaAcvitiy extends BaseAcvitiy implements View.OnClickList
             case R.id.btn_create:
 
                 this.checkInput();
+                service.getManhuaById(imageList);
 
                 break;
 
@@ -193,9 +185,12 @@ public class CreateManhuaAcvitiy extends BaseAcvitiy implements View.OnClickList
     public final Handler handler = new Handler() {
         public void handleMessage(Message msg) {
 
-                Bimp.drr.clear();
-                ArrayList<BitmapBean> imgpath = (ArrayList<BitmapBean>) msg.obj;
-            Log.i("1111111" , "" + imgpath.size());
+            Bimp.drr.clear();
+            ArrayList<BitmapBean> imgpath = (ArrayList<BitmapBean>) msg.obj;
+            Log.d("<<<<<<", "" + imgpath.size());
+            imageList.addAll(imgpath);
+            adapter.notifyDataSetChanged();
+
         }
     };
 

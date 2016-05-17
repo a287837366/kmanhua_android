@@ -48,8 +48,6 @@ public class ChoosePictureActivity extends Activity implements AdapterView.OnIte
 
         dataList = helper.getImagesBucketList(false);
 
-        Log.i(">>>>>", "" + dataList.size());
-
     }
 
     private void initView(){

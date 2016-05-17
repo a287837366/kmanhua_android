@@ -1,5 +1,7 @@
 package kankan.km.com.manhupro.tools.httptools;
 
+
+import android.graphics.Bitmap;
 import android.util.Log;
 
 import com.android.volley.Request;
@@ -8,7 +10,15 @@ import com.android.volley.VolleyError;
 
 import org.json.JSONObject;
 
+import java.io.ByteArrayOutputStream;
+import java.io.DataOutputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.util.List;
 import java.util.Map;
+
+
+import kankan.km.com.manhupro.tools.tools.AlbumTools.bean.BitmapBean;
 
 /**
  * Created by apple on 16/2/18.
@@ -18,7 +28,7 @@ public class HttpClinet {
 
     private static HttpClinet instance;
 //    private static final String PROTOCAL = "http://1.85kankan.sinaapp.com/";
-    private static final String PROTOCAL = "http://192.168.1.104:8080/";
+    private static final String PROTOCAL = "http://10.0.1.112:8080/";
 
     public static final int GET = Request.Method.GET;
     public static final int POST = Request.Method.POST;
@@ -82,4 +92,62 @@ public class HttpClinet {
 
     }
 
+    public void updateImage(final String requestURL, final List<BitmapBean> bitmaps, final ResponseCallback callback, final int tag) {
+
+        Runnable downloadRun = new Runnable(){
+
+            @Override
+            public void run() {
+                Log.d("TAG" , "requestURL");
+                String prefix = "--", end = "\r\n";
+                String content_type = "multipart/form-data;"; // 内容类型
+                String CHARSET = "utf-8"; // 设置编码
+
+                try {
+                    long imageTag = System.currentTimeMillis();
+
+                    URL url = new URL(requestURL);
+                    HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+                    conn.setRequestProperty("Charset", CHARSET); // 设置编码
+                    conn.setRequestProperty("connection", "keep-alive");
+                    conn.setRequestProperty("Content-Type", content_type );
+                    conn.setRequestMethod("POST"); // 请求方式
+
+
+                    conn.setRequestProperty("imagetag", "" + imageTag);
+                    conn.setRequestProperty("imagecout", bitmaps.size() + "");
+                    conn.setRequestProperty("username", "test003");
+                    conn.setRequestProperty("deveice_id", "11111");
+
+                    DataOutputStream dos = new DataOutputStream(conn.getOutputStream());
+                    StringBuffer stringBuffer = new StringBuffer();
+
+                    for (int i = 0; i < bitmaps.size(); i++) {
+
+                        dos.writeBytes("Content-Disposition: form-data; name=\"" + imageTag + "_" + i + "\";filename=\"" + bitmaps.get(i).getFileName() + "\"" + end);
+                        dos.writeBytes("Content-Type: image/jpg" + end);
+
+                        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+                        bitmaps.get(i).getBitmap().compress(Bitmap.CompressFormat.PNG, 100, baos);
+                        dos.write(baos.toByteArray(), 0, baos.toByteArray().length);
+
+                    }
+
+                    dos.close();
+                    dos.flush();
+                    Log.d("TAG>>>>>>>", "requestURL");
+
+
+                } catch (Exception e){
+                    e.printStackTrace();
+                }
+
+
+            }
+        };
+
+        new Thread(downloadRun).start();
+
+
+    }
 }

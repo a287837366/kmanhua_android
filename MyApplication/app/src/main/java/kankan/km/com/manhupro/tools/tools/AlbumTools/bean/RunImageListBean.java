@@ -18,6 +18,7 @@ public class RunImageListBean {
     private int newmax=0;
     public Handler returnHandler;
     public List<BitmapBean> returnList;
+
     public final Handler handlers = new Handler() {
         public void handleMessage(Message msg) {
 
@@ -25,7 +26,7 @@ public class RunImageListBean {
 
             returnList.add(bitbean);
 
-            if(returnList.size()==Bimp.drr.size()){
+            if(returnList.size() == Bimp.drr.size()){
                 Message listmesage = new Message();
                 listmesage.obj=returnList;
                 returnHandler.sendMessage(listmesage);

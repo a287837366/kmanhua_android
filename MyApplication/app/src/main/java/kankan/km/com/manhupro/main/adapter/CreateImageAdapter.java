@@ -17,19 +17,20 @@ import java.util.ArrayList;
 
 import kankan.km.com.manhupro.R;
 import kankan.km.com.manhupro.tools.httptools.VolleyTool;
+import kankan.km.com.manhupro.tools.tools.AlbumTools.bean.BitmapBean;
 
 /**
  * Created by apple on 16/5/16.
  */
 public class CreateImageAdapter extends BaseAdapter{
 
-    private ArrayList<String> imageLists;
+    private ArrayList<BitmapBean> imageLists;
     private Activity mAcvitiy;
     private LayoutInflater inflater;
 
     private int icon_weight;
 
-    public CreateImageAdapter(Activity mAcvitiy, ArrayList<String> imageLists){
+    public CreateImageAdapter(Activity mAcvitiy, ArrayList<BitmapBean> imageLists){
         this.mAcvitiy = mAcvitiy;
         this.imageLists = imageLists;
 
@@ -94,17 +95,26 @@ public class CreateImageAdapter extends BaseAdapter{
         }
 
 
+
+
         if (imageLists.size() == 9){
+
             viewHolder.defualt_image.setVisibility(View.GONE);
             viewHolder.image_icon.setVisibility(View.VISIBLE);
+
+            viewHolder.image_icon.setImageBitmap(this.imageLists.get(position).getBitmap());
 
         } else {
 
             if (position == imageLists.size()){
+
                 viewHolder.defualt_image.setVisibility(View.VISIBLE);
                 viewHolder.image_icon.setVisibility(View.GONE);
 
             } else {
+
+                viewHolder.image_icon.setImageBitmap(this.imageLists.get(position).getBitmap());
+
                 viewHolder.defualt_image.setVisibility(View.GONE);
                 viewHolder.image_icon.setVisibility(View.VISIBLE);
 

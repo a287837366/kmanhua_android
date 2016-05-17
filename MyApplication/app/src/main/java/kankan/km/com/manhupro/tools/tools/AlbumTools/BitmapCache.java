@@ -47,22 +47,28 @@ public class BitmapCache{
             path = sourcePath;
             isThumbPath = false;
         } else {
-            // iv.setImageBitmap(null);
             return;
         }
 
         if (imageCache.containsKey(path)) {
+
             SoftReference<Bitmap> reference = imageCache.get(path);
+
             Bitmap bmp = reference.get();
+
             if (bmp != null) {
+
                 if (callback != null) {
+
                     callback.imageLoad(iv, bmp, sourcePath);
                 }
+
                 iv.setImageBitmap(bmp);
 
                 return;
             }
         }
+
         iv.setImageBitmap(null);
 
         new Thread() {
@@ -72,13 +78,20 @@ public class BitmapCache{
 
                 try {
                     if (isThumbPath) {
+
                         thumb = BitmapFactory.decodeFile(thumbPath);
+
                         if (thumb == null) {
+
                             thumb = revitionImageSize(sourcePath);
+
                         }
+
                     } else {
+
                         thumb = revitionImageSize(sourcePath);
                     }
+
                 } catch (Exception e) {
 
                 }

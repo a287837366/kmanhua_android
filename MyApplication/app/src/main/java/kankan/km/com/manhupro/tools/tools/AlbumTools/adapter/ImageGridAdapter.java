@@ -115,7 +115,8 @@ public class ImageGridAdapter extends BaseAdapter{
             item.isSelected=true;
         }
 
-        cache.displayBmp(holder.iv, item.thumbnailPath, item.imagePath,callback);
+        cache.displayBmp(holder.iv, item.thumbnailPath, item.imagePath, callback);
+
         holder.selected.setImageResource(R.mipmap.icon_data_select);
 //        holder.text.setBackgroundResource(R.drawable.imgchioce_bgd_relatly_line);
         if (item.isSelected) {
@@ -133,14 +134,20 @@ public class ImageGridAdapter extends BaseAdapter{
                 String path = dataList.get(position).imagePath;
 
                 if ((Bimp.drr.size() + selectTotal) < 9) {
+
                     item.isSelected = !item.isSelected;
+
                     if (item.isSelected) {
+
                         holder.selected.setVisibility(View.VISIBLE);
 
                         holder.text.setBackgroundColor(View.VISIBLE);
+
                         selectTotal++;
+
                         if (textcallback != null)
                             textcallback.onListen(Bimp.drr.size() + selectTotal);
+
                         map.put(path, path);
 
                     } else if (!item.isSelected) {

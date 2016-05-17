@@ -6,6 +6,7 @@ import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
@@ -85,22 +86,23 @@ public class ImageGridActivity extends Activity implements View.OnClickListener{
      * 初始化view视图
      */
     private void initView() {
-//
-//        findViewById(R.id.btn_back).setOnClickListener(this);
-//
-//        bt.setOnClickListener(new View.OnClickListener() {
-//            public void onClick(View v) {
-//                saves();
-//
-//                setResult(20);
-//                ImageGridActivity.this.finish();
-//            }
-//        });
+
+        findViewById(R.id.btn_back).setOnClickListener(this);
+        bt = (Button) findViewById(R.id.bt);
+        bt.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                saves();
+
+                setResult(20);
+                ImageGridActivity.this.finish();
+            }
+        });
 
         gridView = (GridView) findViewById(R.id.gridview);
         gridView.setSelector(new ColorDrawable(Color.TRANSPARENT));
-        adapter = new ImageGridAdapter(ImageGridActivity.this, dataList,mHandler);
+        adapter = new ImageGridAdapter(ImageGridActivity.this, dataList, mHandler);
         gridView.setAdapter(adapter);
+
         adapter.setTextCallback(new ImageGridAdapter.TextCallback() {
             public void onListen(int count) {
 //                bt.setText(getResources().getString(R.string.confirm) + "(" + count+getResources().getString(R.string.sheetpaper) + ")" );
