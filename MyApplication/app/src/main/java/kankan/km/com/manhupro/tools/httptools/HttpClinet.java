@@ -121,6 +121,9 @@ public class HttpClinet {
                     conn.setDoOutput(true);
                     conn.setDoInput(true);
 
+                    conn.setRequestProperty("username", "test003");
+                    conn.setRequestProperty("username", "test003");
+
 
 //                    DataOutputStream dos = new DataOutputStream(conn.getOutputStream());
 //
