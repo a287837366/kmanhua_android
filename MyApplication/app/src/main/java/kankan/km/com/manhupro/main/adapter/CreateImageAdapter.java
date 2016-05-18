@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
@@ -129,12 +130,12 @@ public class CreateImageAdapter extends BaseAdapter{
 
     private class ViewHolder{
 
-        public NetworkImageView image_icon;
+        public ImageView image_icon;
         public RelativeLayout defualt_image;
 
         public ViewHolder(View view){
 
-            image_icon = (NetworkImageView) view.findViewById(R.id.imageView_icon);
+            image_icon = (ImageView) view.findViewById(R.id.imageView_icon);
             defualt_image = (RelativeLayout) view.findViewById(R.id.defualt_image);
 
         }

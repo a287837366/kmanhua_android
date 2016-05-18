@@ -3,6 +3,7 @@ package kankan.km.com.manhupro.main.activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -12,9 +13,11 @@ import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.GridView;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
+import java.io.File;
 import java.util.ArrayList;
 
 import kankan.km.com.manhupro.BaseAcvitiy;
@@ -42,12 +45,14 @@ public class CreateManhuaAcvitiy extends BaseAcvitiy implements View.OnClickList
     private ArrayList<BitmapBean> imageList;
     CreateManhuaservice service;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_createmanhua);
+
+
+
 
 
         initData();
@@ -56,6 +61,12 @@ public class CreateManhuaAcvitiy extends BaseAcvitiy implements View.OnClickList
     }
 
     private void initData(){
+
+        //----测试
+
+
+
+
         service = new CreateManhuaservice();
         imageList = new ArrayList<BitmapBean>();
         adapter = new CreateImageAdapter(this, imageList);
@@ -177,18 +188,17 @@ public class CreateManhuaAcvitiy extends BaseAcvitiy implements View.OnClickList
             return;
         }
 
-
-
     }
 
 
     public final Handler handler = new Handler() {
+
         public void handleMessage(Message msg) {
 
             Bimp.drr.clear();
-            ArrayList<BitmapBean> imgpath = (ArrayList<BitmapBean>) msg.obj;
-            Log.d("<<<<<<", "" + imgpath.size());
-            imageList.addAll(imgpath);
+            ArrayList<BitmapBean> imgpathList = (ArrayList<BitmapBean>) msg.obj;
+
+            imageList.addAll(imgpathList);
             adapter.notifyDataSetChanged();
 
         }

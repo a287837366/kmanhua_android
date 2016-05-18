@@ -12,8 +12,11 @@ import org.json.JSONObject;
 
 import java.io.ByteArrayOutputStream;
 import java.io.DataOutputStream;
+import java.io.OutputStream;
+import java.io.PrintWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.net.URLEncoder;
 import java.util.List;
 import java.util.Map;
 
@@ -98,7 +101,9 @@ public class HttpClinet {
 
             @Override
             public void run() {
-                Log.d("TAG" , "requestURL");
+                Log.d("TAG", "" + System.currentTimeMillis());
+                String BOUNDARY = "aifudao7816510d1hq";
+
                 String prefix = "--", end = "\r\n";
                 String content_type = "multipart/form-data;"; // 内容类型
                 String CHARSET = "utf-8"; // 设置编码
@@ -109,33 +114,43 @@ public class HttpClinet {
                     URL url = new URL(requestURL);
                     HttpURLConnection conn = (HttpURLConnection) url.openConnection();
                     conn.setRequestProperty("Charset", CHARSET); // 设置编码
-                    conn.setRequestProperty("connection", "keep-alive");
-                    conn.setRequestProperty("Content-Type", content_type );
+                    conn.setRequestProperty("Content-Type", content_type + "boundary" + BOUNDARY);
                     conn.setRequestMethod("POST"); // 请求方式
 
+                    conn.setUseCaches(false);
+                    conn.setDoOutput(true);
+                    conn.setDoInput(true);
 
-                    conn.setRequestProperty("imagetag", "" + imageTag);
-                    conn.setRequestProperty("imagecout", bitmaps.size() + "");
-                    conn.setRequestProperty("username", "test003");
-                    conn.setRequestProperty("deveice_id", "11111");
 
-                    DataOutputStream dos = new DataOutputStream(conn.getOutputStream());
-                    StringBuffer stringBuffer = new StringBuffer();
+//                    DataOutputStream dos = new DataOutputStream(conn.getOutputStream());
+//
+//                    StringBuffer params = new StringBuffer();
+//                    params.append("username=test003");
+//
+//                    dos.writeBytes(URLEncoder.encode("username=test003" , "utf-8"));
 
-                    for (int i = 0; i < bitmaps.size(); i++) {
+//
+//
+//                    for (int i = 0; i < bitmaps.size(); i++) {
+//
+//                        dos.writeBytes("Content-Disposition: form-data; name=\"" + imageTag + "_" + i + "\";filename=\"" + bitmaps.get(i).getFileName() + "\"" + end);
+//                        dos.writeBytes("Content-Type: image/jpg" + end);
+//
+//                        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+//                        bitmaps.get(i).getBitmap().compress(Bitmap.CompressFormat.PNG, 100, baos);
+//                        dos.write(baos.toByteArray(), 0, baos.toByteArray().length);
+//
+//                        dos.writeBytes(end);
+//                        dos.writeBytes(prefix + boundary + prefix + end);
+//
+//                    }
+//
+//                    dos.close();
+//                    dos.flush();
 
-                        dos.writeBytes("Content-Disposition: form-data; name=\"" + imageTag + "_" + i + "\";filename=\"" + bitmaps.get(i).getFileName() + "\"" + end);
-                        dos.writeBytes("Content-Type: image/jpg" + end);
 
-                        ByteArrayOutputStream baos = new ByteArrayOutputStream();
-                        bitmaps.get(i).getBitmap().compress(Bitmap.CompressFormat.PNG, 100, baos);
-                        dos.write(baos.toByteArray(), 0, baos.toByteArray().length);
 
-                    }
-
-                    dos.close();
-                    dos.flush();
-                    Log.d("TAG>>>>>>>", "requestURL");
+                    int response = conn.getResponseCode();
 
 
                 } catch (Exception e){
