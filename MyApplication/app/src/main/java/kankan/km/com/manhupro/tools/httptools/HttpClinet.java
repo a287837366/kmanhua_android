@@ -32,7 +32,7 @@ public class HttpClinet {
 
     private static HttpClinet instance;
 //    private static final String PROTOCAL = "http://1.85kankan.sinaapp.com/";
-    private static final String PROTOCAL = "http://10.0.1.112:8080/";
+    private static final String PROTOCAL = "http://192.168.1.104:8080/";
 
     public static final int GET = Request.Method.GET;
     public static final int POST = Request.Method.POST;
@@ -96,9 +96,20 @@ public class HttpClinet {
 
     }
 
-    private String setPostParam(String key, String value) {
+    private String setPostParam(String key, String value, String boundary) {
 
-        return "Content-Disposition: form-data; name=\"" + key +"\"" + "\r\n\n" + value + "";
+        StringBuffer sb = new StringBuffer();
+        //在boundary关需添加两个横线
+        sb = sb.append("--").append(boundary);
+        sb.append("\r\n");
+        sb.append("Content-Disposition: form-data; name=\"" + key + "\"");
+        //提交的数据前要有两个回车换行
+        sb.append("\r\n\r\n");
+        sb.append(value);
+        sb.append("\r\n");
+
+
+        return sb.toString();
     }
 
     public void updateImage(final String requestURL, final List<BitmapBean> bitmaps, final ResponseCallback callback, final int tag) {
@@ -124,9 +135,27 @@ public class HttpClinet {
                     conn.setUseCaches(false); // 不允许使用缓存
                     conn.setRequestMethod("POST"); // 请求方式
                     conn.setRequestProperty("Charset", CHARSET); // 设置编码
-//                    conn.setRequestProperty("connection", "keep-alive");
+                    conn.setRequestProperty("connection", "keep-alive");
                     conn.setRequestProperty("Content-Type", content_type + ";boundary=" + boundary);
-//
+
+                    //在boundary关需添加两个横线
+//                    sb = sb.append("--").append(boundary);
+//                    sb.append("\r\n");
+//                    sb.append("Content-Disposition: form-data; name=\"username\"");
+//                    //提交的数据前要有两个回车换行
+//                    sb.append("\r\n\r\n");
+//                    sb.append("11111");
+//                    sb.append("\r\n");
+//                    //第二个提交的参数
+//                    sb.append("--").append(boundary);
+//                    sb.append("\r\n");
+//                    sb.append("Content-Disposition: form-data; name=\"submit\"");
+//                    sb.append("\r\n\r\n");
+//                    sb.append("Convert");
+//                    sb.append("\r\n");
+                    //body结束时 boundary前后各需添加两上横线，最添加添回车换行
+
+
 //                    conn.setRequestProperty("username", "test003");
 //                    conn.setRequestProperty("imagecout", bitmaps.size() + "");
 //                    conn.setRequestProperty("imagetag", imageTag + "");
@@ -134,53 +163,34 @@ public class HttpClinet {
 
                     DataOutputStream dos = new DataOutputStream(conn.getOutputStream());
 
-                    StringBuffer stringBuffer = new StringBuffer();
-//                    stringBuffer.append(prefix);
-//                    stringBuffer.append(boundary);
-//                    stringBuffer.append(end);
-//                    dos.write(stringBuffer.toString().getBytes());
-////
-                    dos.writeBytes(prefix + boundary + end);
+                    dos.writeBytes(setPostParam("username", "test003", boundary));
+                    dos.writeBytes(setPostParam("imagecout", "" + 0 , boundary));
+                    dos.writeBytes(setPostParam("imagetag", "" + imageTag, boundary));
+                    dos.writeBytes(setPostParam("deveice_id", "11111111", boundary));
 
-                    dos.writeBytes("Content-Disposition: form-data; name=\"deveice_id\"" + end);
-                    dos.writeBytes("4E6BB995-BE23-49AD-8DF1-6337EAA06ACC" + end);
-                    dos.writeBytes(end);
+                    for (int i = 0; i < bitmaps.size(); i++) {
 
-                    dos.writeBytes(prefix + boundary + prefix + end);
-
-                    dos.close();
-//                    dos.flush();
-
-
-//                    dos.writeBytes(setPostParam("deveice_id", "4E6BB995-BE23-49AD-8DF1-6337EAA06ACC"));
-//                    dos.writeBytes("\n" + prefix + boundary + "\n");
-//                    dos.writeBytes(setPostParam("username", "test003"));
-//                    dos.writeBytes("\n" + prefix + boundary + "\n");
-//                    dos.writeBytes(setPostParam("imagetag", imageTag + ""));
-//                    dos.writeBytes("\n" + prefix + boundary + "\n");
-//                    dos.writeBytes(setPostParam("imagecout", bitmaps.size() + ""));
-
-
-
-//                    for (int i = 0; i < bitmaps.size(); i++) {
-//
-//                        dos.writeBytes(end + prefix + boundary + end);
+//                        dos.writeBytes(prefix + boundary + end);
 //
 //                        dos.writeBytes("Content-Disposition: form-data; name=\"" + imageTag + "_" + i + "\";filename=\"" + bitmaps.get(i).getFileName() + "\"" + end);
 //                        dos.writeBytes("Content-Type: image/jpg" + end);
 //                        dos.writeBytes(end);
 //                        ByteArrayOutputStream baos = new ByteArrayOutputStream();
 //                        bitmaps.get(i).getBitmap().compress(Bitmap.CompressFormat.PNG, 100, baos);
-////                        dos.write(baos.toByteArray(), 0, baos.toByteArray().length);
+//                        dos.write(baos.toByteArray(), 0, baos.toByteArray().length);
 //                        dos.writeBytes(baos.toString("utf-8"));
-//
-//                        System.out.println(">>>>>>> " + baos.toByteArray().length + "     "  + "   " + bitmaps.get(i).getFileName());
-//
-//                        dos.writeBytes(end + prefix + boundary + prefix + end);
-//
-//                    }
+
+                        dos.writeBytes(setPostParam("username" + i , "test003", boundary));
 
 
+                    }
+
+
+                    dos.writeBytes(prefix + boundary + prefix + end);
+
+
+                    dos.close();
+                    dos.flush();
 
 
 

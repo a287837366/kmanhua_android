@@ -13,7 +13,7 @@ public class CreateManhuaservice {
 
 
     public void getManhuaById(ArrayList<BitmapBean> bips){
-       HttpClinet.getInstance().updateImage("http://10.0.1.112:8080/kankanAdmin/UploadImage", bips, null, 100);
+       HttpClinet.getInstance().updateImage("http://192.168.1.104:8080/kankanAdmin/UploadImage", bips, null, 100);
     }
 
 
