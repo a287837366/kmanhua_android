@@ -309,7 +309,17 @@ public class ManhuaDetailActivity extends BaseAcvitiy implements View.OnClickLis
 
             super.handleMessage(msg);
 
-            setView();
+            if (msg.what == 0){
+
+                setView();
+            } else {
+
+                Toast.makeText(context, "该消息已被删除", Toast.LENGTH_SHORT).show();
+                dismissLoad();
+                finish();
+            }
+
+
         }
 
     }

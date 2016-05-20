@@ -207,6 +207,11 @@ public class CreateManhuaAcvitiy extends BaseAcvitiy implements View.OnClickList
 
                 case Constant.NETWORK_TAG.UPDATE_MANHUA:
                     dismissLoad();
+
+                    Toast.makeText(context, "创建成功", Toast.LENGTH_SHORT).show();
+
+                    finish();
+
                     break;
 
                 case CreateManhuaservice.UPDATE_IMAGE_TAG:

@@ -19,6 +19,7 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -176,7 +177,20 @@ public class MainFragment extends Fragment implements AdapterView.OnItemClickLis
                 break;
 
             case R.id.btn_create:
-                this.gotoCreatePage();
+
+                UserModel model1 =(UserModel) SharedPreUtils.getObject(this.getActivity(), "AM_KEY_USER");
+
+                if (model1 == null){
+
+                    Toast.makeText(this.getActivity(), "创建消息需要登入", Toast.LENGTH_SHORT).show();
+
+                } else {
+
+                    this.gotoCreatePage();
+
+                }
+
+
                 break;
 
         }

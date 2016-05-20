@@ -3,6 +3,7 @@ package kankan.km.com.manhupro.main.service;
 import android.app.Activity;
 import android.mtp.MtpObjectInfo;
 import android.os.Handler;
+import android.os.Message;
 import android.util.DisplayMetrics;
 import android.util.Log;
 
@@ -53,19 +54,31 @@ public class ManhuaDetailService implements ResponseCallback{
     @Override
     public void send(int method, int tag, String json) {
 
-        DisplayMetrics dm = new DisplayMetrics();
-        activity.getWindowManager().getDefaultDisplay().getMetrics(dm);
-
-        int screenWidth = dm.widthPixels;
+        Log.e(">>>>>", json);
 
         ManhuaDeailResponse response = (ManhuaDeailResponse) StringUtils.jsonToBean(ManhuaDeailResponse.class, json);
 
-        if (response.getData().size() > 0){
+        Message msg = new Message();
 
-            model = response.getData().get(0);
+        if (response.getData() != null){
+
+            msg.what = 999;
+
+            if (response.getData().size() > 0){
+
+                msg.what = 0;
+                model = response.getData().get(0);
+            }
+
+            mHandler.sendMessage(msg);
+
+        } else {
+
+            msg.what = 999;
+            mHandler.sendMessage(msg);
         }
 
-        mHandler.sendEmptyMessage(1);
+
     }
 
     @Override

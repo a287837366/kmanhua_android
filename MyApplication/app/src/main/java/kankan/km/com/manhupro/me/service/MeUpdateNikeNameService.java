@@ -38,7 +38,7 @@ public class MeUpdateNikeNameService implements ResponseCallback {
         params.put("userpw", userpw);
         params.put("usernikename", nikeName);
 
-        mQueue.add(HttpClinet.getInstance().postRequset("/user/postupdateUser.php", params, this, Constant.NETWORK_TAG.UPDATE_NIKENAME));
+        mQueue.add(HttpClinet.getInstance().postRequset("/kankanAdmin/UpdateNikeNameByUser", params, this, Constant.NETWORK_TAG.UPDATE_NIKENAME));
 
     }
 

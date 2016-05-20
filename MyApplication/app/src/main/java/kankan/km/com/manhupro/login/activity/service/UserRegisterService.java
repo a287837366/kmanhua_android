@@ -44,7 +44,7 @@ public class UserRegisterService implements ResponseCallback {
         params.put("userpw", StringUtils.stringToMD5(userPW));
         params.put("usernikename", nikeName);
 
-        mQueue.add(HttpClinet.getInstance().postRequset("/user/postUserInfo.php", params, this, Constant.NETWORK_TAG.REGISTER_USER));
+        mQueue.add(HttpClinet.getInstance().postRequset("/kankanAdmin/ResisterUser", params, this, Constant.NETWORK_TAG.REGISTER_USER));
     }
 
     @Override

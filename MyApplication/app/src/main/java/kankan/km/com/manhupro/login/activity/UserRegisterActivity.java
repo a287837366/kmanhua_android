@@ -9,13 +9,14 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import kankan.km.com.manhupro.BaseAcvitiy;
 import kankan.km.com.manhupro.R;
 import kankan.km.com.manhupro.login.activity.service.UserRegisterService;
 
 /**
  * Created by apple on 16/4/16.
  */
-public class UserRegisterActivity extends Activity implements View.OnClickListener{
+public class UserRegisterActivity extends BaseAcvitiy implements View.OnClickListener{
 
     private EditText edit_userName;
     private EditText edit_NikeName;
@@ -61,6 +62,9 @@ public class UserRegisterActivity extends Activity implements View.OnClickListen
             case R.id.btn_Register:
 
                 if (canRegister()){
+
+                    showLoad();
+
                     serivce.resUser(edit_userName.getText().toString(), edit_pw.getText().toString(), edit_NikeName.getText().toString());
                 }
 
@@ -133,6 +137,8 @@ public class UserRegisterActivity extends Activity implements View.OnClickListen
         public void handleMessage(Message msg) {
 
             super.handleMessage(msg);
+
+            dismissLoad();
 
             if (msg.what == 1){
                 Toast.makeText(context, "注册成功", Toast.LENGTH_SHORT).show();

@@ -11,6 +11,7 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import kankan.km.com.manhupro.BaseAcvitiy;
 import kankan.km.com.manhupro.R;
 import kankan.km.com.manhupro.login.activity.module.UserModel;
 import kankan.km.com.manhupro.login.activity.service.UserLoginService;
@@ -19,7 +20,7 @@ import kankan.km.com.manhupro.property.SharedPreUtils;
 /**
  * Created by apple on 16/4/15.
  */
-public class UserLoginActivity extends Activity implements View.OnClickListener{
+public class UserLoginActivity extends BaseAcvitiy implements View.OnClickListener{
 
     private static final String SHARE_KEY = "AM_KEY_USER";
 
@@ -78,6 +79,7 @@ public class UserLoginActivity extends Activity implements View.OnClickListener{
                 Log.d(TAG, "点击登入");
 
                 if (canConfrim()){
+                    dismissLoad();
                     service.getLoginUser(edit_UserName.getText().toString(), edit_PassWord.getText().toString());
                 }
 
