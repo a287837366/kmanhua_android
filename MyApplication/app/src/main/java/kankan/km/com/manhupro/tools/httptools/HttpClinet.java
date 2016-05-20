@@ -32,7 +32,7 @@ public class HttpClinet {
 
     private static HttpClinet instance;
 //    private static final String PROTOCAL = "http://1.85kankan.sinaapp.com/";
-    private static final String PROTOCAL = "http://192.168.1.104:8080/";
+    private static final String PROTOCAL = "http://10.0.1.112:8080/";
 
     public static final int GET = Request.Method.GET;
     public static final int POST = Request.Method.POST;
@@ -114,6 +114,8 @@ public class HttpClinet {
 
     public void updateImage(final String requestURL, final List<BitmapBean> bitmaps, final ResponseCallback callback, final int tag) {
 
+        Log.d("上传图片", "图片数量为" + bitmaps.size());
+
         Runnable downloadRun = new Runnable(){
 
             @Override
@@ -164,23 +166,30 @@ public class HttpClinet {
                     DataOutputStream dos = new DataOutputStream(conn.getOutputStream());
 
                     dos.writeBytes(setPostParam("username", "test003", boundary));
-                    dos.writeBytes(setPostParam("imagecout", "" + 0 , boundary));
+                    dos.writeBytes(setPostParam("imagecout", "" + bitmaps.size() , boundary));
                     dos.writeBytes(setPostParam("imagetag", "" + imageTag, boundary));
                     dos.writeBytes(setPostParam("deveice_id", "11111111", boundary));
 
                     for (int i = 0; i < bitmaps.size(); i++) {
 
-//                        dos.writeBytes(prefix + boundary + end);
-//
-//                        dos.writeBytes("Content-Disposition: form-data; name=\"" + imageTag + "_" + i + "\";filename=\"" + bitmaps.get(i).getFileName() + "\"" + end);
-//                        dos.writeBytes("Content-Type: image/jpg" + end);
-//                        dos.writeBytes(end);
-//                        ByteArrayOutputStream baos = new ByteArrayOutputStream();
-//                        bitmaps.get(i).getBitmap().compress(Bitmap.CompressFormat.PNG, 100, baos);
-//                        dos.write(baos.toByteArray(), 0, baos.toByteArray().length);
-//                        dos.writeBytes(baos.toString("utf-8"));
+                        dos.writeBytes(prefix + boundary);
+                        dos.writeBytes(end);
 
-                        dos.writeBytes(setPostParam("username" + i , "test003", boundary));
+                        dos.writeBytes("Content-Disposition: form-data; name=\"" + imageTag + "_" + i + "\";filename=\"" +imageTag + "_" + i + ".jpg\"" );
+                        dos.writeBytes(end);
+
+                        dos.writeBytes("Content-Type: image/jpg");
+                        dos.writeBytes(end);
+                        dos.writeBytes(end);
+
+                        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+                        bitmaps.get(i).getBitmap().compress(Bitmap.CompressFormat.PNG, 100, baos);
+                        dos.write(baos.toByteArray(), 0, baos.toByteArray().length);
+                        dos.writeBytes(baos.toString("utf-8"));
+
+
+                        dos.writeBytes(end);
+
 
 
                     }
