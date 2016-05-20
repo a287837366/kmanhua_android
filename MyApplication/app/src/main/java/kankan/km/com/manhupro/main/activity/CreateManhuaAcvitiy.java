@@ -19,11 +19,15 @@ import android.widget.Toast;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import kankan.km.com.manhupro.BaseAcvitiy;
 import kankan.km.com.manhupro.R;
+import kankan.km.com.manhupro.login.activity.module.UserModel;
 import kankan.km.com.manhupro.main.adapter.CreateImageAdapter;
 import kankan.km.com.manhupro.main.service.CreateManhuaservice;
+import kankan.km.com.manhupro.property.Constant;
+import kankan.km.com.manhupro.property.SharedPreUtils;
 import kankan.km.com.manhupro.tools.tools.AlbumTools.Bimp;
 import kankan.km.com.manhupro.tools.tools.AlbumTools.acvitity.ChoosePictureActivity;
 import kankan.km.com.manhupro.tools.tools.AlbumTools.bean.BitmapBean;
@@ -43,17 +47,15 @@ public class CreateManhuaAcvitiy extends BaseAcvitiy implements View.OnClickList
 
     private CreateImageAdapter adapter;
     private ArrayList<BitmapBean> imageList;
-    CreateManhuaservice service;
+    private CreateManhuaservice service;
+
+    private Context context;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_createmanhua);
-
-
-
-
 
         initData();
         initView();
@@ -62,12 +64,10 @@ public class CreateManhuaAcvitiy extends BaseAcvitiy implements View.OnClickList
 
     private void initData(){
 
+        context = this;
+
         //----测试
-
-
-
-
-        service = new CreateManhuaservice();
+        service = new CreateManhuaservice(this, new MyHandler());
         imageList = new ArrayList<BitmapBean>();
         adapter = new CreateImageAdapter(this, imageList);
 
@@ -158,8 +158,13 @@ public class CreateManhuaAcvitiy extends BaseAcvitiy implements View.OnClickList
 
             case R.id.btn_create:
 
+
+
                 this.checkInput();
-                service.getManhuaById(imageList);
+
+                this.showLoad();
+
+                service.updateImage(imageList);
 
                 break;
 
@@ -186,6 +191,77 @@ public class CreateManhuaAcvitiy extends BaseAcvitiy implements View.OnClickList
         if (imageList.size() == position){
             this.gotoChooseImageView();
             return;
+        }
+
+    }
+
+    class MyHandler extends Handler {
+
+        @Override
+        public void handleMessage(Message msg) {
+
+            super.handleMessage(msg);
+
+
+            switch (msg.getData().getInt(Constant.TAG_NEWORK)){
+
+                case Constant.NETWORK_TAG.UPDATE_MANHUA:
+                    dismissLoad();
+                    break;
+
+                case CreateManhuaservice.UPDATE_IMAGE_TAG:
+
+                    if (msg.what == 0) {
+
+
+
+                        Log.d(">>>>>", msg.getData().getString(CreateManhuaservice.IMAGE_HANDLER_TAG));
+
+
+                        /**
+                         * @param -m_fromdata   - nikeName
+                         * @param -m_type -类型
+                         * @param -u_phoneno -u_phoneno
+                         * @param -mcontent
+                         * @param -imageList -图片数组
+                         * @param -username
+                         * */
+                        UserModel model =(UserModel) SharedPreUtils.getObject(context, "AM_KEY_USER");
+
+                        HashMap<String, String> params = new HashMap<String, String>();
+                        params.put("m_fromdata", model.getNikename());
+                        params.put("m_type", "1");
+                        params.put("u_phoneno", edit_phone.getText().toString());
+                        params.put("mcontent", edit_conmand.getText().toString());
+                        params.put("imageList", msg.getData().getString(CreateManhuaservice.IMAGE_HANDLER_TAG));
+                        params.put("username", model.getNikename());
+                        params.put("manhuaName", edit_title.getText().toString());
+
+                        service.postManhuaDetail(params);
+
+
+                    } else {
+
+                        dismissLoad();
+
+                    }
+
+
+
+                    break;
+
+
+                default:
+
+                    break;
+
+
+            }
+
+
+
+
+
         }
 
     }

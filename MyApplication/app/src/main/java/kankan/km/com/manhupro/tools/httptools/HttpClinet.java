@@ -12,6 +12,7 @@ import org.json.JSONObject;
 
 import java.io.ByteArrayOutputStream;
 import java.io.DataOutputStream;
+import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.PrintWriter;
 import java.net.HttpURLConnection;
@@ -112,7 +113,7 @@ public class HttpClinet {
         return sb.toString();
     }
 
-    public void updateImage(final String requestURL, final List<BitmapBean> bitmaps, final ResponseCallback callback, final int tag) {
+    public void updateImage(final String requestURL, final List<BitmapBean> bitmaps, final ResponseCallback callback, final int tag, final String username, final String deivceId) {
 
         Log.d("上传图片", "图片数量为" + bitmaps.size());
 
@@ -140,35 +141,13 @@ public class HttpClinet {
                     conn.setRequestProperty("connection", "keep-alive");
                     conn.setRequestProperty("Content-Type", content_type + ";boundary=" + boundary);
 
-                    //在boundary关需添加两个横线
-//                    sb = sb.append("--").append(boundary);
-//                    sb.append("\r\n");
-//                    sb.append("Content-Disposition: form-data; name=\"username\"");
-//                    //提交的数据前要有两个回车换行
-//                    sb.append("\r\n\r\n");
-//                    sb.append("11111");
-//                    sb.append("\r\n");
-//                    //第二个提交的参数
-//                    sb.append("--").append(boundary);
-//                    sb.append("\r\n");
-//                    sb.append("Content-Disposition: form-data; name=\"submit\"");
-//                    sb.append("\r\n\r\n");
-//                    sb.append("Convert");
-//                    sb.append("\r\n");
-                    //body结束时 boundary前后各需添加两上横线，最添加添回车换行
-
-
-//                    conn.setRequestProperty("username", "test003");
-//                    conn.setRequestProperty("imagecout", bitmaps.size() + "");
-//                    conn.setRequestProperty("imagetag", imageTag + "");
-//                    conn.setRequestProperty("deveice_id", "11111111");
-
                     DataOutputStream dos = new DataOutputStream(conn.getOutputStream());
 
-                    dos.writeBytes(setPostParam("username", "test003", boundary));
+
+                    dos.writeBytes(setPostParam("username", username, boundary));
                     dos.writeBytes(setPostParam("imagecout", "" + bitmaps.size() , boundary));
                     dos.writeBytes(setPostParam("imagetag", "" + imageTag, boundary));
-                    dos.writeBytes(setPostParam("deveice_id", "11111111", boundary));
+                    dos.writeBytes(setPostParam("deveice_id", deivceId, boundary));
 
                     for (int i = 0; i < bitmaps.size(); i++) {
 
@@ -201,10 +180,36 @@ public class HttpClinet {
                     dos.close();
                     dos.flush();
 
-
-
-
                     int response = conn.getResponseCode();
+
+                    if (response == 200) {
+                        InputStream input = conn.getInputStream();
+
+                        StringBuffer str = new StringBuffer();
+
+                        int ss;
+
+                        while ((ss = input.read()) != -1) {
+                            str.append((char) ss);
+                        }
+
+                        String result = str.toString();
+                        JSONObject json = new JSONObject(result);
+
+                        if (json.getInt("error") == 0) {
+
+                            callback.send( tag, tag, json.toString());
+
+                        } else {
+
+                            callback.error(tag, json.getInt("error"));
+
+                        }
+                    } else {
+
+                        callback.error(tag, 999);
+
+                    }
 
 
                 } catch (Exception e){

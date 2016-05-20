@@ -44,7 +44,10 @@ public class ManhuaDetailService implements ResponseCallback{
     }
 
     public void getManhuaById(String manhuaId){
-        mQueue.add(HttpClinet.getInstance().getRequset("/manhua/getManhuaById.php?manhuaid=" + manhuaId, this, GET_MANHUADETAIL_TAG));
+
+
+
+        mQueue.add(HttpClinet.getInstance().getRequset("/kankanAdmin/GetManhuaById?manhuaid=" + manhuaId, this, GET_MANHUADETAIL_TAG));
     }
 
     @Override

@@ -5,6 +5,9 @@ package kankan.km.com.manhupro.property;
  */
 public class Constant {
 
+
+    public static final String TAG_NEWORK = "TAG_NEWORK";
+
     public static final class INTENT_TAG{
 
         public static final String MANHUA_ID = "MANHUA_ID";
@@ -23,6 +26,7 @@ public class Constant {
         public static final int GET_USER = 1;
         public static final int REGISTER_USER = 2;
         public static final int UPDATE_NIKENAME = 3;
+        public static final int UPDATE_MANHUA = 4;
 
     }
 }

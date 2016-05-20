@@ -50,7 +50,7 @@ public class UserLoginService implements ResponseCallback {
 
         Log.d(TAG, "MD5====> " + StringUtils.stringToMD5(userPW));
 
-        mQueue.add(HttpClinet.getInstance().postRequset("/user/getByUserId.php", params, this, Constant.NETWORK_TAG.GET_USER));
+        mQueue.add(HttpClinet.getInstance().postRequset("/kankanAdmin/PostgetUserByid", params, this, Constant.NETWORK_TAG.GET_USER));
 
 
     }
