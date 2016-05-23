@@ -59,7 +59,7 @@ public class ChooseTypeActivity extends BaseAcvitiy implements View.OnClickListe
     private void gotoCreatePage(){
         Intent intent = new Intent();
         intent.setClass(this, CreateManhuaAcvitiy.class);
-        intent.putExtra(Constant.INTENT_TAG.CREATE_TYPE, adpter.getSelectedPosion());
+        intent.putExtra(Constant.INTENT_TAG.CREATE_TYPE, adpter.getSelectedPosion() + 1);
         startActivityForResult(intent, 100);
     }
 

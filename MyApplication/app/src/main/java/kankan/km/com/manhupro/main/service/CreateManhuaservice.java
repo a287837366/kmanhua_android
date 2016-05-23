@@ -56,7 +56,7 @@ public class CreateManhuaservice implements ResponseCallback {
 
         UserModel model =(UserModel) SharedPreUtils.getObject(this.activity, "AM_KEY_USER");
 
-       HttpClinet.getInstance().updateImage("http://10.0.1.112:8080/kankanAdmin/UploadImage", bips, this, UPDATE_IMAGE_TAG, model.getUsername(), deviceId);
+       HttpClinet.getInstance().updateImage("http://192.168.1.104:8080/kankanAdmin/UploadImage", bips, this, UPDATE_IMAGE_TAG, model.getUsername(), deviceId);
     }
 
 

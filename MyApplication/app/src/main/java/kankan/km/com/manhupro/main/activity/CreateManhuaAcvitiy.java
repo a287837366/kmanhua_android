@@ -237,13 +237,22 @@ public class CreateManhuaAcvitiy extends BaseAcvitiy implements View.OnClickList
                          * */
                         UserModel model =(UserModel) SharedPreUtils.getObject(context, "AM_KEY_USER");
 
+
+                        Log.d("TAG ", "m_fromdata  => " + model.getNikename());
+                        Log.d("TAG ", "m_type  => " + createType);
+                        Log.d("TAG ", "u_phoneno  => " + edit_phone.getText().toString());
+                        Log.d("TAG ", "mcontent  => " + edit_conmand.getText().toString());
+                        Log.d("TAG ", "imageList  => " + msg.getData().getString(CreateManhuaservice.IMAGE_HANDLER_TAG));
+                        Log.d("TAG ", "username  => " + model.getUsername());
+                        Log.d("TAG ", "manhuaName  => " + edit_title.getText().toString());
+
                         HashMap<String, String> params = new HashMap<String, String>();
                         params.put("m_fromdata", model.getNikename());
                         params.put("m_type", "" + createType);
                         params.put("u_phoneno", edit_phone.getText().toString());
                         params.put("mcontent", edit_conmand.getText().toString());
                         params.put("imageList", msg.getData().getString(CreateManhuaservice.IMAGE_HANDLER_TAG));
-                        params.put("username", model.getNikename());
+                        params.put("username", model.getUsername());
                         params.put("manhuaName", edit_title.getText().toString());
 
                         service.postManhuaDetail(params);
