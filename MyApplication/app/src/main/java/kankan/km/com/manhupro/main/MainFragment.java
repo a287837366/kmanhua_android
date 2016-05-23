@@ -28,6 +28,7 @@ import kankan.km.com.manhupro.MainActivity;
 import kankan.km.com.manhupro.R;
 import kankan.km.com.manhupro.login.activity.UserLoginActivity;
 import kankan.km.com.manhupro.login.activity.module.UserModel;
+import kankan.km.com.manhupro.main.activity.ChooseTypeActivity;
 import kankan.km.com.manhupro.main.activity.CreateManhuaAcvitiy;
 import kankan.km.com.manhupro.main.activity.ManhuaDetailActivity;
 import kankan.km.com.manhupro.main.adapter.MainBaseAdapter;
@@ -78,6 +79,8 @@ public class MainFragment extends Fragment implements AdapterView.OnItemClickLis
         return view;
     }
 
+
+
     private void initViews(View view){
         listView_Main = (ListView) view.findViewById(R.id.listView_Main);
         btn_me = (Button)view.findViewById(R.id.btn_me);
@@ -109,7 +112,6 @@ public class MainFragment extends Fragment implements AdapterView.OnItemClickLis
         manhuaService = new ManhuaService(this.activity, new MyHandler());
 
         this.adapter = new MainBaseAdapter(this.activity, manhuaService.news);
-
         listView_Main.setAdapter(this.adapter);
 
         manhuaService.getManhuaListByType(0);
@@ -186,7 +188,7 @@ public class MainFragment extends Fragment implements AdapterView.OnItemClickLis
 
                 } else {
 
-                    this.gotoCreatePage();
+                    this.gotoChoosePage();
 
                 }
 
@@ -217,10 +219,10 @@ public class MainFragment extends Fragment implements AdapterView.OnItemClickLis
 
     }
 
-    private void gotoCreatePage(){
+    private void gotoChoosePage(){
         Intent intent = new Intent();
-        intent.setClass(this.getActivity(), CreateManhuaAcvitiy.class);
-        this.getActivity().startActivity(intent);
+        intent.setClass(this.getActivity(), ChooseTypeActivity.class);
+        this.getActivity().startActivityForResult(intent, 100);
     }
 
     private void gotoMeActivity(){
@@ -275,6 +277,16 @@ public class MainFragment extends Fragment implements AdapterView.OnItemClickLis
         popupWindow.dismiss();
 
         manhuaService.getManhuaListByType(manhuaType);
+    }
+
+    public void refreshAllData(){
+
+        manhuaService.news.clear();
+        manhuaService.pageCount = 0;
+        adapter.notifyDataSetChanged();
+
+        manhuaService.getManhuaListByType(0);
+
     }
 
     private class PopViewClick implements View.OnClickListener{

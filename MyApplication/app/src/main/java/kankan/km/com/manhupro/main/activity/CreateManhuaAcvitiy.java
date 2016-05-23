@@ -51,6 +51,8 @@ public class CreateManhuaAcvitiy extends BaseAcvitiy implements View.OnClickList
 
     private Context context;
 
+    private int createType;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -70,6 +72,8 @@ public class CreateManhuaAcvitiy extends BaseAcvitiy implements View.OnClickList
         service = new CreateManhuaservice(this, new MyHandler());
         imageList = new ArrayList<BitmapBean>();
         adapter = new CreateImageAdapter(this, imageList);
+
+        createType = getIntent().getIntExtra(Constant.INTENT_TAG.CREATE_TYPE, 1);
 
     }
 
@@ -209,7 +213,7 @@ public class CreateManhuaAcvitiy extends BaseAcvitiy implements View.OnClickList
                     dismissLoad();
 
                     Toast.makeText(context, "创建成功", Toast.LENGTH_SHORT).show();
-
+                    setResult(30);
                     finish();
 
                     break;
@@ -235,7 +239,7 @@ public class CreateManhuaAcvitiy extends BaseAcvitiy implements View.OnClickList
 
                         HashMap<String, String> params = new HashMap<String, String>();
                         params.put("m_fromdata", model.getNikename());
-                        params.put("m_type", "1");
+                        params.put("m_type", "" + createType);
                         params.put("u_phoneno", edit_phone.getText().toString());
                         params.put("mcontent", edit_conmand.getText().toString());
                         params.put("imageList", msg.getData().getString(CreateManhuaservice.IMAGE_HANDLER_TAG));

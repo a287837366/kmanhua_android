@@ -1,10 +1,12 @@
 package kankan.km.com.manhupro;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.util.Log;
 import android.widget.RadioGroup;
 
 import kankan.km.com.manhupro.main.MainFragment;
@@ -38,6 +40,26 @@ public class MainActivity extends BaseAcvitiy{
 
     private void initObjects(){
         fm = getSupportFragmentManager();
+
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        Log.d(">>>>>", "requestCode = " + requestCode + "  resultCode = " + resultCode);
+
+        if (requestCode == 100){
+
+            if (resultCode == 30){
+
+                MainFragment mainFragment = (MainFragment) mFragment;
+                mainFragment.refreshAllData();
+
+            }
+        }
+
+
 
     }
 

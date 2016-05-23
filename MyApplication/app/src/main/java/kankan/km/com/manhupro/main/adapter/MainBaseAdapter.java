@@ -169,7 +169,7 @@ public class MainBaseAdapter extends BaseAdapter{
 
         } else if (type == 1)  {
 
-            refreshString = "获取更多";
+            refreshString = "点击获取更多";
 
         } else {
 
@@ -205,13 +205,17 @@ public class MainBaseAdapter extends BaseAdapter{
 
             if (model.getM_type().toString().equals("1")){
                 imageView_icon.setDefaultImageResId(R.mipmap.zhanpin_defualt_img);
+
             } else if (model.getM_type().toString().equals("2")){
+
                 imageView_icon.setDefaultImageResId(R.mipmap.qiuzhi_defualt_img);
 
             } else if (model.getM_type().toString().equals("3")){
+
                 imageView_icon.setDefaultImageResId(R.mipmap.fangcan_defualt_img);
 
             } else if (model.getM_type().toString().equals("4")){
+
                 imageView_icon.setDefaultImageResId(R.mipmap.congwu_defualt_img);
 
             } else {
