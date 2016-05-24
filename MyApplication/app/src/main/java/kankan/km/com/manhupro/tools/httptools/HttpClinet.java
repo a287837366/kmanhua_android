@@ -33,7 +33,7 @@ public class HttpClinet {
 
     private static HttpClinet instance;
 //    private static final String PROTOCAL = "http://1.85kankan.sinaapp.com/";
-    private static final String PROTOCAL = "http://192.168.1.104:8080";
+    private static final String PROTOCAL = "http://10.0.1.112:8080";
 
     public static final int GET = Request.Method.GET;
     public static final int POST = Request.Method.POST;
@@ -129,7 +129,7 @@ public class HttpClinet {
                 try {
                     long imageTag = System.currentTimeMillis();
 
-                    URL url = new URL(requestURL);
+                    URL url = new URL( PROTOCAL + requestURL);
                     HttpURLConnection conn = (HttpURLConnection) url.openConnection();
 //                    conn.setReadTimeout(60000);
 //                    conn.setConnectTimeout(60000);

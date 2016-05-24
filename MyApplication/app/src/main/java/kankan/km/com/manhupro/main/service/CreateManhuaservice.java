@@ -53,10 +53,9 @@ public class CreateManhuaservice implements ResponseCallback {
 
 
     public void updateImage(ArrayList<BitmapBean> bips){
-
         UserModel model =(UserModel) SharedPreUtils.getObject(this.activity, "AM_KEY_USER");
 
-       HttpClinet.getInstance().updateImage("http://192.168.1.104:8080/kankanAdmin/UploadImage", bips, this, UPDATE_IMAGE_TAG, model.getUsername(), deviceId);
+       HttpClinet.getInstance().updateImage("/kankanAdmin/UploadImage", bips, this, UPDATE_IMAGE_TAG, model.getUsername(), deviceId);
     }
 
 
@@ -79,6 +78,7 @@ public class CreateManhuaservice implements ResponseCallback {
      * */
 
     public void postManhuaDetail(HashMap<String, String> params){
+        params.put("device_id", deviceId);
         mQueue.add(HttpClinet.getInstance().postRequset("/kankanAdmin/UpdateManhuaContent", params, this, Constant.NETWORK_TAG.UPDATE_MANHUA));
 
     }

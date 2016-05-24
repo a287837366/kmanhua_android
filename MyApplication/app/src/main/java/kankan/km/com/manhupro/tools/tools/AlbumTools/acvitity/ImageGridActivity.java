@@ -20,6 +20,7 @@ import java.util.Iterator;
 import java.util.List;
 
 import kankan.km.com.manhupro.R;
+import kankan.km.com.manhupro.property.Constant;
 import kankan.km.com.manhupro.tools.tools.AlbumTools.AlbumHelper;
 import kankan.km.com.manhupro.tools.tools.AlbumTools.Bimp;
 import kankan.km.com.manhupro.tools.tools.AlbumTools.adapter.ImageGridAdapter;
@@ -36,6 +37,8 @@ public class ImageGridActivity extends Activity implements View.OnClickListener{
     ImageGridAdapter adapter;// 自定义的适配
     AlbumHelper helper;
     Button bt;
+
+    int currentSize;
 
     Handler mHandler = new Handler() {
         @Override
@@ -58,8 +61,13 @@ public class ImageGridActivity extends Activity implements View.OnClickListener{
         helper = AlbumHelper.getHelper();
         helper.init(getApplicationContext());
         dataList = (List<ImageItem>) getIntent().getSerializableExtra("imagelist");
+
+        currentSize = getIntent().getIntExtra(Constant.INTENT_TAG.CURRENT_SELECTED_IMAGE, 0);
+
         initView();
     }
+
+
 
 
     private void saves(){
@@ -101,6 +109,7 @@ public class ImageGridActivity extends Activity implements View.OnClickListener{
         gridView = (GridView) findViewById(R.id.gridview);
         gridView.setSelector(new ColorDrawable(Color.TRANSPARENT));
         adapter = new ImageGridAdapter(ImageGridActivity.this, dataList, mHandler);
+        adapter.setSelectTotal(currentSize);
         gridView.setAdapter(adapter);
 
         adapter.setTextCallback(new ImageGridAdapter.TextCallback() {

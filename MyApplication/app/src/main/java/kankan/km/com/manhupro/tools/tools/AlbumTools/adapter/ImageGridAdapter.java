@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.HashMap;
 import java.util.List;
@@ -52,6 +53,10 @@ public class ImageGridAdapter extends BaseAdapter{
 
     public static interface TextCallback {
         public void onListen(int count);
+    }
+
+    public void setSelectTotal(int selectTotal) {
+        this.selectTotal = selectTotal;
     }
 
     public void setTextCallback(TextCallback listener) {
@@ -162,12 +167,19 @@ public class ImageGridAdapter extends BaseAdapter{
                         map.remove(path);
                     }
                 } else if ((Bimp.drr.size() + selectTotal) >= 9) {
+
+
                     if (item.isSelected == true) {
+
                         item.isSelected = !item.isSelected;
                         holder.selected.setVisibility(View.GONE);
                         selectTotal--;
                         map.remove(path);
+
                     } else {
+
+                        Toast.makeText(act, "不能超过9张图片", Toast.LENGTH_SHORT).show();
+
                         Message message = Message.obtain(mHandler, 0);
                         message.sendToTarget();
                     }

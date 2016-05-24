@@ -107,6 +107,7 @@ public class CreateManhuaAcvitiy extends BaseAcvitiy implements View.OnClickList
     private void gotoChooseImageView(){
         Intent intent = new Intent();
         intent.setClass(this, ChoosePictureActivity.class);
+        intent.putExtra(Constant.INTENT_TAG.CURRENT_SELECTED_IMAGE, imageList.size());
         startActivityForResult(intent, 20);
     }
 
@@ -138,6 +139,8 @@ public class CreateManhuaAcvitiy extends BaseAcvitiy implements View.OnClickList
 
             RunImageListBean readlists= new RunImageListBean();
             readlists.readList(handler);
+
+
         }
 
     }
@@ -168,7 +171,29 @@ public class CreateManhuaAcvitiy extends BaseAcvitiy implements View.OnClickList
 
                 this.showLoad();
 
-                service.updateImage(imageList);
+                if (imageList.size() == 0){
+
+
+                    UserModel model =(UserModel) SharedPreUtils.getObject(context, "AM_KEY_USER");
+
+
+                    HashMap<String, String> params = new HashMap<String, String>();
+                    params.put("m_fromdata", model.getNikename());
+                    params.put("m_type", "" + createType);
+                    params.put("u_phoneno", edit_phone.getText().toString());
+                    params.put("mcontent", edit_conmand.getText().toString());
+                    params.put("imageList", "");
+                    params.put("username", model.getUsername());
+                    params.put("manhuaName", edit_title.getText().toString());
+
+                    service.postManhuaDetail(params);
+
+                } else {
+
+                    service.updateImage(imageList);
+                }
+
+
 
                 break;
 
@@ -221,10 +246,6 @@ public class CreateManhuaAcvitiy extends BaseAcvitiy implements View.OnClickList
                 case CreateManhuaservice.UPDATE_IMAGE_TAG:
 
                     if (msg.what == 0) {
-
-
-
-                        Log.d(">>>>>", msg.getData().getString(CreateManhuaservice.IMAGE_HANDLER_TAG));
 
 
                         /**
@@ -294,6 +315,15 @@ public class CreateManhuaAcvitiy extends BaseAcvitiy implements View.OnClickList
 
             imageList.addAll(imgpathList);
             adapter.notifyDataSetChanged();
+
+            LinearLayout.LayoutParams linearParams =(LinearLayout.LayoutParams) image_grid.getLayoutParams();
+
+            WindowManager wm = (WindowManager) getSystemService(Context.WINDOW_SERVICE);
+            int screenWidth = wm.getDefaultDisplay().getWidth();
+
+            int gridViewHeight = ((screenWidth + 30) / 4) * ((imageList.size() / 4) + 1);
+            linearParams.height = gridViewHeight;
+            image_grid.setLayoutParams(linearParams);
 
         }
     };

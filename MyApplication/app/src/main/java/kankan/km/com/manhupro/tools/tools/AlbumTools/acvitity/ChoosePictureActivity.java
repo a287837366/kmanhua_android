@@ -14,6 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import kankan.km.com.manhupro.R;
+import kankan.km.com.manhupro.property.Constant;
 import kankan.km.com.manhupro.tools.httptools.BitmapCache;
 import kankan.km.com.manhupro.tools.tools.AlbumTools.AlbumHelper;
 import kankan.km.com.manhupro.tools.tools.AlbumTools.Bimp;
@@ -31,6 +32,8 @@ public class ChoosePictureActivity extends Activity implements AdapterView.OnIte
     GridView gridView;
     public static Bitmap bimap;
 
+    int currentSize;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -47,6 +50,8 @@ public class ChoosePictureActivity extends Activity implements AdapterView.OnIte
         helper.init(getApplicationContext());
 
         dataList = helper.getImagesBucketList(false);
+
+        currentSize = getIntent().getIntExtra(Constant.INTENT_TAG.CURRENT_SELECTED_IMAGE, 0);
 
     }
 
@@ -75,6 +80,7 @@ public class ChoosePictureActivity extends Activity implements AdapterView.OnIte
 
         Intent intent = new Intent(this, ImageGridActivity.class);
         intent.putExtra("imagelist", (Serializable) dataList.get(position).imageList);
+        intent.putExtra(Constant.INTENT_TAG.CURRENT_SELECTED_IMAGE, currentSize);
         startActivityForResult(intent, 20);
 
     }

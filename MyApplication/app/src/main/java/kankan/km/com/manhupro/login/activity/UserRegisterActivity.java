@@ -2,6 +2,7 @@ package kankan.km.com.manhupro.login.activity;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -12,6 +13,7 @@ import android.widget.Toast;
 import kankan.km.com.manhupro.BaseAcvitiy;
 import kankan.km.com.manhupro.R;
 import kankan.km.com.manhupro.login.activity.service.UserRegisterService;
+import kankan.km.com.manhupro.property.Constant;
 
 /**
  * Created by apple on 16/4/16.
@@ -142,6 +144,16 @@ public class UserRegisterActivity extends BaseAcvitiy implements View.OnClickLis
 
             if (msg.what == 1){
                 Toast.makeText(context, "注册成功", Toast.LENGTH_SHORT).show();
+
+
+                Intent intent = new Intent();
+                intent.putExtra(Constant.INTENT_TAG.RESIGTER_USERNAME, edit_userName.getText().toString());
+                intent.putExtra(Constant.INTENT_TAG.RESIGTER_PW, edit_pw.getText().toString());
+                setIntent(intent);
+
+                setResult(30, intent);
+
+
                 finish();
 
             } else {

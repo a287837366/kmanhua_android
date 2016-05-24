@@ -15,7 +15,9 @@ import kankan.km.com.manhupro.BaseAcvitiy;
 import kankan.km.com.manhupro.R;
 import kankan.km.com.manhupro.login.activity.module.UserModel;
 import kankan.km.com.manhupro.login.activity.service.UserLoginService;
+import kankan.km.com.manhupro.property.Constant;
 import kankan.km.com.manhupro.property.SharedPreUtils;
+import kankan.km.com.manhupro.tools.tools.AlbumTools.bean.RunImageListBean;
 
 /**
  * Created by apple on 16/4/15.
@@ -57,6 +59,20 @@ public class UserLoginActivity extends BaseAcvitiy implements View.OnClickListen
         findViewById(R.id.btn_cancle).setOnClickListener(this);
         findViewById(R.id.btn_resgiter).setOnClickListener(this);
         findViewById(R.id.btn_Register).setOnClickListener(this);
+
+    }
+
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+
+        if (30 == resultCode) {
+
+            String resUserName = data.getStringExtra(Constant.INTENT_TAG.RESIGTER_USERNAME);
+            String resUserPW = data.getStringExtra(Constant.INTENT_TAG.RESIGTER_PW);
+
+            showLoad();
+
+            service.getLoginUser(resUserName, resUserPW);
+        }
 
     }
 
@@ -118,7 +134,7 @@ public class UserLoginActivity extends BaseAcvitiy implements View.OnClickListen
 
         Intent intent = new Intent();
         intent.setClass(this, UserRegisterActivity.class);
-        this.startActivity(intent);
+        this.startActivityForResult(intent, 100);
 
     }
 

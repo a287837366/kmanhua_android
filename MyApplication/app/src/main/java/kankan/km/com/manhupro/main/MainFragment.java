@@ -89,6 +89,7 @@ public class MainFragment extends Fragment implements AdapterView.OnItemClickLis
         listView_Main.setOnItemClickListener(this);
         view.findViewById(R.id.btn_menu).setOnClickListener(this);
         view.findViewById(R.id.btn_create).setOnClickListener(this);
+        view.findViewById(R.id.btn_refresh).setOnClickListener(this);
 
 
     }
@@ -114,6 +115,8 @@ public class MainFragment extends Fragment implements AdapterView.OnItemClickLis
         this.adapter = new MainBaseAdapter(this.activity, manhuaService.news);
         listView_Main.setAdapter(this.adapter);
 
+
+        activity.showLoad();
         manhuaService.getManhuaListByType(0);
     }
 
@@ -125,7 +128,63 @@ public class MainFragment extends Fragment implements AdapterView.OnItemClickLis
 
             super.handleMessage(msg);
 
-            adapter.refreshByType(manhuaService.isNoData ? 0 : 1);
+
+
+            if (msg.what != 0){
+                Toast.makeText(activity, "连接服务器失败", Toast.LENGTH_SHORT).show();
+                activity.dismissLoad();
+
+                if (manhuaService.news.size() == 0){
+                    listView_Main.setVisibility(View.INVISIBLE);
+
+                }
+
+                adapter.refreshByType(1);
+
+
+
+
+
+                return;
+            }
+
+            switch (msg.getData().getInt(Constant.TAG_NEWORK)){
+
+                case Constant.NETWORK_TAG.GET_MANHUA_TAG:
+                    listView_Main.setVisibility(View.VISIBLE);
+                    activity.dismissLoad();
+                    adapter.refreshByType(manhuaService.isNoData ? 0 : 1);
+                    break;
+
+                case Constant.NETWORK_TAG.CHECK_PERMISSON:
+                    activity.dismissLoad();
+
+
+                    if (msg.getData().getBoolean(Constant.INTENT_TAG.CAN_UPDATE)){
+
+                        gotoChoosePage();
+
+                    } else {
+
+                        Toast.makeText(activity, "该手机今天已上传过消息", Toast.LENGTH_SHORT).show();
+
+                    }
+
+
+
+                    break;
+
+
+                default:
+
+                    break;
+
+
+            }
+
+
+
+
 
         }
 
@@ -163,6 +222,11 @@ public class MainFragment extends Fragment implements AdapterView.OnItemClickLis
                 this.showPopView(v);
                 break;
 
+            case R.id.btn_refresh:
+                activity.showLoad();
+                manhuaService.getManhuaListByCurrent();
+                break;
+
             case R.id.btn_me:
 
                 UserModel model =(UserModel) SharedPreUtils.getObject(this.getActivity(), "AM_KEY_USER");
@@ -187,8 +251,10 @@ public class MainFragment extends Fragment implements AdapterView.OnItemClickLis
                     Toast.makeText(this.getActivity(), "创建消息需要登入", Toast.LENGTH_SHORT).show();
 
                 } else {
+                    activity.showLoad();
+                    manhuaService.checkPermession(model1.getUsername());
 
-                    this.gotoChoosePage();
+//                    this.gotoChoosePage();
 
                 }
 
