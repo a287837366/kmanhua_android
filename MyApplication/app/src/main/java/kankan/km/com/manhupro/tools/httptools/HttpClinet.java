@@ -32,8 +32,8 @@ public class HttpClinet {
     private final String TAG = HttpClinet.class.getSimpleName();
 
     private static HttpClinet instance;
-//    private static final String PROTOCAL = "http://1.85kankan.sinaapp.com/";
-    private static final String PROTOCAL = "http://180.76.151.128:8080";
+    private static final String PROTOCAL = "http://180.76.151.128:8080/";
+//    private static final String PROTOCAL = "http://192.168.1.102:8080";
 
 
     public static final int GET = Request.Method.GET;
