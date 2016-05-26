@@ -8,8 +8,8 @@ android {
         applicationId "com.am.ybtun"
         minSdkVersion 15
         targetSdkVersion 20
-        versionCode 1
-        versionName "1.0.1"
+        versionCode 3
+        versionName "1.1.1"
     }
     buildTypes {
         release {

@@ -35,6 +35,7 @@ public class HttpClinet {
 //    private static final String PROTOCAL = "http://1.85kankan.sinaapp.com/";
     private static final String PROTOCAL = "http://180.76.151.128:8080";
 
+
     public static final int GET = Request.Method.GET;
     public static final int POST = Request.Method.POST;
 

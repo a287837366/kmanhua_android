@@ -147,7 +147,7 @@
                     android:background="#E2003B"
                     android:layout_toEndOf="@+id/textView10"
                     android:layout_marginLeft="10dp"
-                    android:id="@+id/linearLayout10"></LinearLayout>
+                    android:id="@+id/linearLayout21"></LinearLayout>
 
                 <EditText
                     android:layout_width="wrap_content"
@@ -160,7 +160,7 @@
                     android:layout_marginRight="5dp"
                     android:background="@null"
                     android:layout_centerVertical="true"
-                    android:layout_toRightOf="@+id/linearLayout10"
+                    android:layout_toRightOf="@+id/linearLayout21"
                     android:layout_alignParentRight="true"
                     android:layout_alignParentEnd="true"
                     android:hint="请输入昵称" />
