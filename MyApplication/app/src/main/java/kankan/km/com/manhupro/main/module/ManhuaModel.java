@@ -1,5 +1,7 @@
 package kankan.km.com.manhupro.main.module;
 
+import java.util.ArrayList;
+
 /**
  * Created by apple on 16/2/18.
  */
@@ -12,6 +14,8 @@ public class ManhuaModel {
     private String m_createTime;
     private String m_type;
     private String u_phoneno;
+    private String t_images;
+    private ArrayList<String> images;
 
     public String getM_title() {
         return m_title;
@@ -67,5 +71,21 @@ public class ManhuaModel {
 
     public void setU_phoneno(String u_phoneno) {
         this.u_phoneno = u_phoneno;
+    }
+
+    public String getT_images() {
+        return t_images;
+    }
+
+    public void setT_images(String t_images) {
+        this.t_images = t_images;
+    }
+
+    public ArrayList<String> getImages() {
+        return images;
+    }
+
+    public void setImages(ArrayList<String> images) {
+        this.images = images;
     }
 }

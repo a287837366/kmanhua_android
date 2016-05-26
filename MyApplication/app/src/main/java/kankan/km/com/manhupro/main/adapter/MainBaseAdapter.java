@@ -31,6 +31,7 @@ public class MainBaseAdapter extends BaseAdapter{
     private Activity mActivity;
 
     private final int TYPE_B = 1;
+    private final int TYPE_T = 3;
     private final int TYPE_D = 2;
 
     private String refreshString = "";
@@ -72,18 +73,29 @@ public class MainBaseAdapter extends BaseAdapter{
     public int getItemViewType(int position) {
         // TODO Auto-generated method stub
         if(position == news.size()) {
+
+
             return TYPE_D;
+
         }
 
         else {
-            return TYPE_B;
+
+            if (news.get(position).getImages() == null){
+
+                return TYPE_B;
+            } else {
+
+                return TYPE_T;
+            }
+
         }
     }
 
     @Override
     public int getViewTypeCount() {
 
-        return 3;
+        return 4;
     }
 
     @Override
@@ -91,6 +103,7 @@ public class MainBaseAdapter extends BaseAdapter{
 
         ViewHolder viewHolder = null;
         ViewBottomHolder bottomHolder = null;
+        ThreeViewHodel threeViewHodel = null;
 
 
         int type = getItemViewType(position);
@@ -119,6 +132,15 @@ public class MainBaseAdapter extends BaseAdapter{
                     convertView.setTag(bottomHolder);
                     break;
 
+                case TYPE_T:
+
+                    convertView = inflater.inflate(R.layout.listitem_threeimage, parent, false);
+
+                    threeViewHodel = new ThreeViewHodel();
+                    convertView.setTag(threeViewHodel);
+
+                    break;
+
                 default:
 
                     break;
@@ -138,6 +160,10 @@ public class MainBaseAdapter extends BaseAdapter{
                     bottomHolder = (ViewBottomHolder) convertView.getTag();
                     break;
 
+                case TYPE_T:
+                    threeViewHodel = (ThreeViewHodel) convertView.getTag();
+                    break;
+
                 default:
                     break;
             }
@@ -152,6 +178,10 @@ public class MainBaseAdapter extends BaseAdapter{
 
             case TYPE_D:
                 bottomHolder.text_nomal.setText(refreshString);
+                break;
+
+            case TYPE_T:
+
                 break;
 
             default:
@@ -177,6 +207,12 @@ public class MainBaseAdapter extends BaseAdapter{
         }
 
         this.notifyDataSetChanged();
+
+    }
+
+
+    private class ThreeViewHodel{
+
 
     }
 
