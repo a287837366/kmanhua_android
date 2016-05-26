@@ -1,13 +1,17 @@
 package kankan.km.com.manhupro.main.adapter;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.BaseAdapter;
 
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -38,7 +42,15 @@ public class MainBaseAdapter extends BaseAdapter{
 
     private ArrayList<ManhuaModel> news;
 
+    private int icon_weight;
+
     public MainBaseAdapter(Activity mActivity, ArrayList<ManhuaModel> newLists) {
+
+        WindowManager wm = (WindowManager) mActivity.getSystemService(Context.WINDOW_SERVICE);
+        int screenWidth = wm.getDefaultDisplay().getWidth();
+
+        icon_weight = ((screenWidth - 20) / 3);
+
         this.news = newLists;
         this.mActivity = mActivity;
         inflater = LayoutInflater.from(mActivity);
@@ -136,7 +148,15 @@ public class MainBaseAdapter extends BaseAdapter{
 
                     convertView = inflater.inflate(R.layout.listitem_threeimage, parent, false);
 
-                    threeViewHodel = new ThreeViewHodel();
+                    threeViewHodel = new ThreeViewHodel(convertView);
+
+                    LinearLayout.LayoutParams linearParams =(LinearLayout.LayoutParams) threeViewHodel.linear_image.getLayoutParams();
+
+                    linearParams.height = icon_weight;
+//                    linearParams.width = icon_weight;
+
+                    threeViewHodel.linear_image.setLayoutParams(linearParams);
+
                     convertView.setTag(threeViewHodel);
 
                     break;
@@ -181,7 +201,7 @@ public class MainBaseAdapter extends BaseAdapter{
                 break;
 
             case TYPE_T:
-
+                threeViewHodel.setView(position);
                 break;
 
             default:
@@ -212,6 +232,92 @@ public class MainBaseAdapter extends BaseAdapter{
 
 
     private class ThreeViewHodel{
+
+        LinearLayout linear_image;
+
+        NetworkImageView image_1;
+        NetworkImageView image_2;
+        NetworkImageView image_3;
+
+        TextView text_title;
+        TextView text_data;
+        ImageView image_icon;
+
+        public ThreeViewHodel(View view){
+
+            linear_image = (LinearLayout) view.findViewById(R.id.linear_image);
+
+
+            image_1 = (NetworkImageView) view.findViewById(R.id.image_1);
+            image_2 = (NetworkImageView) view.findViewById(R.id.image_2);
+            image_3 = (NetworkImageView) view.findViewById(R.id.image_3);
+
+            text_title = (TextView) view.findViewById(R.id.text_title);
+            text_data = (TextView) view.findViewById(R.id.text_data);
+            image_icon = (ImageView) view.findViewById(R.id.image_icon);
+
+        }
+
+        public void setView(int position){
+
+            ManhuaModel model = news.get(position);
+
+
+
+            text_title.setText(model.getM_title());
+            text_data.setText(model.getM_createTime());
+
+
+            ImageLoader imageLoader = VolleyTool.getInstance(mActivity).getmImageLoader();
+
+
+            if (model.getM_type().toString().equals("1")){
+                image_icon.setImageResource(R.mipmap.zhanpin_defualt_img);
+
+
+            } else if (model.getM_type().toString().equals("2")){
+                image_icon.setImageResource(R.mipmap.qiuzhi_defualt_img);
+
+
+            } else if (model.getM_type().toString().equals("3")){
+                image_icon.setImageResource(R.mipmap.fangcan_defualt_img);
+
+
+            } else if (model.getM_type().toString().equals("4")){
+                image_icon.setImageResource(R.mipmap.congwu_defualt_img);
+
+
+            } else {
+                image_icon.setImageResource(R.mipmap.qita_defualt_img);
+
+
+            }
+
+
+            image_1.setImageUrl(model.getImages().get(0), imageLoader);
+
+            if (model.getImages().size() < 2){
+                image_2.setImageBitmap(null);
+                return;
+            }
+
+
+            image_2.setImageUrl(model.getImages().get(1), imageLoader);
+
+            if (model.getImages().size() < 3){
+                image_3.setImageBitmap(null);
+                return;
+            }
+
+
+
+            image_3.setImageUrl(model.getImages().get(2), imageLoader);
+
+
+
+
+        }
+
 
 
     }
@@ -270,10 +376,16 @@ public class MainBaseAdapter extends BaseAdapter{
 
         TextView text_nomal;
 
+
+
         public ViewBottomHolder(View v){
             text_nomal = (TextView) v.findViewById(R.id.text_nomal);
 
+
         }
+
+
+
 
 
 

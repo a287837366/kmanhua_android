@@ -103,6 +103,11 @@ public class ManhuaService implements ResponseCallback{
 
                             String[] imgsString = model.getT_images().split(",");
 
+                            if (imgsString.length < 3){
+
+                                continue;
+                            }
+
                             ArrayList<String> extendImage = new ArrayList<String>();
 
                             for (String s_imge : imgsString){
