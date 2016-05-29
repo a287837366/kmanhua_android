@@ -49,6 +49,9 @@ public class SplashService implements ResponseCallback {
     public void error(int tag, int error) {
         Log.d(">>>>>>>","error");
 
+        if (mHandler == null)
+            return;
+
         Message msg = new Message();
         msg.what = 999;
         mHandler.sendMessage(msg);

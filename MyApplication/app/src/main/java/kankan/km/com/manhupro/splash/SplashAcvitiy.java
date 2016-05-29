@@ -2,10 +2,15 @@ package kankan.km.com.manhupro.splash;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
+import android.widget.Toast;
 
 import kankan.km.com.manhupro.BaseAcvitiy;
 import kankan.km.com.manhupro.MainActivity;
 import kankan.km.com.manhupro.R;
+import kankan.km.com.manhupro.login.activity.module.UserModel;
+import kankan.km.com.manhupro.property.SharedPreUtils;
 import kankan.km.com.manhupro.splash.service.SplashService;
 
 /**
@@ -29,7 +34,7 @@ public class SplashAcvitiy extends BaseAcvitiy{
     }
 
     private void initData(){
-        service = new SplashService(this, null);
+        service = new SplashService(this, new MyHandler());
 
     }
 
@@ -45,6 +50,29 @@ public class SplashAcvitiy extends BaseAcvitiy{
         startActivity(intent);
 
         finish();
+
+    }
+
+    class MyHandler extends Handler {
+
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+
+            try {
+
+                Thread.sleep(2000);
+                gotoMainActivity();
+
+            } catch (Exception e){
+
+
+            }
+
+
+
+
+        }
 
     }
 
