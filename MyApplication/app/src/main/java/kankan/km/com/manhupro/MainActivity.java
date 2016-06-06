@@ -7,22 +7,25 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
+import android.view.View;
 import android.widget.RadioGroup;
 
+import kankan.km.com.manhupro.create.CreateFragment;
 import kankan.km.com.manhupro.main.MainFragment;
 import kankan.km.com.manhupro.me.MeFragment;
 
 
-public class MainActivity extends BaseAcvitiy{
+public class MainActivity extends BaseAcvitiy implements View.OnClickListener{
 
     private static final String TAB_MAIN = "Main_TAB";
+    private static final String TAB_CREATE = "TAB_CREATE";
+    private static final String TAB_ME = "TAB_ME";
 
     private FragmentManager fm;
     private FragmentTransaction ft;
     private Fragment mFragment;
 
     //[[---Views
-    private RadioGroup mRadioGroup;
 
     //---Views]]
 
@@ -64,7 +67,12 @@ public class MainActivity extends BaseAcvitiy{
     }
 
     private void initViews(){
-        this.changeFragment("Main_TAB");
+        this.changeFragment(TAB_MAIN);
+
+        findViewById(R.id.tab_main).setOnClickListener(this);
+        findViewById(R.id.tab_create).setOnClickListener(this);
+        findViewById(R.id.tab_me).setOnClickListener(this);
+
     }
 
 
@@ -104,10 +112,43 @@ public class MainActivity extends BaseAcvitiy{
 
             return new MainFragment();
 
+        } else if (tag.equals(TAB_CREATE)){
+
+            return new CreateFragment();
+
+        } else if (tag.equals(TAB_ME)){
+
+            return new MeFragment();
         }
 
         return null;
     }
 
 
+    @Override
+    public void onClick(View view) {
+
+
+        switch (view.getId()){
+
+            case R.id.tab_main:
+                this.changeFragment(TAB_MAIN);
+                break;
+
+            case R.id.tab_create:
+                this.changeFragment(TAB_CREATE);
+                break;
+
+            case R.id.tab_me:
+                this.changeFragment(TAB_ME);
+                break;
+
+            default:
+
+                break;
+
+
+        }
+
+    }
 }
