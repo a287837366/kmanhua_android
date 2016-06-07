@@ -1,11 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:background="#eeeeee"
-    android:orientation="vertical"
     android:layout_height="match_parent">
-
-
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -26,7 +23,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="나 의"
+            android:text="我的"
             android:textSize="17dp"
             android:textColor="#555555"
             android:id="@+id/textView"
@@ -35,198 +32,247 @@
 
     </RelativeLayout>
 
-    <RelativeLayout
+
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_marginTop="5dp"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-        android:background="#ffffff"
-        android:layout_height="95dp">
+        android:background="#eeeeee"
+        android:id="@+id/me_mainView"
+        android:layout_marginTop="50dp"
+        android:orientation="vertical"
+        android:layout_height="match_parent">
 
 
-        <!-- 头像 -->
-        <LinearLayout
-            android:orientation="horizontal"
-            android:layout_marginLeft="15dp"
-            android:layout_marginTop="12dp"
-            android:background="#FC1573"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:id="@+id/linearLayout2">
-
-        </LinearLayout>
-
-        <!-- Nike Name -->
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="닉넴: 쨈쨈1호"
-            android:id="@+id/textView4"
-            android:layout_alignTop="@+id/linearLayout2"
-            android:layout_toRightOf="@+id/linearLayout2"
-            android:layout_toEndOf="@+id/linearLayout2"
-            android:layout_marginTop="9dp"
-            android:layout_marginLeft="7dp"
-             />
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="18dp"
-            android:layout_marginRight="35dp"
-            android:background="#dddddd"
-            android:gravity="center_vertical"
-            android:layout_marginTop="7dp"
-            android:layout_below="@+id/linearLayout2"
-            android:layout_alignLeft="@+id/linearLayout2"
-            android:layout_alignStart="@+id/linearLayout2" >
+            android:layout_marginTop="5dp"
+            android:background="#ffffff"
+            android:layout_height="70dp">
+
+
+            <!-- 头像 -->
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_marginLeft="15dp"
+                android:layout_marginTop="12dp"
+                android:background="#C50B26"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:id="@+id/linearLayout2">
+
+            </LinearLayout>
+
+            <!-- Nike Name -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="닉넴: 쨈쨈1호"
+                android:id="@+id/text_nikename"
+                android:layout_alignTop="@+id/linearLayout2"
+                android:layout_toRightOf="@+id/linearLayout2"
+                android:layout_toEndOf="@+id/linearLayout2"
+                android:layout_marginTop="9dp"
+                android:layout_marginLeft="7dp"
+                />
+
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/btn_feedBack"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:layout_marginTop="10dp"
+            android:background="#ffffff">
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="修改昵称"
+                android:id="@+id/textView51"
+                android:textSize="13dp"
+                android:layout_marginLeft="10dp"
+                android:layout_centerVertical="true"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:textColor="#555555" />
+
+            <ImageView
+                android:layout_width="22dp"
+                android:layout_height="22dp"
+                android:id="@+id/imageView51"
+                android:layout_marginRight="10dp"
+                android:src="@mipmap/me_right_arraw"
+                android:layout_centerVertical="true"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/btn_askMe"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:layout_marginTop="3dp"
+            android:background="#ffffff">
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="我收藏的"
+                android:id="@+id/textView2"
+                android:textSize="13dp"
+                android:layout_marginLeft="10dp"
+                android:layout_centerVertical="true"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:textColor="#555555" />
+
+            <ImageView
+                android:layout_width="22dp"
+                android:layout_height="22dp"
+                android:id="@+id/imageView52"
+                android:layout_marginRight="10dp"
+                android:src="@mipmap/me_right_arraw"
+                android:layout_centerVertical="true"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/btn_fettingMe"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:layout_marginTop="3dp"
+            android:background="#ffffff">
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="关于我们"
+                android:id="@+id/textView53"
+                android:textSize="13dp"
+                android:layout_marginLeft="10dp"
+                android:layout_centerVertical="true"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:textColor="#555555" />
+
+            <ImageView
+                android:layout_width="22dp"
+                android:layout_height="22dp"
+                android:id="@+id/imageView53"
+                android:layout_marginRight="10dp"
+                android:src="@mipmap/me_right_arraw"
+                android:layout_centerVertical="true"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/btn_shareMe"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:layout_marginTop="15dp"
+            android:background="#ffffff">
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="免责声明"
+                android:id="@+id/textView5"
+                android:textSize="13dp"
+                android:layout_marginLeft="10dp"
+                android:layout_centerVertical="true"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:textColor="#555555" />
+
+            <ImageView
+                android:layout_width="22dp"
+                android:layout_height="22dp"
+                android:id="@+id/imageView"
+                android:layout_marginRight="10dp"
+                android:src="@mipmap/me_right_arraw"
+                android:layout_centerVertical="true"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/btn_Logout"
+            android:layout_width="match_parent"
+            android:layout_height="35dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+            android:background="#C50B26">
 
 
             <TextView
                 android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="退出"
+                android:textColor="#ffffff"
+                android:textSize="13dp"
+                android:gravity="center"
+                android:id="@+id/textView16"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true" />
+        </RelativeLayout>
+
+
+    </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_marginTop="50dp"
+        android:layout_marginBottom="50dp"
+        android:layout_height="match_parent"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true">
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:id="@+id/emptyView"
+            android:visibility="gone"
+            android:layout_centerVertical="true"
+            android:layout_centerHorizontal="true" >
+
+            <TextView
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="11sp"
-                android:layout_marginLeft="3dp"
-                android:text="쨈쨈에 오신것을 환영합니다."
-                android:textColor="#555555"/>
+                android:textColor="#888888"
+                android:text="您还没有登入"
+                android:id="@+id/textView15"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true" />
 
-            </RelativeLayout>
+            <Button
+                android:layout_width="100dp"
+                android:layout_height="25dp"
+                android:text="登入"
+                android:textColor="#ffffff"
+                android:background="#C50B26"
+                android:id="@+id/btn_login"
+                android:textSize="12dp"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true" />
+
+        </RelativeLayout>
+
 
 
     </RelativeLayout>
 
-    <RelativeLayout
-        android:id="@+id/btn_feedBack"
-        android:layout_width="match_parent"
-        android:layout_height="45dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginLeft="10dp"
-        android:background="#ffffff"
-        android:layout_marginRight="10dp">
 
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="의견제출 하기"
-            android:id="@+id/textView51"
-            android:textSize="13dp"
-            android:layout_marginLeft="10dp"
-            android:layout_centerVertical="true"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:textColor="#555555" />
-
-        <ImageView
-            android:layout_width="22dp"
-            android:layout_height="22dp"
-            android:id="@+id/imageView51"
-            android:layout_marginRight="10dp"
-            android:src="@mipmap/me_right_arraw"
-            android:layout_centerVertical="true"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentEnd="true" />
-    </RelativeLayout>
-
-    <RelativeLayout
-        android:id="@+id/btn_askMe"
-        android:layout_width="match_parent"
-        android:layout_height="45dp"
-        android:layout_marginTop="3dp"
-        android:layout_marginLeft="10dp"
-        android:background="#ffffff"
-        android:layout_marginRight="10dp">
-
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="제휴문의"
-            android:id="@+id/textView2"
-            android:textSize="13dp"
-            android:layout_marginLeft="10dp"
-            android:layout_centerVertical="true"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:textColor="#555555" />
-
-        <ImageView
-            android:layout_width="22dp"
-            android:layout_height="22dp"
-            android:id="@+id/imageView52"
-            android:layout_marginRight="10dp"
-            android:src="@mipmap/me_right_arraw"
-            android:layout_centerVertical="true"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentEnd="true" />
-    </RelativeLayout>
-
-    <RelativeLayout
-        android:id="@+id/btn_fettingMe"
-        android:layout_width="match_parent"
-        android:layout_height="45dp"
-        android:layout_marginTop="3dp"
-        android:layout_marginLeft="10dp"
-        android:background="#ffffff"
-        android:layout_marginRight="10dp">
-
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="땐짠하기"
-            android:id="@+id/textView53"
-            android:textSize="13dp"
-            android:layout_marginLeft="10dp"
-            android:layout_centerVertical="true"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:textColor="#555555" />
-
-        <ImageView
-            android:layout_width="22dp"
-            android:layout_height="22dp"
-            android:id="@+id/imageView53"
-            android:layout_marginRight="10dp"
-            android:src="@mipmap/me_right_arraw"
-            android:layout_centerVertical="true"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentEnd="true" />
-    </RelativeLayout>
-
-    <RelativeLayout
-        android:id="@+id/btn_shareMe"
-        android:layout_width="match_parent"
-        android:layout_height="45dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginLeft="10dp"
-        android:background="#ffffff"
-        android:layout_marginRight="10dp">
-
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="웨이씬 공유하기"
-            android:id="@+id/textView5"
-            android:textSize="13dp"
-            android:layout_marginLeft="10dp"
-            android:layout_centerVertical="true"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:textColor="#555555" />
-
-        <ImageView
-            android:layout_width="22dp"
-            android:layout_height="22dp"
-            android:id="@+id/imageView"
-            android:layout_marginRight="10dp"
-            android:src="@mipmap/me_right_arraw"
-            android:layout_centerVertical="true"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentEnd="true" />
-    </RelativeLayout>
-
-</LinearLayout>
+</RelativeLayout>

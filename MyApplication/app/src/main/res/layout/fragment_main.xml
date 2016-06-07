@@ -70,6 +70,7 @@
             android:layout_height="wrap_content"
             android:id="@+id/btn_me"
             android:layout_marginRight="10dp"
+            android:visibility="gone"
             android:background="@mipmap/friend_setting"
             android:layout_centerVertical="true"
             android:layout_alignParentRight="true"

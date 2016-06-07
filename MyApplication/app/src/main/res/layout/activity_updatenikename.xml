@@ -17,6 +17,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:id="@+id/imageView2"
+            android:visibility="gone"
             android:background="@mipmap/nav_top_background"
             android:layout_alignParentTop="true"
             android:layout_alignParentLeft="true"
@@ -50,7 +51,7 @@
             android:layout_height="wrap_content"
             android:text="修改昵称"
             android:textSize="16dp"
-            android:textColor="#ffffff"
+            android:textColor="#888888"
             android:id="@+id/textView"
             android:layout_centerVertical="true"
             android:layout_centerHorizontal="true" />

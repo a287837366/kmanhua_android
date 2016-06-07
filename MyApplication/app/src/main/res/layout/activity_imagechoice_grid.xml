@@ -16,6 +16,7 @@
             android:id="@+id/imageView2"
             android:background="@mipmap/nav_top_background"
             android:layout_alignParentTop="true"
+            android:visibility="gone"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true" />
 
@@ -47,7 +48,7 @@
             android:layout_height="wrap_content"
             android:text="选择照片"
             android:textSize="16dp"
-            android:textColor="#ffffff"
+            android:textColor="#888888"
             android:id="@+id/textView"
             android:layout_centerVertical="true"
             android:layout_centerHorizontal="true" />

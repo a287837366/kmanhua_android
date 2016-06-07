@@ -143,6 +143,7 @@ public class ImageGridActivity extends Activity implements View.OnClickListener{
         switch (v.getId()){
 
             case R.id.btn_back:
+
                 saves();
                 this.finish();
                 break;
