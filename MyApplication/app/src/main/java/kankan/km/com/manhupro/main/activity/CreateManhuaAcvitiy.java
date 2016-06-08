@@ -112,25 +112,26 @@ public class CreateManhuaAcvitiy extends BaseAcvitiy implements View.OnClickList
     }
 
 
-    private void checkInput(){
+    private boolean checkInput(){
 
 
         if (edit_title.getText().toString().length() == 0){
             Toast.makeText(this, "请输入标题", Toast.LENGTH_SHORT).show();
-            return;
+            return false;
         }
 
         if (edit_title.getText().toString().length() > 20){
             Toast.makeText(this, "不能超过20个字", Toast.LENGTH_SHORT).show();
-            return;
+            return false;
         }
 
         if (edit_title.getText().toString().length() == 0){
             Toast.makeText(this, "请输入内容", Toast.LENGTH_SHORT).show();
-            return;
+            return false;
         }
 
 
+        return true;
     }
 
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -165,9 +166,10 @@ public class CreateManhuaAcvitiy extends BaseAcvitiy implements View.OnClickList
 
             case R.id.btn_create:
 
+                if (!checkInput()){
 
-
-                this.checkInput();
+                    return;
+                }
 
                 this.showLoad();
 

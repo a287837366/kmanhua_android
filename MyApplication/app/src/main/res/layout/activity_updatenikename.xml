@@ -61,7 +61,7 @@
             android:layout_height="match_parent"
             android:text="确认"
             android:background="@null"
-            android:textColor="#ffffff"
+            android:textColor="#888888"
             android:textSize="14dp"
             android:id="@+id/btn_comfirm"
             android:layout_centerVertical="true"

@@ -59,7 +59,7 @@
             android:layout_width="60dp"
             android:layout_height="match_parent"
             android:text="发布"
-            android:textColor="#ffffff"
+            android:textColor="#888888"
             android:textSize="14dp"
             android:background="@null"
             android:id="@+id/btn_create"

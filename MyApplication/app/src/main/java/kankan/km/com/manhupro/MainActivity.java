@@ -63,14 +63,15 @@ public class MainActivity extends BaseAcvitiy implements View.OnClickListener{
 
         Log.d(">>>>>", "requestCode = " + requestCode + "  resultCode = " + resultCode);
 
-        if (requestCode == 100){
+        if (resultCode == 30){
 
-            if (resultCode == 30){
 
-                MainFragment mainFragment = (MainFragment) mFragment;
+            if (fm.findFragmentByTag(TAB_MAIN) != null){
+                MainFragment mainFragment = (MainFragment) fm.findFragmentByTag(TAB_MAIN);
                 mainFragment.refreshAllData();
-
             }
+
+
         }
 
 
@@ -87,8 +88,6 @@ public class MainActivity extends BaseAcvitiy implements View.OnClickListener{
         image_tab_me = (ImageView) findViewById(R.id.image_tab_me);
 
         this.changeFragment(TAB_MAIN);
-
-
 
         findViewById(R.id.tab_main).setOnClickListener(this);
         findViewById(R.id.tab_create).setOnClickListener(this);
