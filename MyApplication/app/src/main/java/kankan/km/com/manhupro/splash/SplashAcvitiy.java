@@ -42,7 +42,6 @@ public class SplashAcvitiy extends BaseAcvitiy{
 
     private void initView(){
 
-
     }
 
 
@@ -50,8 +49,8 @@ public class SplashAcvitiy extends BaseAcvitiy{
 
         Log.d("()()()()()()()()", url + "    " + jumpUrl);
         Intent intent = new Intent();
-        intent.putExtra(Constant.INTENT_TAG.JUMP_URL, jumpUrl);
-        intent.putExtra(Constant.INTENT_TAG.MAIN_ADS_IMAGE, url);
+//        intent.putExtra(Constant.INTENT_TAG.JUMP_URL, jumpUrl);
+//        intent.putExtra(Constant.INTENT_TAG.MAIN_ADS_IMAGE, url);
         intent.setClass(this, MainActivity.class);
         startActivity(intent);
 
@@ -70,7 +69,7 @@ public class SplashAcvitiy extends BaseAcvitiy{
 
 
                 Thread.sleep(2000);
-                gotoMainActivity(service.mainVersion.getImage(), service.mainVersion.getJumpUrl());
+                gotoMainActivity("", "");
 
             } catch (Exception e){
 

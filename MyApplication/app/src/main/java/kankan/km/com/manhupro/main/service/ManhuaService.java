@@ -18,6 +18,8 @@ import kankan.km.com.manhupro.main.module.CheckPermissonResponse;
 import kankan.km.com.manhupro.main.module.ManhuaModel;
 import kankan.km.com.manhupro.main.module.ManhuaResponseModel;
 import kankan.km.com.manhupro.property.Constant;
+import kankan.km.com.manhupro.splash.module.CheckVersion;
+import kankan.km.com.manhupro.splash.module.CheckVersionResponse;
 import kankan.km.com.manhupro.tools.httptools.HttpClinet;
 import kankan.km.com.manhupro.tools.httptools.ResponseCallback;
 import kankan.km.com.manhupro.tools.stringtools.StringUtils;
@@ -41,6 +43,8 @@ public class ManhuaService implements ResponseCallback{
     public int manhuaType;
 
     public String deviceId;
+
+    public CheckVersion mainAds;
 
     public ManhuaService(Activity activity, Handler handler){
         TelephonyManager TelephonyMgr = (TelephonyManager)activity.getSystemService(activity.TELEPHONY_SERVICE);
@@ -70,12 +74,18 @@ public class ManhuaService implements ResponseCallback{
 
         manhuaType = type;
 
-        mQueue.add(HttpClinet.getInstance().getRequset("/kankanAdmin/GetManhuaListByType?page=" + pageCount +"&type=" + type, this, Constant.NETWORK_TAG.GET_MANHUA_TAG));
+        mQueue.add(HttpClinet.getInstance().getRequset("/kankanAdmin/GetManhuaListByType?page=" + pageCount + "&type=" + type, this, Constant.NETWORK_TAG.GET_MANHUA_TAG));
 
     }
 
     public void getManhuaListByCurrent(){
         mQueue.add(HttpClinet.getInstance().getRequset("/kankanAdmin/GetManhuaListByType?page=" + pageCount +"&type=" + manhuaType, this, Constant.NETWORK_TAG.GET_MANHUA_TAG));
+    }
+
+    public void getCheckVersion(){
+
+        mQueue.add(HttpClinet.getInstance().getRequset("/kankanAdmin/CheckVersionUpdate", this, Constant.NETWORK_TAG.CEHCK_VERSION));
+
     }
 
 
@@ -151,24 +161,13 @@ public class ManhuaService implements ResponseCallback{
 
                 break;
 
-            case Constant.NETWORK_TAG.CHECK_PERMISSON:
+            case Constant.NETWORK_TAG.CEHCK_VERSION:
 
                 msg.what = 0;
 
-                CheckPermissonResponse response1 = (CheckPermissonResponse) StringUtils.jsonToBean(CheckPermissonResponse.class, json);
+                CheckVersionResponse response1 = (CheckVersionResponse) StringUtils.jsonToBean(CheckVersionResponse.class, json);
 
-
-
-                if (response1.getData().equals("0")){
-
-                    b.putBoolean(Constant.INTENT_TAG.CAN_UPDATE, true);
-
-                } else {
-
-                    b.putBoolean(Constant.INTENT_TAG.CAN_UPDATE, false);
-                }
-
-
+                mainAds = response1.getMainImage();
 
                 msg.setData(b);
                 mHandler.sendMessage(msg);

@@ -42,6 +42,7 @@ public class MainBaseAdapter extends BaseAdapter{
 
     private String refreshString = "";
     private String adsUrl = "";
+    private String jumpUrl = "";
 
     private ArrayList<ManhuaModel> news;
 
@@ -248,9 +249,10 @@ public class MainBaseAdapter extends BaseAdapter{
         return convertView;
     }
 
-    public void setAdsUrl(String url){
+    public void setAdsUrlAndJumpUrl(String url, String jumpUrl){
 
         this.adsUrl = url;
+        this.jumpUrl = jumpUrl;
 
 
     }
@@ -376,6 +378,7 @@ public class MainBaseAdapter extends BaseAdapter{
 
         public LinearLayout typeView;
         public RelativeLayout topView;
+        public NetworkImageView topImageView;
 
         private boolean isShow;
 
@@ -385,6 +388,7 @@ public class MainBaseAdapter extends BaseAdapter{
 
             typeView = (LinearLayout) v.findViewById(R.id.typeView);
             topView = (RelativeLayout) v.findViewById(R.id.topView);
+            topImageView = (NetworkImageView) v.findViewById(R.id.topImageView);
 
             v.findViewById(R.id.btn_zhaopin).setOnClickListener(typeListener);
             v.findViewById(R.id.btn_qiuzhi).setOnClickListener(typeListener);
@@ -396,6 +400,11 @@ public class MainBaseAdapter extends BaseAdapter{
 
             typeView.setLayoutParams(paramsType);
 
+            RelativeLayout.LayoutParams paramsTopImage = (RelativeLayout.LayoutParams) topImageView.getLayoutParams();
+            paramsTopImage.height = (screenWidth ) / 5;
+
+            topImageView.setLayoutParams(paramsTopImage);
+
         }
 
         public void setView(int postion){
@@ -405,14 +414,19 @@ public class MainBaseAdapter extends BaseAdapter{
                 return;
             }
 
+            ImageLoader imageLoader = VolleyTool.getInstance(mActivity).getmImageLoader();
+
+            topImageView.setImageUrl(adsUrl, imageLoader);
+
             if (isShow) {
 
                 return;
             }
 
 
+
             RelativeLayout.LayoutParams paramsTop = (RelativeLayout.LayoutParams) topView.getLayoutParams();
-            paramsTop.height = (screenWidth + 80) / 4 + screenWidth / 5;
+            paramsTop.height = (screenWidth + 80) / 4 + screenWidth / 5 + 5;
 
             topView.setLayoutParams(paramsTop);
 

@@ -40,5 +40,6 @@ public class Constant {
         public static final int UPDATE_MANHUA = 4;
         public static final int GET_MANHUA_TAG = 5;
         public static final int CHECK_PERMISSON = 6;
+        public static final int CEHCK_VERSION = 7;
     }
 }

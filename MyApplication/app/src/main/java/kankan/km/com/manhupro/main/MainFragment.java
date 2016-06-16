@@ -118,6 +118,7 @@ public class MainFragment extends Fragment implements AdapterView.OnItemClickLis
 
         activity.showLoad();
         manhuaService.getManhuaListByType(0);
+        manhuaService.getCheckVersion();
     }
 
 
@@ -164,47 +165,44 @@ public class MainFragment extends Fragment implements AdapterView.OnItemClickLis
 
 
 
-            if (msg.what != 0){
-                Toast.makeText(activity, "连接服务器失败", Toast.LENGTH_SHORT).show();
-                activity.dismissLoad();
 
-                if (manhuaService.news.size() == 0){
-                    listView_Main.setVisibility(View.INVISIBLE);
-
-                }
-
-                adapter.refreshByType(1);
-
-
-
-
-
-                return;
-            }
 
             switch (msg.getData().getInt(Constant.TAG_NEWORK)){
 
                 case Constant.NETWORK_TAG.GET_MANHUA_TAG:
-                    listView_Main.setVisibility(View.VISIBLE);
-                    activity.dismissLoad();
-                    adapter.refreshByType(manhuaService.isNoData ? 0 : 1);
-                    break;
-
-                case Constant.NETWORK_TAG.CHECK_PERMISSON:
-                    activity.dismissLoad();
 
 
-                    if (msg.getData().getBoolean(Constant.INTENT_TAG.CAN_UPDATE)){
+                    if (msg.what != 0){
+                        Toast.makeText(activity, "连接服务器失败", Toast.LENGTH_SHORT).show();
+                        activity.dismissLoad();
 
-                        gotoChoosePage();
+                        if (manhuaService.news.size() == 0){
+                            listView_Main.setVisibility(View.INVISIBLE);
 
-                    } else {
+                        }
 
-                        Toast.makeText(activity, "该手机今天已上传过消息", Toast.LENGTH_SHORT).show();
+                        adapter.refreshByType(1);
 
+                        return;
                     }
 
 
+                    listView_Main.setVisibility(View.VISIBLE);
+                    activity.dismissLoad();
+                    adapter.refreshByType(manhuaService.isNoData ? 0 : 1);
+
+
+
+                    break;
+
+                case Constant.NETWORK_TAG.CEHCK_VERSION:
+                    if (msg.what != 0){
+
+                        return;
+                    }
+
+                    adapter.setAdsUrlAndJumpUrl(manhuaService.mainAds.getImage(), manhuaService.mainAds.getJumpUrl());
+                    adapter.notifyDataSetChanged();
 
                     break;
 

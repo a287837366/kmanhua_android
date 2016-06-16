@@ -99,11 +99,6 @@ public class MainActivity extends BaseAcvitiy implements View.OnClickListener{
     private void changeFragment(String tag){
         ft = fm.beginTransaction();
 
-
-
-
-
-
         //先隐藏以前的
         if (mFragment != null){
             ft.hide(mFragment);
