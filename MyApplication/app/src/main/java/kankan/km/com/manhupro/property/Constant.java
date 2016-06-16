@@ -20,6 +20,8 @@ public class Constant {
         public static final String IMG_LIST = "IMG_LIST";
         public static final String CREATE_TYPE = "CREATE_TYPE";
         public static final String CURRENT_SELECTED_IMAGE = "CURRENT_SELECTED_IMAGE";
+        public static final String JUMP_URL = "JUMP_URL";
+        public static final String MAIN_ADS_IMAGE = "MAIN_ADS_IMAGE";
 
 
         public static final String CAN_UPDATE = "CAN_UPDATE";

@@ -3,6 +3,7 @@ package kankan.km.com.manhupro.main.adapter;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Handler;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -34,20 +35,25 @@ public class MainBaseAdapter extends BaseAdapter{
     private LayoutInflater inflater;
     private Activity mActivity;
 
-    private final int TYPE_B = 1;
-    private final int TYPE_T = 3;
-    private final int TYPE_D = 2;
+    private final int TYPE_B = 1;       //基本Item
+    private final int TYPE_T = 3;       //3个图片的Item
+    private final int TYPE_D = 2;       //最下面刷新
+    private final int TYPE_A = 4;       //最上面的
 
     private String refreshString = "";
+    private String adsUrl = "";
 
     private ArrayList<ManhuaModel> news;
 
     private int icon_weight;
+    private int screenWidth;
+
+    private View.OnClickListener typeListener;
 
     public MainBaseAdapter(Activity mActivity, ArrayList<ManhuaModel> newLists) {
 
         WindowManager wm = (WindowManager) mActivity.getSystemService(Context.WINDOW_SERVICE);
-        int screenWidth = wm.getDefaultDisplay().getWidth();
+        screenWidth = wm.getDefaultDisplay().getWidth();
 
         icon_weight = ((screenWidth - 20) / 3);
 
@@ -63,7 +69,7 @@ public class MainBaseAdapter extends BaseAdapter{
             return 0;
         }
 
-        return this.news.size() + 1;
+        return this.news.size() + 2;
     }
 
     @Override
@@ -83,31 +89,41 @@ public class MainBaseAdapter extends BaseAdapter{
 
     @Override
     public int getItemViewType(int position) {
-        // TODO Auto-generated method stub
-        if(position == news.size()) {
+//        Log.d(">>>>>", position + "    "  + news.size());
+
+        if (position == 0) {
+
+            return TYPE_A;
+
+        } else {
+
+            if(position == news.size() + 1) {
 
 
-            return TYPE_D;
+                return TYPE_D;
 
-        }
-
-        else {
-
-            if (news.get(position).getImages() == null){
-
-                return TYPE_B;
-            } else {
-
-                return TYPE_T;
             }
 
+            else {
+
+                if (news.get(position - 1).getImages() == null){
+
+                    return TYPE_B;
+                } else {
+
+                    return TYPE_T;
+                }
+
+            }
         }
+
+
     }
 
     @Override
     public int getViewTypeCount() {
 
-        return 4;
+        return 6;
     }
 
     @Override
@@ -116,6 +132,7 @@ public class MainBaseAdapter extends BaseAdapter{
         ViewHolder viewHolder = null;
         ViewBottomHolder bottomHolder = null;
         ThreeViewHodel threeViewHodel = null;
+        ViewAdsHolder adsHolder = null;
 
 
         int type = getItemViewType(position);
@@ -124,6 +141,18 @@ public class MainBaseAdapter extends BaseAdapter{
 
 
             switch (type){
+
+                case TYPE_A:
+
+                    convertView = inflater.inflate(R.layout.item_main_typeads, parent, false);
+                    adsHolder = new ViewAdsHolder(convertView);
+
+
+
+
+                    convertView.setTag(adsHolder);
+
+                    break;
 
                 case TYPE_B:
 
@@ -172,6 +201,10 @@ public class MainBaseAdapter extends BaseAdapter{
 
             switch (type) {
 
+                case TYPE_A:
+                    adsHolder = (ViewAdsHolder) convertView.getTag();
+                    break;
+
                 case TYPE_B:
                     viewHolder = (ViewHolder) convertView.getTag();
                     break;
@@ -192,8 +225,12 @@ public class MainBaseAdapter extends BaseAdapter{
 
         switch (type) {
 
+            case TYPE_A:
+                adsHolder.setView(position);
+                break;
+
             case TYPE_B:
-                viewHolder.setData(news.get(position));
+                viewHolder.setData(news.get(position - 1));
                 break;
 
             case TYPE_D:
@@ -201,7 +238,7 @@ public class MainBaseAdapter extends BaseAdapter{
                 break;
 
             case TYPE_T:
-                threeViewHodel.setView(position);
+                threeViewHodel.setView(position - 1);
                 break;
 
             default:
@@ -209,6 +246,19 @@ public class MainBaseAdapter extends BaseAdapter{
         }
 
         return convertView;
+    }
+
+    public void setAdsUrl(String url){
+
+        this.adsUrl = url;
+
+
+    }
+
+    public void setClickHandler(View.OnClickListener listener){
+
+        this.typeListener = listener;
+
     }
 
     public void refreshByType(int type){
@@ -293,7 +343,7 @@ public class MainBaseAdapter extends BaseAdapter{
 
             }
 
-
+//            return;
             image_1.setImageUrl(model.getImages().get(0), imageLoader);
 
             if (model.getImages().size() < 2){
@@ -318,7 +368,56 @@ public class MainBaseAdapter extends BaseAdapter{
 
         }
 
+    }
 
+
+    private class ViewAdsHolder {
+
+
+        public LinearLayout typeView;
+        public RelativeLayout topView;
+
+        private boolean isShow;
+
+        public ViewAdsHolder(View v){
+
+            isShow = false;
+
+            typeView = (LinearLayout) v.findViewById(R.id.typeView);
+            topView = (RelativeLayout) v.findViewById(R.id.topView);
+
+            v.findViewById(R.id.btn_zhaopin).setOnClickListener(typeListener);
+            v.findViewById(R.id.btn_qiuzhi).setOnClickListener(typeListener);
+            v.findViewById(R.id.btn_fangcan).setOnClickListener(typeListener);
+            v.findViewById(R.id.btn_congwu).setOnClickListener(typeListener);
+
+            RelativeLayout.LayoutParams paramsType = (RelativeLayout.LayoutParams) typeView.getLayoutParams();
+            paramsType.height = (screenWidth + 80) / 4;
+
+            typeView.setLayoutParams(paramsType);
+
+        }
+
+        public void setView(int postion){
+
+            if (adsUrl.equals("")){
+
+                return;
+            }
+
+            if (isShow) {
+
+                return;
+            }
+
+
+            RelativeLayout.LayoutParams paramsTop = (RelativeLayout.LayoutParams) topView.getLayoutParams();
+            paramsTop.height = (screenWidth + 80) / 4 + screenWidth / 5;
+
+            topView.setLayoutParams(paramsTop);
+
+            isShow = true;
+        }
 
     }
 

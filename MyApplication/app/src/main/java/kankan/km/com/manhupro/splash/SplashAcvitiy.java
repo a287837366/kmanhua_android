@@ -4,12 +4,14 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.util.Log;
 import android.widget.Toast;
 
 import kankan.km.com.manhupro.BaseAcvitiy;
 import kankan.km.com.manhupro.MainActivity;
 import kankan.km.com.manhupro.R;
 import kankan.km.com.manhupro.login.activity.module.UserModel;
+import kankan.km.com.manhupro.property.Constant;
 import kankan.km.com.manhupro.property.SharedPreUtils;
 import kankan.km.com.manhupro.splash.service.SplashService;
 
@@ -44,8 +46,12 @@ public class SplashAcvitiy extends BaseAcvitiy{
     }
 
 
-    private void gotoMainActivity(){
+    private void gotoMainActivity(String url, String jumpUrl){
+
+        Log.d("()()()()()()()()", url + "    " + jumpUrl);
         Intent intent = new Intent();
+        intent.putExtra(Constant.INTENT_TAG.JUMP_URL, jumpUrl);
+        intent.putExtra(Constant.INTENT_TAG.MAIN_ADS_IMAGE, url);
         intent.setClass(this, MainActivity.class);
         startActivity(intent);
 
@@ -61,8 +67,10 @@ public class SplashAcvitiy extends BaseAcvitiy{
 
             try {
 
+
+
                 Thread.sleep(2000);
-                gotoMainActivity();
+                gotoMainActivity(service.mainVersion.getImage(), service.mainVersion.getJumpUrl());
 
             } catch (Exception e){
 

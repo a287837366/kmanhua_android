@@ -10,8 +10,12 @@ import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.Volley;
 
 
+import kankan.km.com.manhupro.main.module.CheckPermissonResponse;
+import kankan.km.com.manhupro.splash.module.CheckVersion;
+import kankan.km.com.manhupro.splash.module.CheckVersionResponse;
 import kankan.km.com.manhupro.tools.httptools.HttpClinet;
 import kankan.km.com.manhupro.tools.httptools.ResponseCallback;
+import kankan.km.com.manhupro.tools.stringtools.StringUtils;
 
 
 /**
@@ -22,7 +26,7 @@ public class SplashService implements ResponseCallback {
     private RequestQueue mQueue;
     private Handler mHandler;
 
-
+    public CheckVersion mainVersion;
 
     public SplashService(Activity activity, Handler handler){
 
@@ -42,6 +46,13 @@ public class SplashService implements ResponseCallback {
     public void send(int method, int tag, String json) {
 
 
+        CheckVersionResponse response = (CheckVersionResponse) StringUtils.jsonToBean(CheckVersionResponse.class, json);
+
+        mainVersion = response.getMainImage();
+
+        Message msg = new Message();
+        msg.what = 1;
+        mHandler.sendMessage(msg);
 
     }
 
@@ -51,6 +62,10 @@ public class SplashService implements ResponseCallback {
 
         if (mHandler == null)
             return;
+
+        mainVersion = new CheckVersion();
+        mainVersion.setImage("");
+        mainVersion.setJumpUrl("");
 
         Message msg = new Message();
         msg.what = 999;

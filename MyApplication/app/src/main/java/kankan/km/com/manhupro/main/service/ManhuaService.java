@@ -92,7 +92,7 @@ public class ManhuaService implements ResponseCallback{
 
                 ManhuaResponseModel response = (ManhuaResponseModel) StringUtils.jsonToBean(ManhuaResponseModel.class, json);
 
-
+//                Log.d(">>>>>>>>", response.getData().size() + ":::::::::::");
                 if (response.getData() != null){
 
                     for (int i = 0; i < response.getData().size(); i ++){
@@ -105,22 +105,30 @@ public class ManhuaService implements ResponseCallback{
 
                             if (imgsString.length < 3){
 
-                                continue;
+
+
+                            } else {
+
+                                ArrayList<String> extendImage = new ArrayList<String>();
+
+                                for (String s_imge : imgsString){
+                                    extendImage.add(s_imge);
+
+                                }
+
+                                model.setImages(extendImage);
+
                             }
 
-                            ArrayList<String> extendImage = new ArrayList<String>();
 
-                            for (String s_imge : imgsString){
-                                extendImage.add(s_imge);
-
-                            }
-
-                            model.setImages(extendImage);
 
                         }
 
                         news.add(model);
+//                        Log.d(">>>>>>>>", news.size() + ":::::::::::    " + i);
                     }
+
+
 
                 }
 

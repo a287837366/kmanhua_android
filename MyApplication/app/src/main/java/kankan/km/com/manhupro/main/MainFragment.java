@@ -113,13 +113,47 @@ public class MainFragment extends Fragment implements AdapterView.OnItemClickLis
         manhuaService = new ManhuaService(this.activity, new MyHandler());
 
         this.adapter = new MainBaseAdapter(this.activity, manhuaService.news);
+        this.adapter.setClickHandler(new TypeClickListener());
         listView_Main.setAdapter(this.adapter);
-
 
         activity.showLoad();
         manhuaService.getManhuaListByType(0);
     }
 
+
+    class TypeClickListener implements View.OnClickListener{
+
+        @Override
+        public void onClick(View view) {
+
+            switch (view.getId()){
+
+                case R.id.btn_zhaopin:
+                    Log.d(">>>>>>", "zhaopin");
+                    break;
+
+                case R.id.btn_qiuzhi:
+                    Log.d(">>>>>>", "btn_qiuzhi");
+                    break;
+
+                case R.id.btn_fangcan:
+                    Log.d(">>>>>>", "btn_fangcan");
+                    break;
+
+                case R.id.btn_congwu:
+                    Log.d(">>>>>>", "btn_congwu");
+                    break;
+
+
+                default:
+
+                    break;
+            }
+
+
+
+        }
+    }
 
     class MyHandler extends Handler{
 
@@ -197,7 +231,7 @@ public class MainFragment extends Fragment implements AdapterView.OnItemClickLis
     @Override
     public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
 
-        if (position == manhuaService.news.size()){
+        if (position == manhuaService.news.size() + 1){
 
             if (manhuaService.isNoData){
 
@@ -209,7 +243,12 @@ public class MainFragment extends Fragment implements AdapterView.OnItemClickLis
             return;
         }
 
-        this.gotoManhuDetilaPage(manhuaService.news.get(position));
+        if (position == 0){
+
+            return;
+        }
+
+        this.gotoManhuDetilaPage(manhuaService.news.get(position - 1));
 
     }
 
