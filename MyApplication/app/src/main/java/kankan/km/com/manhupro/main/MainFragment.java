@@ -31,6 +31,7 @@ import kankan.km.com.manhupro.login.activity.module.UserModel;
 import kankan.km.com.manhupro.main.activity.ChooseTypeActivity;
 import kankan.km.com.manhupro.main.activity.CreateManhuaAcvitiy;
 import kankan.km.com.manhupro.main.activity.ManhuaDetailActivity;
+import kankan.km.com.manhupro.main.activity.ManhuaTypeListActivity;
 import kankan.km.com.manhupro.main.adapter.MainBaseAdapter;
 import kankan.km.com.manhupro.main.module.ManhuaModel;
 import kankan.km.com.manhupro.main.service.ManhuaService;
@@ -131,18 +132,22 @@ public class MainFragment extends Fragment implements AdapterView.OnItemClickLis
 
                 case R.id.btn_zhaopin:
                     Log.d(">>>>>>", "zhaopin");
+                    gotoTypeList("1");
                     break;
 
                 case R.id.btn_qiuzhi:
                     Log.d(">>>>>>", "btn_qiuzhi");
+                    gotoTypeList("2");
                     break;
 
                 case R.id.btn_fangcan:
                     Log.d(">>>>>>", "btn_fangcan");
+                    gotoTypeList("3");
                     break;
 
                 case R.id.btn_congwu:
                     Log.d(">>>>>>", "btn_congwu");
+                    gotoTypeList("4");
                     break;
 
 
@@ -154,6 +159,16 @@ public class MainFragment extends Fragment implements AdapterView.OnItemClickLis
 
 
         }
+    }
+
+    private void gotoTypeList(String type){
+
+
+        Intent intent = new Intent();
+        intent.setClass(this.getActivity(), ManhuaTypeListActivity.class);
+        intent.putExtra(Constant.INTENT_TAG.MANHUA_TYPE, type);
+        startActivity(intent);
+
     }
 
     class MyHandler extends Handler{

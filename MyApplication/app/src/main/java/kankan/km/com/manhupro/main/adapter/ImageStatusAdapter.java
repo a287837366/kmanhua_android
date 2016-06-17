@@ -5,6 +5,7 @@ import android.support.v4.view.PagerAdapter;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
 import com.android.volley.toolbox.NetworkImageView;
@@ -25,11 +26,21 @@ public class ImageStatusAdapter extends PagerAdapter{
     private ArrayList<String> list;
     private View.OnClickListener listener;
 
+    private boolean showDetail;
+
     public ImageStatusAdapter(Activity activity){
         this.mActivity = activity;
 
         mInflater = LayoutInflater.from(activity);
 
+    }
+
+    public ImageStatusAdapter(Activity activity,boolean showDetail){
+        this.mActivity = activity;
+
+        mInflater = LayoutInflater.from(activity);
+
+        this.showDetail = showDetail;
     }
 
 
@@ -67,11 +78,19 @@ public class ImageStatusAdapter extends PagerAdapter{
 
         NetworkImageView photo = (NetworkImageView)layout.findViewById(R.id.listview_feed_item_product_page);
 
+
         photo.setImageUrl(list.get(position), VolleyTool.getInstance(mActivity).getmImageLoader());
 
         container.addView(layout);
 
         photo.setOnClickListener(listener);
+
+
+        if (showDetail){
+
+            photo.setScaleType(ImageView.ScaleType.FIT_CENTER);
+
+        }
 
         return layout;
     }
@@ -79,16 +98,22 @@ public class ImageStatusAdapter extends PagerAdapter{
     public void setImageClickListner(View.OnClickListener listner){
         this.listener = listner;
     }
+
     public void setList(ArrayList<String> lists) {
         list = lists;
     }
 
     public boolean hasMovieList() {
+
         boolean hasList = true;
+
         if (list == null || list.isEmpty())
             hasList = false;
 
         return hasList;
     }
+
+
+
 
 }

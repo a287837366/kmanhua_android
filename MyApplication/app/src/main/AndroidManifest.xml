@@ -122,6 +122,11 @@
             android:name=".main.activity.ChooseTypeActivity"
             android:theme="@android:style/Theme.Light.NoTitleBar"
             />
+        <activity
+            android:screenOrientation="portrait"
+            android:name=".main.activity.ManhuaTypeListActivity"
+            android:theme="@android:style/Theme.Light.NoTitleBar"
+            />
 
 
 

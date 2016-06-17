@@ -68,9 +68,43 @@
             android:background="#ffffff"
             android:layout_height="match_parent">
 
+
+            <RelativeLayout
+                android:id="@+id/imageList_parent"
+                android:layout_width="match_parent"
+                android:visibility="gone"
+                android:layout_height="300dp">
+
+                <android.support.v4.view.ViewPager
+                    android:id="@+id/viewPager_image"
+                    android:layout_width="match_parent"
+                    android:layout_height="300dp"
+                    android:background="#eeeeee">
+                </android.support.v4.view.ViewPager>
+
+                <TextView
+                    android:layout_width="50dp"
+                    android:layout_height="25dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:text="1/9"
+                    android:gravity="center"
+                    android:textColor="#ffffff"
+                    android:background="#66000000"
+                    android:id="@+id/text_count"
+                    android:textSize="14dp"
+                    android:layout_alignParentBottom="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentEnd="true" />
+
+
+            </RelativeLayout>
+
+
+
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="60dp">
+                android:layout_height="45dp">
 
                 <LinearLayout
                     android:orientation="vertical"
@@ -81,52 +115,19 @@
                     android:layout_alignParentLeft="true"
                     android:layout_alignParentStart="true">
                 </LinearLayout>
-
-                <ImageView
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    android:background="#eeeeee"
-                    android:id="@+id/imageView6"
-                    android:layout_marginLeft="10dp"
-                    android:layout_centerVertical="true"
-                    android:layout_alignParentLeft="true"
-                    android:layout_alignParentStart="true" />
-
                 <TextView
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:text=""
+                    android:gravity="center_vertical"
+                    android:lines="2"
                     android:textColor="#555555"
                     android:layout_marginLeft="10dp"
-                    android:layout_marginRight="100dp"
-                    android:id="@+id/text_username"
-                    android:layout_alignTop="@+id/imageView6"
-                    android:layout_toRightOf="@+id/imageView6" />
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text=""
-                    android:textColor="#555555"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginRight="100dp"
-                    android:id="@+id/text_createTime"
-                    android:layout_alignBottom="@+id/imageView6"
-                    android:layout_toRightOf="@+id/imageView6"
-                    android:layout_toEndOf="@+id/imageView6" />
-
-                <Button
-                    android:layout_width="70dp"
-                    android:layout_height="25dp"
-                    android:text="收藏"
-                    android:textSize="13dp"
-                    android:textColor="#ff0000"
-                    android:background="@drawable/detail_page_fav"
                     android:layout_marginRight="10dp"
-                    android:id="@+id/btn_fav"
-                    android:layout_centerVertical="true"
-                    android:layout_alignParentRight="true"
-                    android:layout_alignParentEnd="true" />
+                    android:textSize="15dp"
+                    android:id="@+id/text_title" />
+
+
 
 
             </RelativeLayout>
@@ -134,22 +135,14 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_margin="10dp"
-                android:textSize="13dp"
+                android:textSize="14dp"
                 android:layout_height="wrap_content"
                 android:text=""
-                android:textColor="#555555"
+                android:textColor="#777777"
                 android:id="@+id/textDetail" />
 
-            <GridView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginRight="10dp"
-                android:layout_marginLeft="10dp"
-                android:verticalSpacing="10dp"
-                android:horizontalSpacing="10dp"
-                android:layout_marginBottom="10dp"
-                android:numColumns="4"
-                android:id="@+id/image_grid" />
+
+
         </LinearLayout>
 
     </ScrollView>
@@ -161,29 +154,37 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true">
 
-
         <LinearLayout
-            android:orientation="vertical"
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="#eeeeee"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"></LinearLayout>
-
-        <Button
+            android:orientation="horizontal"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:text="拨打电话"
-            android:id="@+id/btn_call"
-            android:background="@drawable/detail_page_fav"
+            android:background="#ffffff"
             android:layout_centerVertical="true"
-            android:textColor="#ff0000"
-            android:layout_marginTop="5dp"
-            android:layout_marginBottom="5dp"
-            android:layout_marginRight="10dp"
-            android:layout_marginLeft="10dp"
-            android:layout_centerHorizontal="true" />
+            android:layout_centerHorizontal="true" >
+
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:text="收藏"
+                android:id="@+id/btn_fav"
+                android:background="#B00039"
+                android:textSize="15dp"
+                android:textColor="#ffffff"/>
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:text="拨打电话"
+                android:id="@+id/btn_call"
+                android:textSize="15dp"
+                android:background="#F2B705"
+                android:textColor="#ffffff"/>
+
+        </LinearLayout>
+
     </RelativeLayout>
 
 

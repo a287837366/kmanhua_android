@@ -39,7 +39,7 @@ public class ImageStatusActivity extends Activity implements ViewPager.OnPageCha
         imgList = getIntent().getStringArrayListExtra(Constant.INTENT_TAG.IMG_LIST);
         currentItem = getIntent().getIntExtra("position", 0);
 
-        mAdapter = new ImageStatusAdapter(mActivity);
+        mAdapter = new ImageStatusAdapter(mActivity, true);
         mAdapter.setList(imgList);
         mAdapter.setImageClickListner(this);
 

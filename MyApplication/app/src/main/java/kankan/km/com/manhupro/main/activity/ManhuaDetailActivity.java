@@ -9,6 +9,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.support.v4.view.ViewPager;
 import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
@@ -17,6 +18,7 @@ import android.widget.Button;
 import android.widget.GridView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -28,6 +30,7 @@ import kankan.km.com.manhupro.R;
 import kankan.km.com.manhupro.login.activity.UserLoginActivity;
 import kankan.km.com.manhupro.login.activity.module.UserModel;
 import kankan.km.com.manhupro.main.adapter.DetailImageAdapter;
+import kankan.km.com.manhupro.main.adapter.ImageStatusAdapter;
 import kankan.km.com.manhupro.main.adapter.MainDetailAdapter;
 import kankan.km.com.manhupro.main.module.ManhuaDetailModel;
 import kankan.km.com.manhupro.main.module.ManhuaModel;
@@ -39,7 +42,7 @@ import kankan.km.com.manhupro.tools.dbtools.DBManager;
 /**
  * Created by apple on 16/2/18.
  */
-public class ManhuaDetailActivity extends BaseAcvitiy implements View.OnClickListener, AdapterView.OnItemClickListener{
+public class ManhuaDetailActivity extends BaseAcvitiy implements View.OnClickListener, ViewPager.OnPageChangeListener{
 
     private static final String TAG = ManhuaDetailActivity.class.getSimpleName();
 
@@ -54,14 +57,16 @@ public class ManhuaDetailActivity extends BaseAcvitiy implements View.OnClickLis
     private String u_phoneno;
     private String m_type;
 
-    private GridView image_grid;
     private ScrollView main_scroll;
-    private TextView text_username;
-    private TextView text_createTime;
     private TextView textDetail;
+    private TextView text_title;
     private TextView btn_fav;
+    private TextView text_count;
 
-    private DetailImageAdapter imageAdapter;
+    private ViewPager viewPager_image;
+    private ImageStatusAdapter mAdapter;
+    private RelativeLayout imageList_parent;
+
     private DBManager dbManager;
     private ArrayList<String> imageLists;
 
@@ -95,12 +100,17 @@ public class ManhuaDetailActivity extends BaseAcvitiy implements View.OnClickLis
         btn_fav.setOnClickListener(this);
         findViewById(R.id.btn_call).setOnClickListener(this);
 
-        image_grid = (GridView) findViewById(R.id.image_grid);
+//        image_grid = (GridView) findViewById(R.id.image_grid);
         main_scroll = (ScrollView)findViewById(R.id.main_scroll);
-
-        text_createTime = (TextView) findViewById(R.id.text_createTime);
-        text_username = (TextView) findViewById(R.id.text_username);
         textDetail = (TextView) findViewById(R.id.textDetail);
+        viewPager_image = (ViewPager) findViewById(R.id.viewPager_image);
+        imageList_parent = (RelativeLayout) findViewById(R.id.imageList_parent);
+        text_title = (TextView) findViewById(R.id.text_title);
+        text_count = (TextView) findViewById(R.id.text_count);
+
+
+        viewPager_image.setOnPageChangeListener(this);
+
     }
 
     private void initObjects(){
@@ -117,6 +127,11 @@ public class ManhuaDetailActivity extends BaseAcvitiy implements View.OnClickLis
     public void onClick(View view) {
 
         switch (view.getId()){
+
+            case R.id.listview_feed_item_product_page:
+                gotoDetailPage(viewPager_image.getCurrentItem());
+
+                break;
 
             case R.id.btn_back:
                 finish();
@@ -145,7 +160,7 @@ public class ManhuaDetailActivity extends BaseAcvitiy implements View.OnClickLis
 
                         dbManager.addFav(model);
 
-                        btn_fav.setText("已收藏");
+                        btn_fav.setText("取消收藏");
                         Toast.makeText(context, "收藏成功", Toast.LENGTH_SHORT).show();
 
                     } else {
@@ -231,7 +246,7 @@ public class ManhuaDetailActivity extends BaseAcvitiy implements View.OnClickLis
             @Override
             public void onClick(DialogInterface dialog, int which) {
 
-                Intent intent = new Intent(Intent.ACTION_DIAL,Uri.parse("tel:" + phose[which]));
+                Intent intent = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + phose[which]));
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(intent);
 
@@ -258,28 +273,24 @@ public class ManhuaDetailActivity extends BaseAcvitiy implements View.OnClickLis
         }
 
 
+        if (imageLists.size() > 0){
+            imageList_parent.setVisibility(View.VISIBLE);
+        }
 
-        imageAdapter = new DetailImageAdapter(this, imageLists);
-        image_grid.setAdapter(imageAdapter);
-        image_grid.setOnItemClickListener(this);
 
-        LinearLayout.LayoutParams linearParams =(LinearLayout.LayoutParams) image_grid.getLayoutParams();
+        text_count.setText("1" + " / " + imageLists.size());
 
-        WindowManager wm = (WindowManager) this.getSystemService(Context.WINDOW_SERVICE);
-        int screenWidth = wm.getDefaultDisplay().getWidth();
+        mAdapter = new ImageStatusAdapter(this);
+        mAdapter.setList(imageLists);
+        mAdapter.setImageClickListner(this);
 
-        int gridViewHeight = ((screenWidth + 30) / 4) * ((imageLists.size() / 4) + 1);
-        linearParams.height = gridViewHeight;
-        image_grid.setLayoutParams(linearParams);
+        viewPager_image.setAdapter(mAdapter);
 
-        main_scroll.scrollTo(0, 0);
-
-        text_username.setText(m_fromdata);
-        text_createTime.setText(m_createTime);
         textDetail.setText(service.model.getMcontent());
+        text_title.setText(manhuaTitle);
 
         if (dbManager.isFav(manhuaId)){
-            btn_fav.setText("已收藏");
+            btn_fav.setText("取消收藏");
         } else {
             btn_fav.setText("收藏");
         }
@@ -298,8 +309,20 @@ public class ManhuaDetailActivity extends BaseAcvitiy implements View.OnClickLis
     }
 
     @Override
-    public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-        gotoDetailPage(i);
+    public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+    }
+
+    @Override
+    public void onPageSelected(int position) {
+        if (imageLists.size() > 0){
+            text_count.setText(position + 1 + " / " + imageLists.size());
+        }
+    }
+
+    @Override
+    public void onPageScrollStateChanged(int state) {
+
     }
 
     class MyHandler extends Handler {

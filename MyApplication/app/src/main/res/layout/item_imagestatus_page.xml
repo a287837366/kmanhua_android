@@ -7,7 +7,7 @@
     <com.android.volley.toolbox.NetworkImageView
         android:id="@+id/listview_feed_item_product_page"
         android:layout_width="match_parent"
-        android:scaleType="fitCenter"
+        android:scaleType="fitXY"
         android:layout_height="match_parent"/>
 
 </RelativeLayout>
