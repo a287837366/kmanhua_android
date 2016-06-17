@@ -417,11 +417,11 @@ public class MainBaseAdapter extends BaseAdapter{
             ImageLoader imageLoader = VolleyTool.getInstance(mActivity).getmImageLoader();
 
             topImageView.setImageUrl(adsUrl, imageLoader);
-
-            if (isShow) {
-
-                return;
-            }
+//
+//            if (isShow) {
+//
+//                return;
+//            }
 
 
 
