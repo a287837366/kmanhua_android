@@ -8,7 +8,7 @@ import kankan.km.com.manhupro.tools.tools.Loading;
 
 /**
  * Created by apple on 16/5/3.
- * Test111111111yb123
+ * Test111111111yb123333333
  */
 public class BaseAcvitiy extends FragmentActivity {
 
