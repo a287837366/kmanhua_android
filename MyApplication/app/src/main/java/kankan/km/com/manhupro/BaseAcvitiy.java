@@ -9,6 +9,10 @@ import kankan.km.com.manhupro.tools.tools.Loading;
 /**
  * Created by apple on 16/5/3.
  * Test111111111yb123333333
+ * FDSJLKFJSDKLF
+ * SLKDJFLKSAJDF
+ * LKJSLDFKJSAL;DF
+ * L;KJSADFLKJSDFL
  */
 public class BaseAcvitiy extends FragmentActivity {
 
